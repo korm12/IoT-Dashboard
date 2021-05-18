@@ -1,0 +1,33 @@
+body{
+
+    width: 100%;
+}
+.no-gutter{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 i !important;
+
+}
+.acitivity-area{
+    height: 100%;
+    min-height: 50vh;
+    max-height: 55vh;
+    overflow: auto;
+}
+
+.control-item{
+    border: 1px solid rgb(24, 34, 41);
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.control-item-button{
+    background-color: white import !important;
+    border-radius: 10px;
+}
+.shad{
+    /* background-color: rgb(209, 209, 209); */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 10px;
+    border: 0.5 solid grey;
+}

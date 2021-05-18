@@ -1,0 +1,17 @@
+.area-buttons{
+    background-color: rgb(73, 73, 73);
+    color: white;
+    border: none;
+    background: none;
+    width: 100%;
+}
+.area-buttons:hover{
+     background-color: rgb(156, 152, 152);
+}
+.area-selection{
+    background-color: rgb(73, 73, 73);
+    height: 100vh;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    overflow: auto;
+}
