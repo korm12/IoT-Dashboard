@@ -58,6 +58,20 @@ class sensor_controller extends Controller
         }
 
     }
+    public function UpdateSensorArea(Request $request){
+        if ($request->has('id')){
+            $id = $request->input('id');
+            $areaId = $request->input('areaId');
+            DB::UPDATE('UPDATE sensors SET areaId = ?  where id= ? ', [$areaId  , $id] );
+
+            return response()->json(['message'=>'Data received'], 200);
+        }else {
+
+            return response()->json(['message'=>'no data'], 400);
+        }
+
+    }
+
     public function DeleteSensor(Request $request){
         if ($request->has('id')){
             $id = $request->input('id');

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-
 class device_controller extends Controller
 {
     public function GetControlDevice(Request $request){
@@ -90,7 +89,7 @@ class device_controller extends Controller
     public function DeleteDevice(Request $request){
         if ($request->has('id')){
             $id = $request->input('id');
-            DB::DELETE('DELETE from devices where id= ? ', [$id] );
+            DB::DELETE('DELETE from areas where areaId= ? ', [$id] );
 
             return response()->json(['message'=>'Data received'], 200);
         }else {

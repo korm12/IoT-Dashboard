@@ -4,24 +4,7 @@ class ManageAreas extends Component {
         super(props)
         this.state = {
             areas: [
-                {
-                    areaId: 1,
-                    areaName: "My office",
-                    areaDescription : "Ground Floor",
-                    areaUser: "IOTuser123" // username
-                },
-                {
-                    areaId: 2,
-                    areaName: "Garage",
-                    areaDescription : "",
-                    areaUser: "IOTuser123" // username
-                },
-                {
-                    areaId: 3,
-                    areaName: "My Room",
-                    areaDescription : "",
-                    areaUser: "IOTuser123" // username
-                }
+
             ],
             Edit: {
                 areaId: 0,
@@ -83,9 +66,34 @@ class ManageAreas extends Component {
     }
     handleUpdateDB(){
         console.log(this.state.Edit)
+        axios.post('/api/UpdateArea', {
+            areaId: this.state.Edit.areaId,
+            areaDescription:this.state.Edit.areaDescription,
+            areaName: this.state.Edit.areaName
+        })
+        location.reload()
     }
     handlebuttonDelete(id){
         alert("this area "+ id +" is successfully deleted ! ")
+
+        axios.post('/api/DeleteArea', {
+            id: id
+        })
+        location.reload()
+    }
+    componentDidMount(){
+        axios.get("http://192.168.0.10:8000/GetAreas",{  params:{
+            userId: "IOTuser123",
+            }})
+            .then(response => {
+                var data= response.data;
+
+                this.setState({areas: data});
+
+            })
+            .catch(function(error){
+                console.log(error);
+            })
     }
 
 
@@ -98,17 +106,24 @@ class ManageAreas extends Component {
     }
     handleInsertDb(){
         console.log(this.state.Add)
-        var add = this.state.add
+
+        axios.post('/api/AddNewArea', {
+            areaUser: this.state.Add.areaUser,
+            areaDescription: this.state.Add.areaDescription,
+            areaName   : this.state.Add.areaName
+        })
+        location.reload()
+        // var add = this.state.add
 
 
-        var areas = this.state.areas;
+        // var areas = this.state.areas;
 
 
-        this.setState(
-            {
-                areas: areas
-            }
-        )
+        // this.setState(
+        //     {
+        //         areas: areas
+        //     }
+        // )
 
     }
 

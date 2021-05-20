@@ -24,4 +24,46 @@ class areas_controller extends Controller
         }
 
     }
+    public function AddNewArea(Request $request){
+        if ($request->has('areaUser')){
+            $areaUser = $request->input('areaUser');
+            $areaName = $request->input('areaName');
+            $areaDescription = $request->input('areaDescription');
+            DB::INSERT('INSERT into areas (areaUser, areaName, areaDescription) VALUES (?,?,?) ', [ $areaUser, $areaName, $areaDescription] );
+
+            //return response()->json(['message'=>'Data received'], 200);
+        }else {
+
+            //return response()->json(['message'=>'no data'], 400);
+        }
+
+    }
+
+    public function DeleteArea(Request $request){
+        if ($request->has('id')){
+            $id = $request->input('id');
+            DB::DELETE('DELETE from areas where areaId= ? ', [$id] );
+
+            return response()->json(['message'=>'Data received'], 200);
+        }else {
+
+            return response()->json(['message'=>'no data'], 400);
+        }
+
+    }
+
+    public function UpdateArea(Request $request){
+        if ($request->has('areaId')){
+            $areaId = $request->input('areaId');
+            $areaName = $request->input('areaName');
+            $areaDescription = $request->input('areaDescription');
+            DB::UPDATE('UPDATE areas SET areaName = ?, areaDescription =? where areaId= ? ', [$areaName,$areaDescription,$areaId] );
+
+            return response()->json(['message'=>'Data received'], 200);
+        }else {
+
+            return response()->json(['message'=>'no data'], 400);
+        }
+
+    }
 }

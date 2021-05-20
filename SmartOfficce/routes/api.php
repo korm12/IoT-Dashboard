@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\areas_controller;
 use App\Http\Controllers\device_controller;
 use App\Http\Controllers\sensor_controller;
 use Illuminate\Http\Request;
@@ -31,3 +32,8 @@ Route::post('/DeleteDevice', [device_controller::class, 'DeleteDevice']);
 Route::post('/AddNewSensor', [sensor_controller::class, 'AddNewSensor']);
 Route::post('/UpdateSensor', [sensor_controller::class, 'UpdateSensor']);
 Route::post('/DeleteSensor', [sensor_controller::class, 'DeleteSensor']);
+Route::post('/UpdateSensorArea', [sensor_controller::class, 'UpdateSensorArea']);
+
+Route::post('/AddNewArea', [areas_controller::class, 'AddNewArea']);
+Route::post('/DeleteArea', [areas_controller::class, 'DeleteArea']);
+Route::post('/UpdateArea', [areas_controller::class, 'UpdateArea']);

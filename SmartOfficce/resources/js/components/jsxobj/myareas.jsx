@@ -7,23 +7,11 @@ class MyAreas extends Component {
 
             areas: [
                 {
-                    areaId: 1,
-                    areaName: "My office",
-                    areaDescription : "Ground Floor",
-                    areaUser: "IOTuser123" // username
+                    areaId: 0,
+                    areaName: "",
+                    areaDescription : "",
+                    areaUser: "" // username
                 },
-                {
-                    areaId: 2,
-                    areaName: "Garage",
-                    areaDescription : " ",
-                    areaUser: "IOTuser123" // username
-                },
-                {
-                    areaId: 3,
-                    areaName: "My Room",
-                    areaDescription : " ",
-                    areaUser: "IOTuser123" // username
-                }
             ],
             device: [
 
@@ -66,23 +54,7 @@ class MyAreas extends Component {
     addDeviceToArea(event){ var Add = this.state.Add; var data = event.target.value; Add.id = data;this.setState({Add: Add}); console.log(this.state.Add.id)}
 
 
-    displayArea(event){ // function that used to switch between areas
-        var newArea;
-        var areas = this.state.areas;
-        //console.log(event.target.id)
-        for(var i = 0; i < areas.length; i++){
-            if(event.target.id == areas[i].areaId){
-                newArea = areas[i];
-            }
-        }
-        var newtoggleArea = this.state.togledArea;
-        newtoggleArea.areaId = newArea.areaId;
-        newtoggleArea.areaName = newArea.areaName;
-        newtoggleArea.areaDescription = newArea.areaDescription;
-        newtoggleArea.areaUser = newArea.areaUser;
-        this.setState({togledArea: newtoggleArea})
-        console.log(this.state.togledArea)
-    }
+
     updateSensorValue(id, value){ // update sensor value
         const prevState = this.state.sensor;
             this.setState(prevState.map(
@@ -90,6 +62,7 @@ class MyAreas extends Component {
            ))
     }
     handlebuttonEdit(id){
+        console.log(id)
         document.querySelector('.bg-modal2').style.display = 'flex'; // close the edit modal
         var devId = "";
         var areaId ="";
@@ -121,6 +94,16 @@ class MyAreas extends Component {
 
     handleUpdateDB(){
         console.log(this.state.Edit) // use the edit data from the state for db update
+        axios.post('/api/UpdateDeviceArea', {
+            id: this.state.Edit.id,
+            areaId: this.state.Edit.areaId
+        })
+        axios.post('/api/UpdateSensorArea', {
+            id: this.state.Edit.id,
+            areaId: this.state.Edit.areaId
+        })
+        alert("Device is moved to new area")
+        location.reload()
     }
     handleCloseModalButton(){
         document.querySelector('.bg-modal2').style.display = 'none'; // close the edit modal
@@ -135,6 +118,15 @@ class MyAreas extends Component {
                 var data= response.data;
 
                 this.setState({areas: data});
+                var firstArea = data[0];
+                var newtoggleArea = this.state.togledArea;
+                newtoggleArea.areaId = firstArea.areaId;
+                newtoggleArea.areaName = firstArea.areaName;
+                newtoggleArea.areaDescription = firstArea.areaDescription;
+                newtoggleArea.areaUser = firstArea.areaUser;
+
+                this.setState({togledArea: newtoggleArea})
+                console.log(this.state.togledArea)
 
             })
             .catch(function(error){
@@ -166,17 +158,6 @@ class MyAreas extends Component {
                 })
 
 
-
-        var firstArea = this.state.areas[0];
-        var newtoggleArea = this.state.togledArea;
-        newtoggleArea.areaId = firstArea.areaId;
-        newtoggleArea.areaName = firstArea.areaName;
-        newtoggleArea.areaDescription = firstArea.areaDescription;
-        newtoggleArea.areaUser = firstArea.areaUser;
-
-        this.setState({togledArea: newtoggleArea})
-        console.log(this.state.togledArea)
-
         var percentage = 0;
         var id = ""
         this.myInterval = setInterval(()=>{ // this is a sample random data for the sensors
@@ -202,6 +183,28 @@ class MyAreas extends Component {
 
         } , 2000)
 
+    }
+    displayArea(event){ // function that used to switch between areas
+        var newArea;
+        var areas = this.state.areas;
+        //console.log(event.target.id)
+        for(var i = 0; i < areas.length; i++){
+            if(event.target.id == areas[i].areaId){
+                newArea = areas[i];
+            }
+        }
+        var newtoggleArea = this.state.togledArea;
+        newtoggleArea.areaId = newArea.areaId;
+        newtoggleArea.areaName = newArea.areaName;
+        newtoggleArea.areaDescription = newArea.areaDescription;
+        newtoggleArea.areaUser = newArea.areaUser;
+        this.setState({togledArea: newtoggleArea})
+
+        var edit = this.state.Edit;
+        edit.areaId = newtoggleArea.areaId;
+        this.setState({Edit: edit})
+
+        console.log(this.state.togledArea)
     }
     displayAreasSelection(){
             // dito imamap lahat ng areas na meron ka.
@@ -230,6 +233,10 @@ class MyAreas extends Component {
         console.log(this.state.Add)
 
         axios.post('/api/UpdateDeviceArea', {
+            id: this.state.Add.id,
+            areaId: this.state.Add.areaId
+        })
+        axios.post('/api/UpdateSensorArea', {
             id: this.state.Add.id,
             areaId: this.state.Add.areaId
         })
@@ -280,7 +287,17 @@ class MyAreas extends Component {
     }
 
     handleDeleteButton(id){
+        console.log(id)
         alert("the device with id "+ id +" is now removed to this area")
+        axios.post('/api/UpdateDeviceArea', {
+            id: id,
+            areaId: "none"
+        })
+        axios.post('/api/UpdateSensorArea', {
+            id: id,
+            areaId: "none"
+        })
+        location.reload()
     }
     loadChoiceArea(){
         return(

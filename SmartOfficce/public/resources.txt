@@ -161,3 +161,25 @@ INSERT INTO `devices` (`id`, `deviceName`, `status`, `description`, `src`, `user
                     areaId: 1,
                     description:"My Office"
                 }
+
+
+                // arease
+
+                    {
+                    areaId: 1,
+                    areaName: "My office",
+                    areaDescription : "Ground Floor",
+                    areaUser: "IOTuser123" // username
+                },
+                {
+                    areaId: 2,
+                    areaName: "Garage",
+                    areaDescription : " ",
+                    areaUser: "IOTuser123" // username
+                },
+                {
+                    areaId: 3,
+                    areaName: "My Room",
+                    areaDescription : " ",
+                    areaUser: "IOTuser123" // username
+                }
