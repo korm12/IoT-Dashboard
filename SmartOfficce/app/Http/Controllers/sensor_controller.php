@@ -24,6 +24,24 @@ class sensor_controller extends Controller
         }
 
     }
+    public function GetSensorsNum(Request $request){
+        if ($request->has('userId')){
+            $userId = $request->input('userId');
+            $result = DB::SELECT("SELECT COUNT(id) AS totalSensors FROM sensors where userId = ?", [($userId)]);
+            $data = array();
+            // return response()->json(['message'=>'Data received'], 200);
+            foreach ($result as $row)
+            {
+                array_push($data, $row);
+            }
+
+            echo json_encode($data);
+        }else {
+
+            return response()->json(['message'=>'no data'], 400);
+        }
+
+    }
 
     public function AddNewSensor(Request $request){
         if ($request->has('id')){

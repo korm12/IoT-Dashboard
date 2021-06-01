@@ -9,6 +9,10 @@ class Sidebar extends Component {
         }
         this.handleDropdownClick = this.handleDropdownClick.bind(this);
     }
+    handleLogout(){
+        alert("logout")
+        localStorage.removeItem("username")
+    }
     handleDropdownClick(){
         if(this.state.hideDropdown1 == 0){
             document.querySelector('.dropdown-container').style.display = 'block';
@@ -39,7 +43,11 @@ class Sidebar extends Component {
 
                     </div>
                     <Link to="/rules"><i className="fas fa-list-alt"></i> Rules</Link>
-
+                    <div className="">
+                        <div   className="d-flex align-bottom">
+                        <a onClick={this.handleLogout} href="/"><i className="fas fa-power-off"></i> Logout</a>
+                        </div>
+                    </div>
                     {/* <Link to="/removeDevice"><i className="fas fa-trash-alt"></i> Remove Device</Link> */}
                     {/* <Link to="/configure"><i className="fas fa-cogs"></i> Configure Device</Link> */}
                 </div>

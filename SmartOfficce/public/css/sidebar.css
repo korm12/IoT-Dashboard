@@ -12,7 +12,7 @@ body {font-family: "Lato", sans-serif;}
   padding-top: 16px;
 }
 
-.sidebar a {
+.sidebar a,p {
   padding: 6px 8px 6px 16px;
   text-decoration: none;
   font-size: 20px;

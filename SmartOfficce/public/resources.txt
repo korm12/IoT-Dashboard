@@ -183,3 +183,54 @@ INSERT INTO `devices` (`id`, `deviceName`, `status`, `description`, `src`, `user
                     areaDescription : " ",
                     areaUser: "IOTuser123" // username
                 }
+
+
+   {
+                    isActive: "yes",
+                    ruleId: 1,
+                    deviceId : "SMLI0001",
+                    isMinMax : 1,
+                    sensorId : "SMSE0001",
+                    minVal : 20,
+                    maxVal : 80,
+                    isTimer: 1,
+                    from : "08:00",
+                    to:"14:00"
+                },
+                {
+                    isActive: "yes",
+                    ruleId: 2,
+                    deviceId : "SMLI0002",
+                    isMinMax : 1,
+                    sensorId : "SMSE0002",
+                    minVal : 30,
+                    maxVal : 50,
+                    isTimer: 1,
+                    from : "09:00",
+                    to:"16:00"
+                },
+
+                {
+                    id:1,
+                    notifCode:0, // 0 means error
+                    message:'Sensor Value of SMSE0001 drop below the minimum required',
+                    notifDate:"2021-05-23 19:25:49"
+                },
+                {
+                    id:2,
+                    notifCode:1, // 1 means action
+                    message:'SMDE0001 was turned on',
+                    notifDate:"2021-05-23 19:25:49"
+                },
+                {
+                    id:3,
+                    notifCode:1,
+                    message:'Sensor Value of SMSE0001 is now stable',
+                    notifDate:"2021-05-23 19:25:49"
+                },
+                {
+                    id:4,
+                    notifCode:1,
+                    message:'SMDE0001 was turned off',
+                    notifDate:"2021-05-23 19:25:49"
+                }

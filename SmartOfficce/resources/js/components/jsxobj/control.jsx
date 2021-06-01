@@ -7,6 +7,7 @@ class Control extends Component {
         super(props)
         this.state = {
             activeTab: 0,
+            username:"",
             device: [
 
 
@@ -36,15 +37,18 @@ class Control extends Component {
         handleButtonToggle(id){  /////////// function for switching the control on/ off
             var stateItemsNo = this.state.device.length;
             var devStatus = "";
+            var devStat2 = "off";
             var devSrc = "";
             for(var i = 0 ; i < stateItemsNo; i++ ){
                 if(this.state.device[i].id == id){
 
                     if(this.state.device[i].status == '0'){
                         devStatus = '1';
+                        var devStat2 = "on";
                         devSrc = '/pictures/on.png'
                     }else if (this.state.device[i].status == '1'){
                         devStatus = '0'
+                        var devStat2 = "off";
                         devSrc = '/pictures/off.png '
                     }
 
@@ -59,6 +63,14 @@ class Control extends Component {
                         status: devStatus,
                         src: devSrc
                     })
+                    var username = localStorage.getItem('username')
+                    var message = "The device "+this.state.device[i].deviceName+" is now "+devStat2;
+                    axios.post('/api/InsertLog', {
+                        notifCode: 1,
+                        message: message,
+                        userId: username
+                    })
+
 
 
                     //alert("the status of device with id : " +  this.state.device[i].id + " is now " + this.state.device[i].status)
@@ -149,7 +161,7 @@ class Control extends Component {
                 axios.post('/api/DeleteSensor', {
                     id: id
                 })
-                location.reload();
+                // location.reload();
             } else {
 
             }
@@ -157,12 +169,16 @@ class Control extends Component {
 
         }
         componentDidMount(){
+            if (localStorage.getItem("username") === null) {
+                window.location.replace('/')
+              }
             var percentage = 0;
             var id = ""
+            var username = localStorage.getItem('username')
 
             // get value from database for device obj in state
-            axios.get("http://192.168.0.10:8000/GetControlDevice",{  params:{
-            userId: "IOTuser123",
+            axios.get("http://127.0.0.1:8000/GetControlDevice",{  params:{
+            userId: username,
             }})
             .then(response => {
                 var data= response.data;
@@ -174,8 +190,8 @@ class Control extends Component {
                 console.log(error);
             })
 
-            axios.get("http://192.168.0.10:8000/GetSensors",{  params:{
-            userId: "IOTuser123",
+            axios.get("http://127.0.0.1:8000/GetSensors",{  params:{
+            userId: username,
             }})
             .then(response => {
                 var data= response.data;
@@ -188,8 +204,8 @@ class Control extends Component {
 
             this.myInterval = setInterval(()=>{ // this is a sample random data for the sensors
                 for(var i = 0; i < this.state.sensor.length; i++ ){
-                    axios.get("http://192.168.0.10:8000/GetSensors",{  params:{
-                        userId: "IOTuser123",
+                    axios.get("http://127.0.0.1:8000/GetSensors",{  params:{
+                        userId: username,
                         }})
                         .then(response => {
                             var data= response.data;

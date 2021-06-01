@@ -51,7 +51,7 @@ class MyAreas extends Component {
         this.insertNewDeviceToArea = this.insertNewDeviceToArea.bind(this)
     }
 
-    addDeviceToArea(event){ var Add = this.state.Add; var data = event.target.value; Add.id = data;this.setState({Add: Add}); console.log(this.state.Add.id)}
+    addDeviceToArea(event){ var Add = this.state.Add; var data = event.target.value; Add.id = data;this.setState({Add: Add}); console.log(this.state.Add.id); ("eto")}
 
 
 
@@ -110,9 +110,12 @@ class MyAreas extends Component {
         document.querySelector('.bg-modal5').style.display = 'none'; // close the edit modal
     }
     componentDidMount(){
-
-        axios.get("http://192.168.0.10:8000/GetAreas",{  params:{
-            userId: "IOTuser123",
+        if (localStorage.getItem("username") === null) {
+            window.location.replace('/')
+        }
+        var username = localStorage.getItem('username')
+        axios.get("http://127.0.0.1:8000/GetAreas",{  params:{
+            userId: username,
             }})
             .then(response => {
                 var data= response.data;
@@ -132,8 +135,8 @@ class MyAreas extends Component {
             .catch(function(error){
                 console.log(error);
             })
-        axios.get("http://192.168.0.10:8000/GetControlDevice",{  params:{
-            userId: "IOTuser123",
+        axios.get("http://127.0.0.1:8000/GetControlDevice",{  params:{
+            userId: username,
             }})
             .then(response => {
                 var data= response.data;
@@ -145,8 +148,8 @@ class MyAreas extends Component {
                 console.log(error);
             })
 
-            axios.get("http://192.168.0.10:8000/GetSensors",{  params:{
-                userId: "IOTuser123",
+            axios.get("http://127.0.0.1:8000/GetSensors",{  params:{
+                userId: username,
                 }})
                 .then(response => {
                     var data= response.data;
@@ -162,8 +165,8 @@ class MyAreas extends Component {
         var id = ""
         this.myInterval = setInterval(()=>{ // this is a sample random data for the sensors
             for(var i = 0; i < this.state.sensor.length; i++ ){
-                axios.get("http://192.168.0.10:8000/GetSensors",{  params:{
-                userId: "IOTuser123",
+                axios.get("http://127.0.0.1:8000/GetSensors",{  params:{
+                userId: username,
                 }})
                 .then(response => {
                     var data= response.data;
@@ -256,6 +259,7 @@ class MyAreas extends Component {
     }
 
     handleButtonToggle(id){ // pag uupdate ng status nung control button ex status nung Smart Ligth
+        var devStat2 = "off";
         var stateItemsNo = this.state.device.length;
         for(var i = 0 ; i < stateItemsNo; i++ ){
             if(this.state.device[i].id == id){
@@ -263,9 +267,11 @@ class MyAreas extends Component {
                 var devSrc = "";
                 if(this.state.device[i].status == '0'){
                     devStatus = '1';
+                    devStat2 = "on"
                     devSrc = '/pictures/on.png'
                 }else if (this.state.device[i].status == '1'){
                     devStatus = '0'
+                    devStat2 = "off"
                     devSrc = '/pictures/off.png '
                 }
 
@@ -280,6 +286,14 @@ class MyAreas extends Component {
                     status: devStatus,
                     src: devSrc
                 })
+                var username= localStorage.getItem('username')
+                var message = "The device "+this.state.device[i].deviceName+" is now "+devStat2;
+                    axios.post('/api/InsertLog', {
+                        notifCode: 1,
+                        message: message,
+                        userId: username
+                    })
+
 
                 //alert("the status of device with id : " +  this.state.device[i].id + " is now " + this.state.device[i].status)
             }

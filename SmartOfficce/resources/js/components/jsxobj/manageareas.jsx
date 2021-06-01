@@ -14,7 +14,7 @@ class ManageAreas extends Component {
             Add:{
                 areaName: "",
                 areaDescription : "",
-                areaUser:"IOTUser123"
+                areaUser:""
             }
         }
         this.loadAreasRow = this.loadAreasRow.bind(this)
@@ -79,11 +79,15 @@ class ManageAreas extends Component {
         axios.post('/api/DeleteArea', {
             id: id
         })
-        location.reload()
+       location.reload()
     }
     componentDidMount(){
-        axios.get("http://192.168.0.10:8000/GetAreas",{  params:{
-            userId: "IOTuser123",
+        if (localStorage.getItem("username") === null) {
+            window.location.replace('/')
+        }
+        var username = localStorage.getItem('username')
+        axios.get("http://127.0.0.1:8000/GetAreas",{  params:{
+            userId: username,
             }})
             .then(response => {
                 var data= response.data;
@@ -106,9 +110,9 @@ class ManageAreas extends Component {
     }
     handleInsertDb(){
         console.log(this.state.Add)
-
+        var username = localStorage.getItem('username')
         axios.post('/api/AddNewArea', {
-            areaUser: this.state.Add.areaUser,
+            areaUser: username,
             areaDescription: this.state.Add.areaDescription,
             areaName   : this.state.Add.areaName
         })

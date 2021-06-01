@@ -2,7 +2,11 @@
 
 use App\Http\Controllers\areas_controller;
 use App\Http\Controllers\device_controller;
+use App\Http\Controllers\logs_controller;
+use App\Http\Controllers\rules_controller;
 use App\Http\Controllers\sensor_controller;
+use App\Http\Controllers\user_controller;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +25,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('/UserRegister', [user_controller::class, 'UserRegister']);
+Route::post('/UserLogin', [user_controller::class, 'UserLogin']);
+
 
 Route::post('/AddNewDevice', [device_controller::class, 'AddNewDevice']);
 Route::post('/UpdateDevice', [device_controller::class, 'UpdateDevice']);
@@ -37,3 +44,10 @@ Route::post('/UpdateSensorArea', [sensor_controller::class, 'UpdateSensorArea'])
 Route::post('/AddNewArea', [areas_controller::class, 'AddNewArea']);
 Route::post('/DeleteArea', [areas_controller::class, 'DeleteArea']);
 Route::post('/UpdateArea', [areas_controller::class, 'UpdateArea']);
+
+
+Route::post('/AddNewRules', [rules_controller::class, 'AddNewRules']);
+Route::post('/DeleteRule', [rules_controller::class, 'DeleteRule']);
+Route::post('/UpdateRule', [rules_controller::class, 'UpdateRule']);
+
+Route::post('/InsertLog', [logs_controller::class, 'InsertLog']);

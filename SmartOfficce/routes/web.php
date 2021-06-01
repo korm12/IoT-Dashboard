@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\areas_controller;
 use App\Http\Controllers\device_controller;
+use App\Http\Controllers\logs_controller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReactController;
+use App\Http\Controllers\rules_controller;
 use App\Http\Controllers\sensor_controller;
 use Laravel\Ui\Presets\React;
 
@@ -55,8 +57,17 @@ Route::get('/', function () {
 
 
 Route::get('/GetControlDevice', [device_controller::class, 'GetControlDevice']);
-
+Route::get('/GetControlDeviceNum', [device_controller::class, 'GetControlDeviceNum']);
 
 Route::get('/GetSensors', [sensor_controller::class, 'GetSensors']);
+Route::get('/GetSensorsNum', [sensor_controller::class, 'GetSensorsNum']);
 
 Route::get('/GetAreas', [areas_controller::class, 'GetAreas']);
+Route::get('/GetAreasNum', [areas_controller::class, 'GetAreasNum']);
+
+
+Route::get('/GetRules', [rules_controller::class, 'GetRules']);
+Route::get('/GetRulesNum', [rules_controller::class, 'GetRulesNum']);
+
+
+Route::get('/GetLogs', [logs_controller::class, 'GetLogs']);

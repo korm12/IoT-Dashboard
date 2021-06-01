@@ -4,30 +4,7 @@ class Rules extends Component {
         super(props)
         this.state = {
             Rules0: [
-                {
-                    isActive: "yes",
-                    ruleId: 1,
-                    deviceId : "SMLI0001",
-                    isMinMax : 1,
-                    sensorId : "SMSE0001",
-                    minVal : 20,
-                    maxVal : 80,
-                    isTimer: 1,
-                    from : "08:00",
-                    to:"14:00"
-                },
-                {
-                    isActive: "yes",
-                    ruleId: 2,
-                    deviceId : "SMLI0002",
-                    isMinMax : 1,
-                    sensorId : "SMSE0002",
-                    minVal : 30,
-                    maxVal : 50,
-                    isTimer: 1,
-                    from : "09:00",
-                    to:"16:00"
-                },
+
             ],
             Edit: {
                 isActive: "",
@@ -112,13 +89,13 @@ class Rules extends Component {
 
 
     saveEditButton(){
-        //console.log(this.state.Edit);
+        console.log("edit func");
 
         var Rules0 = this.state.Rules0;
         var Edit = this.state.Edit;
         for(var i = 0; i < Rules0.length; i++){
             if(Rules0[i].ruleId == Edit.ruleId  ){
-                console.log("meron")
+
                 Rules0[i].deviceId = Edit.deviceId
                 Rules0[i].isActive = Edit.isActive
                 Rules0[i].isMinMax = Edit.isMinMax
@@ -130,7 +107,21 @@ class Rules extends Component {
                 Rules0[i].to = Edit.to
             }
         }
-        this.setState({Rules0: Rules0})
+
+        axios.post('/api/UpdateRule', {
+            ruleId: this.state.Edit.ruleId,
+            isActive: this.state.Edit.isActive,
+            deviceId: this.state.Edit.deviceId,
+            isMinMax: this.state.Edit.isMinMax,
+            sensorId: this.state.Edit.sensorId,
+            minVal: this.state.Edit.minVal,
+            maxVal: this.state.Edit.maxVal,
+            isTimer: this.state.Edit.isTimer,
+            from: this.state.Edit.from,
+            to: this.state.Edit.to
+        })
+        location.reload()
+        // this.setState({Rules0: Rules0})
     }
 
     saveAddButtonAdd(){
@@ -138,8 +129,29 @@ class Rules extends Component {
         var Add = this.state.Add
         var Rules0 = this.state.Rules0;
         Rules0.push(Add)
-        console.log(Rules0)
-        this.setState({Rules0: Rules0})
+        var username = localStorage.getItem('username')
+        axios.post('/api/AddNewRules', {
+            userId: username,
+            isActive: this.state.Add.isActive,
+            deviceId: this.state.Add.deviceId,
+            isMinMax: this.state.Add.isMinMax,
+            sensorId: this.state.Add.sensorId,
+            minVal: this.state.Add.minVal,
+            maxVal: this.state.Add.maxVal,
+            isTimer: this.state.Add.isTimer,
+            from: this.state.Add.from,
+            to: this.state.Add.to
+        }).then((response) => {
+            if(response.data.error){
+
+                alert(response.data.error);
+            }
+        },(error)=> {
+            console.log(error);
+        });
+        alert("New Rule is Added")
+        location.reload()
+        // this.setState({Rules0: Rules0})
 
 
     }
@@ -193,7 +205,38 @@ class Rules extends Component {
         document.querySelector('.bg-modal7').style.display = 'none';
     }
     deleteRule(id){
-        console.log(id)
+
+        var r = confirm("Do you really want to rule ?");
+        if (r == true) {
+            console.log(id);
+            axios.post('/api/DeleteRule', {
+                ruleId: id
+            })
+
+            location.reload();
+        } else {
+
+        }
+
+    }
+
+    componentDidMount(){
+        if (localStorage.getItem("username") === null) {
+            window.location.replace('/')
+        }
+        var username= localStorage.getItem('username')
+        axios.get("http://127.0.0.1:8000/GetRules",{  params:{
+            userId: username,
+            }})
+            .then(response => {
+                var data= response.data;
+
+                this.setState({Rules0: data});
+
+            })
+            .catch(function(error){
+                console.log(error);
+            })
     }
 
     loadRulesRow(){
