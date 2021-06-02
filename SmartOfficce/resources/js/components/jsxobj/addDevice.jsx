@@ -63,6 +63,7 @@ class Control extends Component {
             location.reload();
         }
         componentDidMount(){
+            this._isMounted = true;
             if (localStorage.getItem("username") === null) {
                 window.location.replace('/')
             }
@@ -86,7 +87,7 @@ class Control extends Component {
             if(this.state.activeTab === 0){
                 return(
                     //  {/* for control tab  */}
-                    <div className="container shad pt-4 pb-4 pl-4 pr-4 mt-4">
+                    <div className="container shad pt-4 pb-4 pl-4 pr-4 mt-4 bg-white">
                      <div className="row mt-2">
                          <div className="col-md-12">
                          <form>
@@ -138,7 +139,7 @@ class Control extends Component {
                 return(
                     // {/* for sensor tab  */}
 
-                    <div className="container shad pt-4 pb-4 pl-4 pr-4 mt-4">
+                    <div className="container shad pt-4 pb-4 pl-4 pr-4 mt-4 bg-white">
                      <div className="row mt-2">
                          <div className="col-md-12">
                          <form>
@@ -174,14 +175,17 @@ class Control extends Component {
                 )
             }
         }
+        componentWillUnmount() {
+            this._isMounted = false;
+        }
 
     render() {
         return (
             <React.Fragment>
-                <div className="container-fluid mt-4">
+                <div className="container-fluid mt-4 ">
                     <Tabs activeTab={this.state.activeTab} onChange={(tabId) => this.setState({ activeTab: tabId })} ripple>
-                        <Tab>Add Device</Tab>
-                        <Tab>Add Sensor</Tab>
+                        <Tab><span style={{color:"white"}}>Add Device</span> </Tab>
+                        <Tab><span style={{color:"white"}}>Add Sensors</span> </Tab>
                     </Tabs>
                     {this.toggleTab()}
 

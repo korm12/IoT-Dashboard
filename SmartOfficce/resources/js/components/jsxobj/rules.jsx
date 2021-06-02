@@ -225,7 +225,7 @@ class Rules extends Component {
             window.location.replace('/')
         }
         var username= localStorage.getItem('username')
-        axios.get("http://127.0.0.1:8000/GetRules",{  params:{
+        axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetRules",{  params:{
             userId: username,
             }})
             .then(response => {
@@ -266,7 +266,7 @@ class Rules extends Component {
     render() {
         return (
             <React.Fragment>
-                <div className="container-fluid">
+                <div className="container-fluid" style={{color:'white'}}>
                     <div className="row">
                         <div className="col-md-10">
                             <h3 >Rules</h3>
@@ -279,8 +279,8 @@ class Rules extends Component {
                     <hr style={{marginLeft:"4px", marginRight:"4px"}}/>
 
                     <div className="row pl-4 pr-4">
-                        <table className="table ">
-                            <thead className="text-center thead-dark">
+                        <table className="table table-dark ">
+                            <thead className="text-center">
                                 <tr>
                                 <th scope="col">isActive</th>
                                 <th scope="col">Device Id</th>

@@ -110,11 +110,12 @@ class MyAreas extends Component {
         document.querySelector('.bg-modal5').style.display = 'none'; // close the edit modal
     }
     componentDidMount(){
+        this._isMounted = true;
         if (localStorage.getItem("username") === null) {
             window.location.replace('/')
         }
         var username = localStorage.getItem('username')
-        axios.get("http://127.0.0.1:8000/GetAreas",{  params:{
+        axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetAreas",{  params:{
             userId: username,
             }})
             .then(response => {
@@ -135,7 +136,7 @@ class MyAreas extends Component {
             .catch(function(error){
                 console.log(error);
             })
-        axios.get("http://127.0.0.1:8000/GetControlDevice",{  params:{
+        axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetControlDevice",{  params:{
             userId: username,
             }})
             .then(response => {
@@ -148,7 +149,7 @@ class MyAreas extends Component {
                 console.log(error);
             })
 
-            axios.get("http://127.0.0.1:8000/GetSensors",{  params:{
+            axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetSensors",{  params:{
                 userId: username,
                 }})
                 .then(response => {
@@ -165,7 +166,7 @@ class MyAreas extends Component {
         var id = ""
         this.myInterval = setInterval(()=>{ // this is a sample random data for the sensors
             for(var i = 0; i < this.state.sensor.length; i++ ){
-                axios.get("http://127.0.0.1:8000/GetSensors",{  params:{
+                axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetSensors",{  params:{
                 userId: username,
                 }})
                 .then(response => {
@@ -325,7 +326,9 @@ class MyAreas extends Component {
             })
         )
     }
-
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
     render() {
         return (
             <React.Fragment>
@@ -337,25 +340,25 @@ class MyAreas extends Component {
                         <div className="col-md-11">
                             <div className="row">
                                 <div className="col-md-10">
-                                    <h3>{this.state.togledArea.areaName}</h3>
+                                    <h3 className="areaName">{this.state.togledArea.areaName}</h3>
                                 </div>
                                 <div className="col-md-2 mt-4">
                                     <button className="btn btn-lg btn-outline-success" onClick={this.handleAddDeviceButton}><i className="fas fa-plus"></i>  Add Device</button>
                                 </div>
                             </div>
                             <hr style={{ marginLeft:"4px",marginRight:"4px"}}/>
-                            <h5>{this.state.togledArea.areaDescription}</h5>
+                            <h5 className="areaDesc">{this.state.togledArea.areaDescription}</h5>
                             {/* sensor */}
                             <div className="row text-center">
                                 {this.state.sensor.map(sen => {
                                     if(this.state.togledArea.areaId == sen.areaId){
                                     return(
                                         <div key={sen.id} className='col-lg-4  pt-1 pb-2 pl-2 '>
-                                            <div className="control-item text-center pb-2 pl-4 pr-4 pt-2">
+                                            <div className="control-item text-center pb-2 pl-4 pr-4 pt-2 bg-white">
                                             <div className="w-100 text-right">
 
-                                                <button onClick={() => this.handlebuttonEdit(sen.id)} className="btn btn-sm btn-outline-primary mt-2 ml-1"><i className="fas fa-exchange-alt"></i></button>
-                                                <button onClick={() => this.handleDeleteButton(sen.id)} className="btn btn-sm btn-outline-danger mt-2 ml-1"><i className="fas fa-trash-alt"></i></button>
+                                                <button onClick={() => this.handlebuttonEdit(sen.id)} className="btn btn-sm btn-outline-primary mt-2 ml-1" style={{borderRadius:"50%"}}><i className="fas fa-exchange-alt"></i></button>
+                                                <button onClick={() => this.handleDeleteButton(sen.id)} className="btn btn-sm btn-outline-danger mt-2 ml-1" style={{borderRadius:"50%"}}><i className="fas fa-trash-alt"></i></button>
 
                                             </div>
                                             <h5>{sen.deviceName}</h5>
@@ -395,11 +398,11 @@ class MyAreas extends Component {
                                     if (this.state.togledArea.areaId == dev.areaId) {
                                         return(
                                             <div key={dev.id} className='col-md-2  pt-1 pb-2 pl-2 '>
-                                                <div className="control-item text-center pb-2 pl-2 pr-2">
+                                                <div className="control-item text-center pb-2 pl-2 pr-2 bg-white">
                                                     <div className="w-100 text-right">
 
-                                                        <button onClick={() => this.handlebuttonEdit(dev.id)} className="btn btn-sm btn-outline-primary mt-2 ml-1"><i className="fas fa-exchange-alt"></i></button>
-                                                        <button onClick={() => this.handleDeleteButton(dev.id)} className="btn btn-sm btn-outline-danger mt-2 ml-1"><i className="fas fa-trash-alt"></i></button>
+                                                        <button onClick={() => this.handlebuttonEdit(dev.id)} className="btn btn-sm btn-outline-primary mt-2 ml-1" style={{borderRadius:"50%"}}><i className="fas fa-exchange-alt"></i></button>
+                                                        <button onClick={() => this.handleDeleteButton(dev.id)} className="btn btn-sm btn-outline-danger mt-2 ml-1" style={{borderRadius:"50%"}}><i className="fas fa-trash-alt"></i></button>
 
                                                     </div>
 

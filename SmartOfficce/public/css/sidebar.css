@@ -15,7 +15,7 @@ body {font-family: "Lato", sans-serif;}
 .sidebar a,p {
   padding: 6px 8px 6px 16px;
   text-decoration: none;
-  font-size: 20px;
+  font-size: 25px;
   color: #818181;
   display: block;
   border: none;
@@ -23,15 +23,18 @@ body {font-family: "Lato", sans-serif;}
 }
 .dropdown-btn{
     padding: 6px 8px 6px 16px;
+    margin-right: 0;
+    margin-left: 0;
     text-decoration: none;
-    font-size: 20px;
+    font-size: 25px;
     color: #818181;
-    display: block;
+    /* display: block; */
     border: none;
     background: none;
 }
 .sidebar h1 {
-    padding: 6px 8px 6px 16px;
+    padding: 0;
+    margin: 0;
     text-decoration: none;
     font-size: 30px;
     color: #818181;
@@ -42,6 +45,11 @@ body {font-family: "Lato", sans-serif;}
 .sidebar a:hover {
   color: #f1f1f1;
 }
+/* .logout{
+    position: fixed;
+    bottom: 0;
+    padding-bottom: 3%;
+} */
 
 
 

@@ -1,13 +1,16 @@
 body{
 
     width: 100%;
+    background: #0F2027;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #2C5364, #203A43, #0F2027); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
 }
 .no-gutter{
     padding-left: 0 !important;
     padding-right: 0 !important;
     margin-left: 0 !important;
-    margin-right: 0 i !important;
+    margin-right: 0 !important;
 
 }
 .acitivity-area{
@@ -23,7 +26,7 @@ body{
 
 .control-item{
     border: 1px solid rgb(24, 34, 41);
-    border-radius: 5px;
+    border-radius: 15px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .control-item-button{
@@ -35,4 +38,20 @@ body{
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-radius: 10px;
     border: 0.5 solid grey;
+}
+thead{
+    background-color: #0f8d83 !important;
+}
+.btn-outline-success{
+    border-color: #0f8d83 !important;
+    color: #0f8d83 !important;
+}.btn-primary{
+    background-color: #0f8d83 !important;
+    color: white!important;
+    border-color: #0f8d83 !important;
+}
+.btn-outline-success:hover{
+    border-color: #0f8d83 !important;
+    background-color:#0f8d83 ;
+    color: white !important;
 }

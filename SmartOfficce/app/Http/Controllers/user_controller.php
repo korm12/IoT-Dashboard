@@ -12,6 +12,7 @@ class user_controller extends Controller
         $user= new User;
         $user->name = $request->input('username');
         $user->email = $request->input('email');
+        $user->src = "/pictures/default-avatar.jpg" ;
         $user->password =Hash::make( $request->input('password'));
         $user->save();
         return $user;
@@ -23,5 +24,10 @@ class user_controller extends Controller
         }
 
         return $user;
+    }
+    function GetUserProfilePic(Request $request){
+        $user = User::where('name', $request->username)->first();
+
+        return $user->src;
     }
 }

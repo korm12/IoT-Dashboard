@@ -56,7 +56,12 @@ class Login extends Component {
         });
 
     }
-
+    componentDidMount(){
+        this._isMounted = true;
+    }
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
     handleSignupClicked(){
         document.querySelector('.bg-modal8').style.display = 'flex';
     }

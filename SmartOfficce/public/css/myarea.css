@@ -15,3 +15,6 @@
     padding-right: 0 !important;
     overflow: auto;
 }
+.areaName, .areaDesc{
+    color: white;
+}

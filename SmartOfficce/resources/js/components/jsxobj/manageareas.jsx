@@ -82,11 +82,12 @@ class ManageAreas extends Component {
        location.reload()
     }
     componentDidMount(){
+        this._isMounted = true;
         if (localStorage.getItem("username") === null) {
             window.location.replace('/')
         }
         var username = localStorage.getItem('username')
-        axios.get("http://127.0.0.1:8000/GetAreas",{  params:{
+        axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetAreas",{  params:{
             userId: username,
             }})
             .then(response => {
@@ -99,7 +100,9 @@ class ManageAreas extends Component {
                 console.log(error);
             })
     }
-
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
 
     handleAddAreaButton(){
         document.querySelector('.bg-modal4').style.display = 'flex';
@@ -151,7 +154,7 @@ class ManageAreas extends Component {
     render() {
         return (
             <React.Fragment>
-                <div className="container-fluid">
+                <div className="container-fluid" style={{color:'white'}}>
                     <div className="row">
                         <div className="col-md-10">
                             <h3 >Manage Areas</h3>
@@ -162,8 +165,8 @@ class ManageAreas extends Component {
                     </div>
                     <hr style={{marginLeft:"4px", marginRight:"4px"}}/>
                     <div className="row pl-4 pr-4">
-                        <table className="table ">
-                            <thead className="text-center thead-dark">
+                        <table className="table table-dark">
+                            <thead className="text-center ">
                                 <tr>
                                 <th scope="col">Area</th>
                                 <th scope="col">Description</th>

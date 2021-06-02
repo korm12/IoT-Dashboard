@@ -3,7 +3,7 @@ class Dashboard extends Component {
     constructor(props){
         super(props)
         this.state = {
-            sensors : 20,
+            sensors : 0,
             device : 0,
             rules : 0,
             areas: 0,
@@ -12,12 +12,17 @@ class Dashboard extends Component {
             ]
          }
         }
+
     componentDidMount(){
+        let data_route = process.env.MIX_DATA_ROUTES;
+
+        console.log(data_route)
+        this._isMounted = true;
         if (localStorage.getItem("username") === null) {
             window.location.replace('/')
         }
         var username = localStorage.getItem('username')
-        axios.get("http://127.0.0.1:8000/GetControlDeviceNum",{  params:{
+        axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetControlDeviceNum",{  params:{
             userId: username,
             }})
             .then(response => {
@@ -25,7 +30,7 @@ class Dashboard extends Component {
                 this.setState({device: (data[0]["totalDevice"])});
 
             })
-        axios.get("http://127.0.0.1:8000/GetSensorsNum",{  params:{
+        axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetSensorsNum",{  params:{
             userId: username,
             }})
             .then(response => {
@@ -33,7 +38,7 @@ class Dashboard extends Component {
                 this.setState({sensors: (data[0]["totalSensors"])});
 
             })
-        axios.get("http://127.0.0.1:8000/GetRulesNum",{  params:{
+        axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetRulesNum",{  params:{
             userId: username,
             }})
             .then(response => {
@@ -42,7 +47,7 @@ class Dashboard extends Component {
 
             })
 
-        axios.get("http://127.0.0.1:8000/GetAreasNum",{  params:{
+        axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetAreasNum",{  params:{
             userId: username,
             }})
             .then(response => {
@@ -52,15 +57,17 @@ class Dashboard extends Component {
             })
 
         this.myInterval = setInterval(()=>{
-            axios.get("http://127.0.0.1:8000/GetLogs",{  params:{
+            axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetLogs",{  params:{
                 userId: username,
                 }})
                 .then(response => {
                     var data= response.data;
-                    this.setState({notifications: data});
-
+                    this.setState({notifications: data})
                 })
         } , 2000)
+    }
+    componentWillUnmount() {
+        this._isMounted = false;
     }
     render() {
         return (
@@ -73,7 +80,7 @@ class Dashboard extends Component {
                                 <i className="fas fa-tachometer-alt" style={{fontSize:"120%"}}></i> Sensors
                                 </div>
                                 <div className="card-body">
-                                    <h5 className="card-title">No Connected Sensors : {this.state.sensors}</h5>
+                                    <h5 className="card-title">No Sensors : {this.state.sensors}</h5>
                                     <p className="card-text"></p>
                                     <a href="/control" className="btn btn-primary w-100">View</a>
                                 </div>
@@ -85,7 +92,7 @@ class Dashboard extends Component {
                                 <i className="fas fa-robot"style={{fontSize:"120%"}}></i> Smart Device
                                 </div>
                                 <div className="card-body">
-                                    <h5 className="card-title">No Connected Device : {this.state.device}</h5>
+                                    <h5 className="card-title">No Device : {this.state.device}</h5>
                                     <p className="card-text"></p>
                                     <a href="/control" className="btn btn-primary w-100">View</a>
                                 </div>
@@ -118,8 +125,8 @@ class Dashboard extends Component {
                         </div>
                     </div>
                     <div className="row mt-4 activity-area">
-                        <div className="col-md-12">
-                            <h3 className="ml-2">Activity and Notification</h3>
+                        <div className="col-md-6">
+                            <h3 className="ml-2 " style={{color:"white"}}>Activity and Notification</h3>
                                 <div className="notif-area">
                                 <ul className="list-group">
                                     {this.state.notifications.map(notif => {

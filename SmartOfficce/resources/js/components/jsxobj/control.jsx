@@ -169,6 +169,7 @@ class Control extends Component {
 
         }
         componentDidMount(){
+            this._isMounted = true;
             if (localStorage.getItem("username") === null) {
                 window.location.replace('/')
               }
@@ -177,7 +178,7 @@ class Control extends Component {
             var username = localStorage.getItem('username')
 
             // get value from database for device obj in state
-            axios.get("http://127.0.0.1:8000/GetControlDevice",{  params:{
+            axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetControlDevice",{  params:{
             userId: username,
             }})
             .then(response => {
@@ -190,7 +191,7 @@ class Control extends Component {
                 console.log(error);
             })
 
-            axios.get("http://127.0.0.1:8000/GetSensors",{  params:{
+            axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetSensors",{  params:{
             userId: username,
             }})
             .then(response => {
@@ -204,7 +205,7 @@ class Control extends Component {
 
             this.myInterval = setInterval(()=>{ // this is a sample random data for the sensors
                 for(var i = 0; i < this.state.sensor.length; i++ ){
-                    axios.get("http://127.0.0.1:8000/GetSensors",{  params:{
+                    axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetSensors",{  params:{
                         userId: username,
                         }})
                         .then(response => {
@@ -266,16 +267,16 @@ class Control extends Component {
                 return(
                     //  {/* for control tab  */}
 
-                     <div className="row mt-2">
+                     <div className="row mt-2 pl-1">
                          {/* devices */}
                          {this.state.device.map(dev => {
                              return(
-                             <div key={dev.id} className='col-md-2  pt-1 pb-2 pl-2 '>
-                                 <div className="control-item text-center pb-2 pl-2 pr-2">
+                             <div key={dev.id} className='col-md-2  pt-1 pb-2 ml-0 mr-0 pl-1 pr-1'>
+                                 <div className="control-item text-center pb-2 pl-2 pr-2 bg-white">
                                      <div className="w-100 text-right">
 
-                                        <button onClick={() => this.handlebuttonEdit(dev.id)} className="btn btn-sm btn-outline-success mt-2 ml-1"><i className="far fa-edit"></i></button>
-                                        <button onClick={() => this.handleDeleteButton(dev.id)} className="btn btn-sm btn-outline-danger mt-2 ml-1"><i className="fas fa-trash-alt"></i></button>
+                                        <button onClick={() => this.handlebuttonEdit(dev.id)} className="btn btn-sm btn-outline-success mt-2 ml-1" style={{borderRadius:"50%"}}><i className="far fa-edit"></i></button>
+                                        <button onClick={() => this.handleDeleteButton(dev.id)} className="btn btn-sm btn-outline-danger mt-2 ml-1" style={{borderRadius:"50%"}}><i className="fas fa-trash-alt"></i></button>
 
                                      </div>
 
@@ -296,16 +297,16 @@ class Control extends Component {
                 return(
                     // {/* for sensor tab  */}
 
-                    <div className="row mt-2">
+                    <div className="row mt-2 pl-1">
 
                         {this.state.sensor.map(sen => {
                             return(
-                                <div key={sen.id} className='col-lg-3  pt-1 pb-2 pl-2 '>
-                                    <div className="control-item text-center pb-2 pl-4 pr-4 pt-2">
+                                <div key={sen.id} className='col-lg-3  pt-1 pb-2'>
+                                    <div className="control-item text-center pb-2 pl-4 pr-4 pt-2 bg-white">
                                     <div className="w-100 text-right">
 
-                                        <button onClick={() => this.handlebuttonEdit(sen.id)} className="btn btn-sm btn-outline-success mt-2 ml-1"><i className="far fa-edit"></i></button>
-                                        <button onClick={() => this.handleDeleteButton(sen.id)} className="btn btn-sm btn-outline-danger mt-2 ml-1"><i className="fas fa-trash-alt"></i></button>
+                                        <button onClick={() => this.handlebuttonEdit(sen.id)} className="btn btn-sm btn-outline-success mt-2 ml-1" style={{borderRadius:"50%"}}><i className="far fa-edit"></i></button>
+                                        <button onClick={() => this.handleDeleteButton(sen.id)} className="btn btn-sm btn-outline-danger mt-2 ml-1" style={{borderRadius:"50%"}}><i className="fas fa-trash-alt"></i></button>
 
                                     </div>
                                     <h5>{sen.deviceName}</h5>
@@ -340,14 +341,16 @@ class Control extends Component {
                 )
             }
         }
-
+        componentWillUnmount() {
+            this._isMounted = false;
+        }
     render() {
         return (
             <React.Fragment>
-                <div className="container-fluid mt-4 mr-4 ml-4">
+                <div className="container-fluid mt-4 mr-4">
                     <Tabs activeTab={this.state.activeTab} onChange={(tabId) => this.setState({ activeTab: tabId })} ripple>
-                        <Tab>Device</Tab>
-                        <Tab>Sensors</Tab>
+                        <Tab><span style={{color:"white"}}>Device</span> </Tab>
+                        <Tab><span style={{color:"white"}}>Sensors</span> </Tab>
                     </Tabs>
                     {this.toggleTab()}
 
