@@ -186,7 +186,7 @@ class ManageAreas extends Component {
                     <div className="modal-content">
                         <div className="shad pt-4 pb-4 pl-4 pr-4 ">
                             <div className="text-right w-100">
-                                <button onClick={this.handleCloseModalButton} className="btn btn-sm btn-outline-danger mt-2 ">X</button>
+                                <button onClick={this.handleCloseModalButton} className="btn btn-sm btn-outline-danger mt-2 "style={{borderRadius:"50px"}}><i className="fas fa-times"></i></button>
                             </div>
                         <div className="row mt-2">
                             <div className="col-md-12">
@@ -216,7 +216,7 @@ class ManageAreas extends Component {
                     <div className="modal-content">
                         <div className="shad pt-4 pb-4 pl-4 pr-4 ">
                             <div className="text-right w-100">
-                                <button onClick={this.handleCloseAddModalButton} className="btn btn-sm btn-outline-danger mt-2 ">X</button>
+                                <button onClick={this.handleCloseAddModalButton} className="btn btn-sm btn-outline-danger mt-2 "style={{borderRadius:"50px"}}><i className="fas fa-times"></i></button>
                             </div>
                         <div className="row mt-2">
                             <div className="col-md-12">

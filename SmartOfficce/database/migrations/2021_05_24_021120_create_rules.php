@@ -18,11 +18,11 @@ class CreateRules extends Migration
             $table->string('userId');
             $table->string('isActive');
             $table->string('deviceId');
-            $table->integer('isMinMax');
+            $table->string('isMinMax');
             $table->string('sensorId');
             $table->integer('minVal');
             $table->integer('maxVal');
-            $table->integer('isTimer');
+            $table->string('isTimer');
             $table->time('from');
             $table->time('to');
             $table->timestamp('Date')->nullable();

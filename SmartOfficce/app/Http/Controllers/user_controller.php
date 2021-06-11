@@ -30,4 +30,10 @@ class user_controller extends Controller
 
         return $user->src;
     }
+    function ChangePassword(Request $request){
+        $user = User::where('name', $request->username)->first();
+        if(!$user || !Hash::check($request->password, $user->password)){
+            return ["error" => "Username or Password did not matched!"];
+        }
+    }
 }

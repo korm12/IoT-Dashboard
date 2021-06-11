@@ -25,6 +25,43 @@ class device_controller extends Controller
         }
 
     }
+    public function GetUnallocatedDev(Request $request){
+        if ($request->has('userId')){
+            $userId = $request->input('userId');
+            $result = DB::SELECT("SELECT count(id) as unallocateddev FROM devices where userId = ? and areaId='none' ", [($userId)]);
+            $data = array();
+            // return response()->json(['message'=>'Data received'], 200);
+            foreach ($result as $row)
+            {
+                array_push($data, $row);
+            }
+
+            echo json_encode($data);
+        }else {
+
+            return response()->json(['message'=>'no data'], 400);
+        }
+
+    }
+
+    public function GetDeviceStatus(Request $request){
+        if ($request->has('id')){
+            $id = $request->input('id');
+            $result = DB::SELECT("SELECT status FROM devices where id = ?", [($id)]);
+            $data = array();
+                // return response()->json(['message'=>'Data received'], 200);
+            foreach ($result as $row)
+            {
+                array_push($data, $row);
+            }
+
+            echo ($data[0]->status);
+        }else {
+
+            return response()->json(['message'=>'no data'], 400);
+        }
+
+    }
 
     public function GetControlDeviceNum(Request $request){
         if ($request->has('userId')){
@@ -108,7 +145,7 @@ class device_controller extends Controller
     public function DeleteDevice(Request $request){
         if ($request->has('id')){
             $id = $request->input('id');
-            DB::DELETE('DELETE from areas where areaId= ? ', [$id] );
+            DB::DELETE('DELETE from devices where id= ? ', [$id] );
 
             return response()->json(['message'=>'Data received'], 200);
         }else {

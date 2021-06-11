@@ -85,4 +85,58 @@ class areas_controller extends Controller
         }
 
     }
+
+    public function GetSensorPerArea(Request $request){
+        if ($request->has('userId')){
+            $userId = $request->input('userId');
+
+            $result = DB::SELECT('SELECT count(sensors.id) as total, areas.areaName from sensors INNER JOIN areas on areas.areaId = sensors.areaId where areaUser = ? GROUP by areas.areaName',[($userId)]);
+
+            $data = array();
+            foreach ($result as $row)
+            {
+                array_push($data, $row);
+            }
+
+            // $result2 = DB::SELECT('SELECT DISTINCT areaName from areas where areaUser=?',[($userId)]);
+
+            // $data2 = array();
+            // foreach ($result2 as $row2)
+            // {
+            //     array_push($data2, $row2);
+            // }
+
+            // for($i = 0; $i < count($data2); $i++){
+            //     for($x = 0; $x < count($data); $x++){
+            //         if($data2[$i]->areaName != $data[$x]->areaName){
+
+            //         }
+            //     }
+            // }
+            echo json_encode($data);
+            // echo json_encode($data2);
+        }else {
+
+            return response()->json(['message'=>'no data'], 400);
+        }
+
+    }
+    public function GetDevicePerArea(Request $request){
+        if ($request->has('userId')){
+            $userId = $request->input('userId');
+
+            $result = DB::SELECT('SELECT count(devices.id) as total, areas.areaName from devices INNER JOIN areas on areas.areaId = devices.areaId where areaUser = ? GROUP by areas.areaName',[($userId)]);
+
+            $data = array();
+            foreach ($result as $row)
+            {
+                array_push($data, $row);
+            }
+            echo json_encode($data);
+        }else {
+
+            return response()->json(['message'=>'no data'], 400);
+        }
+
+    }
 }

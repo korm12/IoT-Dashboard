@@ -9,7 +9,7 @@ class logs_controller extends Controller
     public function GetLogs(Request $request){
         if ($request->has('userId')){
             $userId = $request->input('userId');
-            $result = DB::SELECT("SELECT * FROM logs where userId = ? ORDER BY notifDate DESC limit 20", [($userId)]);
+            $result = DB::SELECT("SELECT * FROM logs where userId = ? ORDER BY notifDate DESC limit 10", [($userId)]);
             $data = array();
             // return response()->json(['message'=>'Data received'], 200);
             foreach ($result as $row)
@@ -37,6 +37,12 @@ class logs_controller extends Controller
 
             //return response()->json(['message'=>'no data'], 400);
         }
+
+    }
+
+    public function ClearLogs(){
+
+        DB::INSERT('TRUNCATE TABLE logs');
 
     }
 

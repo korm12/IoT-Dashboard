@@ -4,6 +4,7 @@ import Sidebar from './jsxobj/sidebar';
 import Control from './jsxobj/control';
 import Dashboard from './jsxobj/dashboard';
 import AddDevice from './jsxobj/addDevice';
+import User from './jsxobj/user';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import MyAreas from './jsxobj/myareas';
 import ManageAreas from './jsxobj/manageareas';
@@ -25,6 +26,7 @@ function AdminPanelComponent() {
                             <Route  path="/myareas" component = {MyAreas}/>
                             <Route  path="/manageareas" component = {ManageAreas}/>
                             <Route  path="/rules" component = {Rules}/>
+                            <Route  path="/User" component = {User}/>
                         </Switch>
                     </div>
                 </div>

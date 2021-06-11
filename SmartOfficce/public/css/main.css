@@ -20,7 +20,7 @@ body{
     overflow: auto;
 }
 .notif-area{
-    max-height: 600px;
+    max-height: 400px;
     overflow: auto;
 }
 
@@ -31,7 +31,7 @@ body{
 }
 .control-item-button{
     background-color: white import !important;
-    border-radius: 10px;
+    border-radius: 50px;
 }
 .shad{
     /* background-color: rgb(209, 209, 209); */
@@ -48,10 +48,50 @@ thead{
 }.btn-primary{
     background-color: #0f8d83 !important;
     color: white!important;
+    border-radius: 50px;
     border-color: #0f8d83 !important;
 }
 .btn-outline-success:hover{
     border-color: #0f8d83 !important;
     background-color:#0f8d83 ;
     color: white !important;
+}
+.list-group-item-success{
+    background-color: white !important;
+    color: black !important;
+    font-size: large;
+}
+
+.josefin-font{
+    font-family: 'Josefin Sans', sans-serif;
+    /* font-family: 'Squada One', cursive; */
+}
+.card-header div{
+    font-size: large;
+}
+.card-body p{
+    font-size: medium;
+}
+button:focus{outline: 0 !important;}
+
+.custom-button{
+    background-color: transparent;
+    border-radius: 50px;
+    border: 1px solid #0f8d83;
+    color: #0f8d83;
+    padding: 5px 10px 5px 10px;
+}
+.custom-button:hover{
+    background-color: white;
+    border-radius: 50px;
+    font-weight: bolder;
+    border: 3px solid #0f8d83;
+    color: #0f8d83;
+}
+
+.no-space{
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    margin-top: 0 !important;
+
 }

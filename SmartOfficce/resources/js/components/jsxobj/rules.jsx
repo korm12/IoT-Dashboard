@@ -221,6 +221,7 @@ class Rules extends Component {
     }
 
     componentDidMount(){
+        this._isMounted = true;
         if (localStorage.getItem("username") === null) {
             window.location.replace('/')
         }
@@ -238,26 +239,51 @@ class Rules extends Component {
                 console.log(error);
             })
     }
+    componentWillUnmount(){
+        this._isMounted = false;
+    }
 
     loadRulesRow(){
         return(
         this.state.Rules0.map(rule => {
             return(
+                <React.Fragment key={rule.ruleId}>
 
-                    <tr key={rule.ruleId}>
-                        <th scope="row" className="text-center">{rule.isActive}</th>
-                        <th scope="row" className="text-center">{rule.deviceId}</th>
-                        <td className="text-center">{rule.isMinMax}</td>
-                        <td className="text-center">{rule.sensorId}</td>
-                        <td className="text-center">{rule.minVal}</td>
-                        <td className="text-center">{rule.maxVal}</td>
-                        <td className="text-center">{rule.isTimer}</td>
-                        <td className="text-center">{rule.from}</td>
-                        <td className="text-center">{rule.to}</td>
-                        <td className="text-center"><button onClick={() => this.editRule(rule.ruleId)} className="btn btn-sm btn-outline-success mt-2 ml-1"><i className="far fa-edit"></i></button></td>
-                        <td className="text-center"><button onClick={() => this.deleteRule(rule.ruleId)} className="btn btn-sm btn-outline-danger mt-2 ml-1"><i className="fas fa-trash-alt"></i></button></td>
-                    </tr>
+                    <div className="col-md-3 rule-container"  >
+                        <div className="bg-white pl-1 pr-1" style={{borderRadius:"20px"}}>
+                            <div className="text-right">
+                                <button onClick={() => this.editRule(rule.ruleId)} className="btn btn-sm btn-outline-success mt-2 ml-1" style={{borderRadius:"50%"}}><i className="far fa-edit"></i></button>
+                                <button onClick={() => this.deleteRule(rule.ruleId)} className="btn btn-sm btn-outline-danger mt-2 ml-1" style={{borderRadius:"50%"}}><i className="fas fa-trash-alt"></i></button>
+                            </div>
+                            <div className="row">
+                                <div className="col-md-6 w-100 d-block rule-label">
+                                    <div className="row"><p className="d-inline">Rule is Active ?: </p></div>
+                                    <div className="row"><p className="d-inline">Device Id: </p></div>
+                                    <div className="row"><p className="d-inline">Use Sensor ?: </p></div>
+                                    <div className="row"><p className="d-inline">Sensor Id: </p></div>
+                                    <div className="row"><p className="d-inline">Minimum Value: </p></div>
+                                    <div className="row"><p className="d-inline">Maximum Value: </p></div>
+                                    <div className="row"><p className="d-inline">Use Timer ?: </p></div>
+                                    <div className="row"><p className="d-inline">Start Time: </p></div>
+                                    <div className="row"><p className="d-inline">End Time: </p></div>
+                                </div>
+                                <div className="col-md-6 w-100 rule-value">
+                                    <div className="row"><p className="">&nbsp;{rule.isActive}</p></div>
+                                    <div className="row"><p className="">&nbsp;{rule.deviceId}</p></div>
+                                    <div className="row"><p className="">&nbsp;{rule.isMinMax}</p></div>
+                                    <div className="row"><p className="">&nbsp;{rule.sensorId}</p></div>
+                                    <div className="row"><p className="">&nbsp;{rule.minVal}</p></div>
+                                    <div className="row"><p className="">&nbsp;{rule.maxVal}</p></div>
+                                    <div className="row"><p className="">&nbsp;{rule.isTimer}</p></div>
+                                    <div className="row"><p className="">&nbsp;{rule.from}</p></div>
+                                    <div className="row"><p className="">&nbsp;{rule.to}</p></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
+
+                </React.Fragment>
             )
         })
         )
@@ -266,10 +292,10 @@ class Rules extends Component {
     render() {
         return (
             <React.Fragment>
-                <div className="container-fluid" style={{color:'white'}}>
+                <div className="container-fluid josefin-font" style={{color:'white'}}>
                     <div className="row">
                         <div className="col-md-10">
-                            <h3 >Rules</h3>
+                            <h3 className="josefin-font">Rules</h3>
                         </div>
                         <div className="col-md-2 mt-4">
                             <button onClick={this.AddRulesButton} className="btn btn-lg btn-outline-success"><i className="fas fa-plus"></i>  Add Rules</button>
@@ -279,38 +305,19 @@ class Rules extends Component {
                     <hr style={{marginLeft:"4px", marginRight:"4px"}}/>
 
                     <div className="row pl-4 pr-4">
-                        <table className="table table-dark ">
-                            <thead className="text-center">
-                                <tr>
-                                <th scope="col">isActive</th>
-                                <th scope="col">Device Id</th>
-                                {/* isMinMax is set to 1 if min and max value of a sensor will be considered  */}
-                                <th scope="col">isMinMax</th>
-                                <th scope="col">Sensor Id</th>
-                                <th scope="col">Min</th>
-                                <th scope="col">Max</th>
-                                {/* isTImer is set to 1 if the device rules will be applicable during specific time */}
-                                <th scope="col">isTimer</th>
-                                <th scope="col">from</th>
-                                <th scope="col">to</th>
-                                <th scope="col">Edit</th>
-                                <th scope="col">Remove</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+
                                 {this.loadRulesRow()}
 
-                            </tbody>
-                        </table>
+
                     </div>
                 </div>
 
                 {/* edit modal */}
-                <div className="bg-modal6">
+                <div className="bg-modal6 josefin-font">
                     <div className="modal-content">
                         <div className="shad pt-4 pb-4 pl-4 pr-4 ">
                             <div className="text-right w-100">
-                                <button onClick={this.closeEditRuleModal} className="btn btn-sm btn-outline-danger mt-2 ">X</button>
+                                <button onClick={this.closeEditRuleModal} className="btn btn-sm btn-outline-danger mt-2 "style={{borderRadius:"50px"}}><i className="fas fa-times"></i></button>
                             </div>
                         <div className="row mt-2">
                             <div className="col-md-12">
@@ -331,11 +338,11 @@ class Rules extends Component {
                                     </div>
                                 </div>
                                 <div className="form-group row">
-                                    <label className="col-sm-3 col-form-label" htmlFor="exampleFormControlSelect1">isMinMax</label>
+                                    <label className="col-sm-3 col-form-label" htmlFor="exampleFormControlSelect1">Use Sensor ?</label>
                                     <div className="col-sm-9">
                                         <select className="form-control" onChange={this.isMinMaxChange} id="" value={this.state.Edit.isMinMax}>
-                                            <option value={0}>0</option>
-                                            <option value={1}>1</option>
+                                            <option value={"no"}>No</option>
+                                            <option value={"yes"}>Yes</option>
                                         </select>
                                     </div>
                                 </div>
@@ -358,11 +365,11 @@ class Rules extends Component {
                                     </div>
                                 </div>
                                 <div className="form-group row">
-                                    <label className="col-sm-3 col-form-label" htmlFor="exampleFormControlSelect1">isTimer</label>
+                                    <label className="col-sm-3 col-form-label" htmlFor="exampleFormControlSelect1">Use Timer?</label>
                                     <div className="col-sm-9">
                                         <select className="form-control" onChange={this.isTimerChange} id="" value={this.state.Edit.isTimer}>
-                                            <option value={0}>0</option>
-                                            <option value={1}>1</option>
+                                            <option value={"no"}>No</option>
+                                            <option value={"yes"}>Yes</option>
                                         </select>
                                     </div>
                                 </div>
@@ -390,13 +397,13 @@ class Rules extends Component {
                     </div>
                 </div>
             {/* add modal */}
-                <div className="bg-modal7">
+                <div className="bg-modal7 josefin-font">
                     <div className="modal-content">
                         <div className="shad pt-4 pb-4 pl-4 pr-4 ">
                             <div className="text-right w-100">
-                                <button onClick={this.closeEditRuleModal} className="btn btn-sm btn-outline-danger mt-2 ">X</button>
+                                <button onClick={this.closeEditRuleModal} className="btn btn-sm btn-outline-danger mt-2 "style={{borderRadius:"50px"}}><i className="fas fa-times"></i></button>
                             </div>
-                            <h3 className="text-center">Add New Rule</h3>
+                            <h3 className="text-center josefin-font">Add New Rule</h3>
                         <div className="row mt-2">
                             <div className="col-md-12">
                             <form>
@@ -416,11 +423,11 @@ class Rules extends Component {
                                     </div>
                                 </div>
                                 <div className="form-group row">
-                                    <label className="col-sm-3 col-form-label" htmlFor="exampleFormControlSelect1">isMinMax</label>
+                                    <label className="col-sm-3 col-form-label" htmlFor="exampleFormControlSelect1">Use Sensor ?</label>
                                     <div className="col-sm-9">
                                         <select className="form-control" onChange={this.isMinMaxChangeAdd} id="" value={this.state.Add.isMinMax}>
-                                            <option value={0}>0</option>
-                                            <option value={1}>1</option>
+                                            <option value={"yes"}>yes</option>
+                                            <option value={"no"}>no</option>
                                         </select>
                                     </div>
                                 </div>
@@ -443,11 +450,11 @@ class Rules extends Component {
                                     </div>
                                 </div>
                                 <div className="form-group row">
-                                    <label className="col-sm-3 col-form-label" htmlFor="exampleFormControlSelect1">isTimer</label>
+                                    <label className="col-sm-3 col-form-label" htmlFor="exampleFormControlSelect1">Use Timer?</label>
                                     <div className="col-sm-9">
                                         <select className="form-control" onChange={this.isTimerChangeAdd} id="" value={this.state.Add.isTimer}>
-                                            <option value={0}>0</option>
-                                            <option value={1}>1</option>
+                                            <option value={"yes"}>yes</option>
+                                            <option value={"no"}>no</option>
                                         </select>
                                     </div>
                                 </div>

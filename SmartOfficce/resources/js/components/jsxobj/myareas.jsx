@@ -1,5 +1,14 @@
 import React, { Component } from 'react'
 import { CircularGauge, Scale, Label, RangeContainer, Range, Size, Geometry } from 'devextreme-react/circular-gauge';
+import {
+    Chart,
+    Series,
+    ArgumentAxis,
+    CommonSeriesSettings,
+    Export,
+    Legend,
+    Margin
+  } from 'devextreme-react/chart';
 class MyAreas extends Component {
     constructor(props){
         super(props)
@@ -217,7 +226,7 @@ class MyAreas extends Component {
                     return(
                     <button key={area.areaId} onClick={this.displayArea} id={area.areaId} className=" pt-4 pb-4 area-buttons text-center">
                         {/* dito  */}
-                        {area.areaName}
+                        <span className="josefin-font">{area.areaName}</span>
                     </button>
                     )
                 })
@@ -268,12 +277,12 @@ class MyAreas extends Component {
                 var devSrc = "";
                 if(this.state.device[i].status == '0'){
                     devStatus = '1';
-                    devStat2 = "on"
-                    devSrc = '/pictures/on.png'
+                    devStat2 = "off"
+                    devSrc = '/pictures/off.png'
                 }else if (this.state.device[i].status == '1'){
                     devStatus = '0'
-                    devStat2 = "off"
-                    devSrc = '/pictures/off.png '
+                    devStat2 = "on"
+                    devSrc = '/pictures/on.png '
                 }
 
                 // Idk what is happening in this chunk either.
@@ -332,7 +341,7 @@ class MyAreas extends Component {
     render() {
         return (
             <React.Fragment>
-                <div className="container-fluid area-container">
+                <div className="container-fluid area-container josefin-font">
                     <div className="row">
                         <div className="col-md-1 area-selection text-center">
                             {this.displayAreasSelection()}
@@ -340,52 +349,85 @@ class MyAreas extends Component {
                         <div className="col-md-11">
                             <div className="row">
                                 <div className="col-md-10">
-                                    <h3 className="areaName">{this.state.togledArea.areaName}</h3>
+                                    <h3 className="areaName josefin-font">{this.state.togledArea.areaName}</h3>
                                 </div>
                                 <div className="col-md-2 mt-4">
                                     <button className="btn btn-lg btn-outline-success" onClick={this.handleAddDeviceButton}><i className="fas fa-plus"></i>  Add Device</button>
                                 </div>
                             </div>
                             <hr style={{ marginLeft:"4px",marginRight:"4px"}}/>
-                            <h5 className="areaDesc">{this.state.togledArea.areaDescription}</h5>
+                            <h5 className="areaDesc josefin-font">{this.state.togledArea.areaDescription}</h5>
                             {/* sensor */}
                             <div className="row text-center">
                                 {this.state.sensor.map(sen => {
                                     if(this.state.togledArea.areaId == sen.areaId){
                                     return(
-                                        <div key={sen.id} className='col-lg-4  pt-1 pb-2 pl-2 '>
-                                            <div className="control-item text-center pb-2 pl-4 pr-4 pt-2 bg-white">
-                                            <div className="w-100 text-right">
+                                        <React.Fragment  key={sen.id}>
+                                            <div className="col-md-6">
+                                                <div className="row">
+                                                    <div className='col-lg-5  pt-1 pb-2 pl-2 '>
+                                                        <div className="control-item text-center pb-2 pl-4 pr-4 pt-2 bg-white">
+                                                        <div className="w-100 text-right">
 
-                                                <button onClick={() => this.handlebuttonEdit(sen.id)} className="btn btn-sm btn-outline-primary mt-2 ml-1" style={{borderRadius:"50%"}}><i className="fas fa-exchange-alt"></i></button>
-                                                <button onClick={() => this.handleDeleteButton(sen.id)} className="btn btn-sm btn-outline-danger mt-2 ml-1" style={{borderRadius:"50%"}}><i className="fas fa-trash-alt"></i></button>
+                                                            <button onClick={() => this.handlebuttonEdit(sen.id)} className="btn btn-sm btn-outline-primary mt-2 ml-1" style={{borderRadius:"50%"}}><i className="fas fa-exchange-alt"></i></button>
+                                                            <button onClick={() => this.handleDeleteButton(sen.id)} className="btn btn-sm btn-outline-danger mt-2 ml-1" style={{borderRadius:"50%"}}><i className="fas fa-trash-alt"></i></button>
 
+                                                        </div>
+                                                        <h5 className="josefin-font">{sen.deviceName}</h5>
+
+                                                                <CircularGauge
+                                                                    id="gauge"
+                                                                    value={sen.value}
+                                                                    >
+                                                                    <Scale startValue={sen.minval} endValue={sen.maxval} tickInterval={10}>
+                                                                    <Label useRangeColors={true} />
+                                                                    </Scale>
+                                                                    <RangeContainer >
+                                                                        <Range startValue={sen.minval} endValue={sen.maxval * .33} color={"#D92E2E"}/>
+                                                                        <Range startValue={sen.maxval * .33} endValue={sen.maxval * .66} color={"#ffad7d"} />
+                                                                        <Range startValue={sen.maxval * .66} endValue={sen.maxval} color={"#3BD429"}/>
+                                                                    </RangeContainer>
+                                                                    <Geometry
+                                                                    startAngle={180}
+                                                                    endAngle={0}
+                                                                    ></Geometry>
+                                                                    <Size
+                                                                        width={"50%"}
+                                                                        height={180}
+                                                                    ></Size>
+                                                                </CircularGauge>
+                                                                <h3 className="josefin-font no-space">{sen.value}</h3>
+                                                                <p className="josefin-font no-space">{sen.description}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div className='col-lg-7 pl-0  pt-1 pb-2'>
+                                                        <div className="control-item text-center pb-2 pl-4 pr-4 pt-2 bg-white">
+
+                                                            <Chart
+                                                            palette="Harmony Light"
+                                                            dataSource={sen.sensorlogs}
+                                                            >
+                                                                <CommonSeriesSettings
+                                                                    argumentField={"time"}
+                                                                    type={'splinearea'}
+                                                                />
+                                                                <Series valueField={"value"} name={"Average Per 10 mins"} color={"#0f8d83"}></Series>
+
+                                                                <Margin bottom={20} />
+                                                                <ArgumentAxis valueMarginsEnabled={false} />
+                                                                <Legend
+                                                                    verticalAlignment={"bottom"}
+                                                                    horizontalAlignment={"center"}
+                                                                />
+                                                                <Export enabled={true} />
+
+                                                                <Size width={"100%"} height={380}></Size>
+                                                            </Chart>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <h5>{sen.deviceName}</h5>
-                                                    <CircularGauge
-                                                        id="gauge"
-                                                        value={sen.value}
-                                                        >
-                                                        <Scale startValue={0} endValue={100} tickInterval={10}>
-                                                        <Label useRangeColors={true} />
-                                                        </Scale>
-                                                        <RangeContainer >
-                                                            <Range startValue={0} endValue={33} color={"#D92E2E"}/>
-                                                            <Range startValue={34} endValue={66} color={"#ffad7d"} />
-                                                            <Range startValue={67} endValue={100} color={"#3BD429"}/>
-                                                        </RangeContainer>
-                                                        <Geometry
-                                                        startAngle={180}
-                                                        endAngle={0}
-                                                        ></Geometry>
-                                                        <Size
-                                                            width={"50%"}
-                                                            height={"50%"}
-                                                        ></Size>
-                                                    </CircularGauge>
-                                                    <h5>{sen.description}</h5>
-                                            </div>
-                                        </div>
+                                </React.Fragment>
                                     );
                                 }
                                 }
@@ -393,7 +435,7 @@ class MyAreas extends Component {
                                 )}
                             </div>
                             {/* control */}
-                            <div className="row text-center">
+                            <div className="row text-center mt-4 pt-4">
                                 {this.state.device.map(dev => {
                                     if (this.state.togledArea.areaId == dev.areaId) {
                                         return(
@@ -406,7 +448,7 @@ class MyAreas extends Component {
 
                                                     </div>
 
-                                                    <h5 className="mt-0 pt-2">{dev.deviceName}</h5>
+                                                    <h5 className="mt-0 pt-2 josefin-font">{dev.deviceName}</h5>
                                                     <button onClick={() => this.handleButtonToggle(dev.id)} className="control-item-button"><img src={dev.src} width={"20%"} className="pt-2 pb-2 "></img></button>
                                                     <p className="pt-2">{dev.description}</p>
                                                 </div>
@@ -423,11 +465,11 @@ class MyAreas extends Component {
                 </div>
 
                 {/* move device to another area */}
-                <div className="bg-modal2">
+                <div className="bg-modal2 josefin-font">
                     <div className="modal-content">
                         <div className="shad pt-4 pb-4 pl-4 pr-4 ">
                             <div className="text-right w-100">
-                                <button onClick={this.handleCloseModalButton} className="btn btn-sm btn-outline-danger mt-2 ">X</button>
+                                <button onClick={this.handleCloseModalButton} className="btn btn-sm btn-outline-danger mt-2 "style={{borderRadius:"50px"}}><i className="fas fa-times"></i></button>
                             </div>
                         <div className="row mt-2">
                             <div className="col-md-12">
@@ -456,16 +498,16 @@ class MyAreas extends Component {
                 </div>
                 {/* / / / / / / / / / /  */}
                 {/* add new device to area */}
-                <div className="bg-modal5">
+                <div className="bg-modal5 josefin-font">
                     <div className="modal-content">
                         <div className="shad pt-4 pb-4 pl-4 pr-4 ">
                             <div className="text-right w-100">
-                                <button onClick={this.handleCloseModalButton} className="btn btn-sm btn-outline-danger mt-2 ">X</button>
+                                <button onClick={this.handleCloseModalButton} className="btn btn-sm btn-outline-danger mt-2 "style={{borderRadius:"50px"}}><i className="fas fa-times"></i></button>
                             </div>
                         <div className="row mt-2">
                             <div className="col-md-12">
                             <form>
-                                <h3 className="text-center">Add new device to this area</h3>
+                                <h5 className="text-center josefin-font">Add new device to this area</h5>
                                 <div className="form-group">
                                     <label htmlFor="exampleFormControlInput1">Device ID</label>
                                     <input type="text" className="form-control" id="" placeholder="" onChange={this.addDeviceToArea} defaultValue={this.state.Add.id}/>

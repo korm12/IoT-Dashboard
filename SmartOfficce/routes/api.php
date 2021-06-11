@@ -40,6 +40,8 @@ Route::post('/AddNewSensor', [sensor_controller::class, 'AddNewSensor']);
 Route::post('/UpdateSensor', [sensor_controller::class, 'UpdateSensor']);
 Route::post('/DeleteSensor', [sensor_controller::class, 'DeleteSensor']);
 Route::post('/UpdateSensorArea', [sensor_controller::class, 'UpdateSensorArea']);
+Route::post('/UpdateSensorValue', [sensor_controller::class, 'UpdateSensorValue']);
+Route::post('/AddAveVal', [sensor_controller::class, 'AddAveVal']);
 
 Route::post('/AddNewArea', [areas_controller::class, 'AddNewArea']);
 Route::post('/DeleteArea', [areas_controller::class, 'DeleteArea']);
@@ -51,3 +53,4 @@ Route::post('/DeleteRule', [rules_controller::class, 'DeleteRule']);
 Route::post('/UpdateRule', [rules_controller::class, 'UpdateRule']);
 
 Route::post('/InsertLog', [logs_controller::class, 'InsertLog']);
+Route::post('/ClearLogs', [logs_controller::class, 'ClearLogs']);

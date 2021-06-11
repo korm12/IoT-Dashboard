@@ -16,7 +16,9 @@ class CreateSensors extends Migration
         Schema::create('sensors', function (Blueprint $table) {
             $table->string('id');
             $table->string('deviceName');
-            $table->string('value');
+            $table->integer('value');
+            $table->integer('minval')->default('0');
+            $table->integer('maxval')->default('100');
             $table->string('description');
             $table->string('userId');
             $table->string('areaId');

@@ -5,8 +5,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Iot</title>
-
-
+        {{-- fonts --}}
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@500&family=Squada+One&display=swap" rel="stylesheet">
         {{-- Libraries  --}}
         <script src="{{ asset('lib-ajax/jquery-3.5.1.min.js') }}"></script>
         <script src="{{ asset('css/bootstrap/js2/bootstrap.min.js') }}"></script>
@@ -18,7 +19,8 @@
         <link href="{{ asset('css/modal.css') }}" rel="stylesheet">
         <link href="{{ asset('css/myarea.css') }}" rel="stylesheet">
         <link href="{{ asset('css/login.css') }}" rel="stylesheet">
-
+        <link href="{{ asset('css/user.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/rules.css') }}" rel="stylesheet">
         <link rel="shortcut icon" sizes="114x114" href="{{ asset('pictures/internet-of-things.png') }}">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 

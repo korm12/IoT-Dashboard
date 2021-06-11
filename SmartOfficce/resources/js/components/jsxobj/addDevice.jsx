@@ -87,7 +87,7 @@ class Control extends Component {
             if(this.state.activeTab === 0){
                 return(
                     //  {/* for control tab  */}
-                    <div className="container shad pt-4 pb-4 pl-4 pr-4 mt-4 bg-white">
+                    <div className="container shad pt-4 pb-4 pl-4 pr-4 mt-4 bg-white josefin-font">
                      <div className="row mt-2">
                          <div className="col-md-12">
                          <form>
@@ -139,7 +139,7 @@ class Control extends Component {
                 return(
                     // {/* for sensor tab  */}
 
-                    <div className="container shad pt-4 pb-4 pl-4 pr-4 mt-4 bg-white">
+                    <div className="container shad pt-4 pb-4 pl-4 pr-4 mt-4 bg-white josefin-font">
                      <div className="row mt-2">
                          <div className="col-md-12">
                          <form>

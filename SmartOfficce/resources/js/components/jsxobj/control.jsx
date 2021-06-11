@@ -1,5 +1,14 @@
 import React, { Component } from 'react'
-import { CircularGauge, Scale, Label, RangeContainer, Range, Size, Geometry } from 'devextreme-react/circular-gauge';
+import { CircularGauge, Scale, Label, RangeContainer, Range, Size, Geometry   } from 'devextreme-react/circular-gauge';
+import {
+    Chart,
+    Series,
+    ArgumentAxis,
+    CommonSeriesSettings,
+    Export,
+    Legend,
+    Margin
+  } from 'devextreme-react/chart';
 import {Tab, Tabs} from 'react-mdl';
 class Control extends Component {
 
@@ -44,12 +53,12 @@ class Control extends Component {
 
                     if(this.state.device[i].status == '0'){
                         devStatus = '1';
-                        var devStat2 = "on";
-                        devSrc = '/pictures/on.png'
+                        var devStat2 = "off";
+                        devSrc = '/pictures/off.png'
                     }else if (this.state.device[i].status == '1'){
                         devStatus = '0'
-                        var devStat2 = "off";
-                        devSrc = '/pictures/off.png '
+                        var devStat2 = "on";
+                        devSrc = '/pictures/on.png '
                     }
 
                     // Idk what is happening in this chunk either.
@@ -161,7 +170,7 @@ class Control extends Component {
                 axios.post('/api/DeleteSensor', {
                     id: id
                 })
-                // location.reload();
+                 location.reload();
             } else {
 
             }
@@ -211,7 +220,9 @@ class Control extends Component {
                         .then(response => {
                             var data= response.data;
                             this.setState({sensor: data});
-
+                            // this.state.sensor.map(sen =>{
+                            //     console.log(sen.sensorlogs)
+                            // } )
                         })
                         .catch(function(error){
                             console.log(error);
@@ -280,8 +291,8 @@ class Control extends Component {
 
                                      </div>
 
-                                     <h5 className="mt-0 pt-2">{dev.deviceName}</h5>
-                                     <button onClick={() => this.handleButtonToggle(dev.id)} className="control-item-button"><img src={dev.src} width={"20%"} className="pt-2 pb-2 "></img></button>
+                                     <h5 className="mt-0 pt-2 josefin-font">{dev.deviceName}</h5>
+                                     <button onClick={() => this.handleButtonToggle(dev.id)} className="control-item-button"  ><img src={dev.src} width={"20%"} className="pt-2 pb-2 "></img></button>
                                      <p className="pt-2">{dev.description}</p>
                                  </div>
                              </div>
@@ -301,7 +312,11 @@ class Control extends Component {
 
                         {this.state.sensor.map(sen => {
                             return(
-                                <div key={sen.id} className='col-lg-3  pt-1 pb-2'>
+                                <React.Fragment  key={sen.id}>
+                                <div className="col-md-6">
+                                    <div className="row">
+
+                                <div className='col-lg-5 pr-0 pt-1 pb-2'>
                                     <div className="control-item text-center pb-2 pl-4 pr-4 pt-2 bg-white">
                                     <div className="w-100 text-right">
 
@@ -309,31 +324,62 @@ class Control extends Component {
                                         <button onClick={() => this.handleDeleteButton(sen.id)} className="btn btn-sm btn-outline-danger mt-2 ml-1" style={{borderRadius:"50%"}}><i className="fas fa-trash-alt"></i></button>
 
                                     </div>
-                                    <h5>{sen.deviceName}</h5>
+                                    <h5 className="josefin-font">{sen.deviceName}</h5>
                                             <CircularGauge
                                                 id="gauge"
                                                 value={sen.value}
                                                 >
-                                                <Scale startValue={0} endValue={100} tickInterval={10}>
+                                                <Scale startValue={sen.minval} endValue={sen.maxval} tickInterval={10}>
                                                 <Label useRangeColors={true} />
                                                 </Scale>
                                                 <RangeContainer >
-                                                    <Range startValue={0} endValue={33} color={"#D92E2E"}/>
-                                                    <Range startValue={34} endValue={66} color={"#ffad7d"} />
-                                                    <Range startValue={67} endValue={100} color={"#3BD429"}/>
+                                                    <Range startValue={sen.minval} endValue={sen.maxval * .33} color={"#D92E2E"}/>
+                                                    <Range startValue={sen.maxval * .33} endValue={sen.maxval * .66} color={"#ffad7d"} />
+                                                    <Range startValue={sen.maxval * .66} endValue={sen.maxval} color={"#3BD429"}/>
                                                 </RangeContainer>
                                                 <Geometry
                                                 startAngle={180}
                                                 endAngle={0}
                                                 ></Geometry>
-                                                <Size
-                                                    width={"50%"}
-                                                    height={"50%"}
-                                                ></Size>
-                                            </CircularGauge>
-                                            <h5>{sen.description}</h5>
+                                                 <Size
+                                                        width={"50%"}
+                                                        height={150}
+                                                    ></Size>
+                                                </CircularGauge>
+                                                <h3 className="josefin-font no-space">{sen.value}</h3>
+                                                <p className="josefin-font no-space ">{sen.description}</p>
                                     </div>
                                 </div>
+                                <div className='col-lg-7 pl-0  pt-1 pb-2'>
+                                    <div className="control-item text-center pb-2 pl-4 pr-4 pt-2 bg-white">
+
+                                        <Chart
+                                        palette="Harmony Light"
+                                        dataSource={sen.sensorlogs}
+                                        >
+                                            <CommonSeriesSettings
+                                                argumentField={"time"}
+                                                type={'splinearea'}
+                                            />
+                                            <Series valueField={"value"} name={"Average Per 10 mins"} color={"#0f8d83"}></Series>
+
+                                            <Margin bottom={20} />
+                                            <ArgumentAxis valueMarginsEnabled={false} />
+                                            <Legend
+                                                verticalAlignment={"bottom"}
+                                                horizontalAlignment={"center"}
+                                            />
+                                            <Export enabled={true} />
+
+                                            <Size width={"100%"} height={350}></Size>
+                                        </Chart>
+                                    </div>
+                                </div>
+
+                                </div>
+                                </div>
+                                </React.Fragment>
+
                             );
                         })}
                     </div>
@@ -347,7 +393,7 @@ class Control extends Component {
     render() {
         return (
             <React.Fragment>
-                <div className="container-fluid mt-4 mr-4">
+                <div className="container-fluid mt-4 mr-4 josefin-font">
                     <Tabs activeTab={this.state.activeTab} onChange={(tabId) => this.setState({ activeTab: tabId })} ripple>
                         <Tab><span style={{color:"white"}}>Device</span> </Tab>
                         <Tab><span style={{color:"white"}}>Sensors</span> </Tab>
@@ -357,11 +403,11 @@ class Control extends Component {
                 </div>
 
                 {/* this is the edit modal  */}
-                <div className="bg-modal">
+                <div className="bg-modal josefin-font">
                     <div className="modal-content">
                         <div className="shad pt-4 pb-4 pl-4 pr-4 ">
                             <div className="text-right w-100">
-                                <button onClick={this.handleCloseModalButton} className="btn btn-sm btn-outline-danger mt-2 ">X</button>
+                                <button onClick={this.handleCloseModalButton} className="btn btn-sm btn-outline-danger mt-2 " style={{borderRadius:"50px"}}><i className="fas fa-times"></i></button>
                             </div>
                         <div className="row mt-2">
                             <div className="col-md-12">
