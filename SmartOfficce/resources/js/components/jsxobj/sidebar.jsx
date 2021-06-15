@@ -28,7 +28,7 @@ class Sidebar extends Component {
     }
     componentDidMount(){
         this._isMounted = true;
-        var username = localStorage.getItem('username');
+        var username = window.atob(localStorage.getItem('username'))
          this.setState({username: username})
         var currUrl = window.location.pathname;
         if(currUrl == "/control") this.changeSb2();

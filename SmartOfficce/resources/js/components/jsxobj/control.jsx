@@ -72,7 +72,7 @@ class Control extends Component {
                         status: devStatus,
                         src: devSrc
                     })
-                    var username = localStorage.getItem('username')
+                    var username = window.atob(localStorage.getItem('username'))
                     var message = "The device "+this.state.device[i].deviceName+" is now "+devStat2;
                     axios.post('/api/InsertLog', {
                         notifCode: 1,
@@ -184,7 +184,8 @@ class Control extends Component {
               }
             var percentage = 0;
             var id = ""
-            var username = localStorage.getItem('username')
+            var username = window.atob(localStorage.getItem('username'))
+
 
             // get value from database for device obj in state
             axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetControlDevice",{  params:{

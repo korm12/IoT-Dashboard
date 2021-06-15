@@ -129,7 +129,7 @@ class Rules extends Component {
         var Add = this.state.Add
         var Rules0 = this.state.Rules0;
         Rules0.push(Add)
-        var username = localStorage.getItem('username')
+        var username = window.atob(localStorage.getItem('username'))
         axios.post('/api/AddNewRules', {
             userId: username,
             isActive: this.state.Add.isActive,
@@ -225,7 +225,7 @@ class Rules extends Component {
         if (localStorage.getItem("username") === null) {
             window.location.replace('/')
         }
-        var username= localStorage.getItem('username')
+        var username = window.atob(localStorage.getItem('username'))
         axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetRules",{  params:{
             userId: username,
             }})

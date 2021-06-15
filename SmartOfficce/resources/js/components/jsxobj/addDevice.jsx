@@ -50,7 +50,7 @@ class Control extends Component {
         handleSendes(event){var newSen = this.state.newSen;var data = event.target.value;newSen.description = data;this.setState({newSen: newSen});}
 
         handleSaveDeviceButton(){
-            var username = localStorage.getItem('username')
+            var username = window.atob(localStorage.getItem('username'))
             axios.post('/api/AddNewDevice', {
                 id: this.state.newDev.id,
                 deviceName: this.state.newDev.deviceName,
@@ -69,7 +69,7 @@ class Control extends Component {
             }
         }
         handleSaveSensorButton(){
-            var username = localStorage.getItem('username')
+            var username = window.atob(localStorage.getItem('username'))
             console.log(this.state.newSen)
             axios.post('/api/AddNewSensor', {
                 id: this.state.newSen.id,

@@ -45,7 +45,7 @@ class Dashboard extends Component {
         if (localStorage.getItem("username") === null) {
             window.location.replace('/')
         }
-        var username = localStorage.getItem('username')
+        var username = window.atob(localStorage.getItem('username'))
         axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetControlDeviceNum",{  params:{
             userId: username,
             }})
