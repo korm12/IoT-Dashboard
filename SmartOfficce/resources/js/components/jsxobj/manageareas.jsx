@@ -113,24 +113,14 @@ class ManageAreas extends Component {
     }
     handleInsertDb(){
         console.log(this.state.Add)
-        var username = localStorage.getItem('username')
+        var username = window.atob(localStorage.getItem('username'))
         axios.post('/api/AddNewArea', {
             areaUser: username,
             areaDescription: this.state.Add.areaDescription,
             areaName   : this.state.Add.areaName
         })
         location.reload()
-        // var add = this.state.add
 
-
-        // var areas = this.state.areas;
-
-
-        // this.setState(
-        //     {
-        //         areas: areas
-        //     }
-        // )
 
     }
 

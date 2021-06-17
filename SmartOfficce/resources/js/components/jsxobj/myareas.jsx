@@ -139,7 +139,7 @@ class MyAreas extends Component {
                 newtoggleArea.areaUser = firstArea.areaUser;
 
                 this.setState({togledArea: newtoggleArea})
-                console.log(this.state.togledArea)
+                console.log(this.state.areas)
 
             })
             .catch(function(error){
@@ -336,6 +336,7 @@ class MyAreas extends Component {
         )
     }
     componentWillUnmount() {
+         clearInterval(this.myInterval)
         this._isMounted = false;
     }
     render() {

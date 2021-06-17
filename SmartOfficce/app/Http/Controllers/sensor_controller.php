@@ -18,7 +18,7 @@ class sensor_controller extends Controller
             }
             $data2 = array();
             for($i = 0; $i < count($data); $i++){
-                $result2 = DB::SELECT("SELECT id,deviceId,value,time(Date) as time FROM sensorlogs where deviceId = ?", [($data[$i]->id)]);
+                $result2 = DB::SELECT("SELECT id,deviceId,value,time(Date) as time FROM sensorlogs where deviceId = ? order by id DESC limit 6", [($data[$i]->id)]);
 
                 foreach ($result2 as $row2)
                 {
@@ -27,7 +27,7 @@ class sensor_controller extends Controller
             }
             $sensorlogs = array();
             for($i = 0; $i < count($data); $i++){
-                for($x = 0; $x < count($data2); $x++){
+                for($x = count($data2) -1; $x >= 0 ; $x--){
                     if($data[$i]->id == $data2[$x]->deviceId){
                         array_push($sensorlogs, $data2[$x]);
                     }

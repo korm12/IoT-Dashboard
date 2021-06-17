@@ -50,10 +50,10 @@ class areas_controller extends Controller
             $areaDescription = $request->input('areaDescription');
             DB::INSERT('INSERT into areas (areaUser, areaName, areaDescription) VALUES (?,?,?) ', [ $areaUser, $areaName, $areaDescription] );
 
-            //return response()->json(['message'=>'Data received'], 200);
+            return response()->json(['message'=>'Data received'], 200);
         }else {
 
-            //return response()->json(['message'=>'no data'], 400);
+            return response()->json(['message'=>'no data'], 400);
         }
 
     }

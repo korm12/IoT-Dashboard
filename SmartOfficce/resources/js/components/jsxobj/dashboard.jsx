@@ -2,9 +2,7 @@ import React, { Component } from 'react'
 import PieChart, {
     Series,
     Label,
-    Connector,
     Size,
-    Export,
     Legend
   } from 'devextreme-react/pie-chart';
 
@@ -37,6 +35,7 @@ class Dashboard extends Component {
 
         }
     }
+
     componentDidMount(){
         let data_route = process.env.MIX_DATA_ROUTES;
 
@@ -123,6 +122,7 @@ class Dashboard extends Component {
         } , 2000)
     }
     componentWillUnmount() {
+        clearInterval(this.myInterval)
         this._isMounted = false;
     }
     render() {

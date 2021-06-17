@@ -76,14 +76,12 @@ class Sidebar extends Component {
                     <h1 className="text-center josefin-font">IoT</h1>
 
                     <h5 className="text-center josefin-font" style={{color:"#0f8d83", fontSize:"medium"}}><i className="fas fa-user" style={{fontSize:"20px",marginBottom:"30px"}}></i> {this.state.username}</h5>
-                    {/* <div className="pl-2 pr-2">
-                        <hr style={{ marginLeft:"2px", marginRight:"2px"}}/>
-                    </div> */}
+
                     <Link to="/dashboard"  onClick={this.changeSb1}><i className="fas fa-chart-line" style={{fontSize:"35px",marginBottom:"30px",color:this.state.sb1}} ></i></Link>
                     <Link to="/control" onClick={this.changeSb2}><i className="fas fa-toggle-off" style={{fontSize:"35px",marginBottom:"30px", color:this.state.sb2}} ></i></Link>
                     <Link to="/addDevice" onClick={this.changeSb3}><i className="fas fa-plus-circle" style={{fontSize:"35px",marginBottom:"30px", color:this.state.sb3}}></i></Link>
                     <button className="dropdown-btn"><i className="fas fa-map-marked-alt" style={{fontSize:"35px",marginBottom:"30px" ,color:this.state.sb4}}  onClick={this.handleDropdownClick}></i>
-                        <i className="fa fa-caret-down"></i>
+                    &nbsp; <i className="fa fa-caret-down"></i>
                     </button>
                     <div className="dropdown-container">
                         <Link to="/myareas" onClick={this.changeSb5}>&nbsp;&nbsp; <span className="dropdown-sublink"  style={{color:this.state.sb5}}> My Areas </span></Link>

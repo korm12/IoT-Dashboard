@@ -389,6 +389,7 @@ class Control extends Component {
             }
         }
         componentWillUnmount() {
+            clearInterval(this.myInterval)
             this._isMounted = false;
         }
     render() {
