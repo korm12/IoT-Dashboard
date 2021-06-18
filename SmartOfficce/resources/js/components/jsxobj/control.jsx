@@ -185,11 +185,16 @@ class Control extends Component {
             var percentage = 0;
             var id = ""
             var username = window.atob(localStorage.getItem('username'))
+            var token = "Bearer "+window.atob(localStorage.getItem('token'))
 
 
             // get value from database for device obj in state
-            axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetControlDevice",{  params:{
-            userId: username,
+            axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetControlDevice",{
+            headers: {
+                authorization: token
+            },
+            params:{
+                userId: username,
             }})
             .then(response => {
                 var data= response.data;
@@ -201,8 +206,12 @@ class Control extends Component {
                 console.log(error);
             })
 
-            axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetSensors",{  params:{
-            userId: username,
+            axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetSensors",{
+            headers: {
+                authorization: token
+            },
+            params:{
+                userId: username,
             }})
             .then(response => {
                 var data= response.data;
@@ -213,10 +222,19 @@ class Control extends Component {
                 console.log(error);
             })
 
+            const CancelToken = axios.CancelToken;
+            const source = CancelToken.source();
+
+
             this.myInterval = setInterval(()=>{ // this is a sample random data for the sensors
                 for(var i = 0; i < this.state.sensor.length; i++ ){
-                    axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetSensors",{  params:{
-                        userId: username,
+                    axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetSensors",{
+                        cancelToken: source.token,
+                        headers: {
+                            authorization: token
+                        },
+                        params:{
+                            userId: username,
                         }})
                         .then(response => {
                             var data= response.data;
@@ -226,7 +244,12 @@ class Control extends Component {
                             // } )
                         })
                         .catch(function(error){
+                            if (axios.isCancel(error)) {
+                                console.log('Request canceled', error.message);
+                            }
+                            else{
                             console.log(error);
+                            }
                         })
                     // percentage = Math.floor(Math.random() * 100);
                     // id = this.state.sensor[i].id

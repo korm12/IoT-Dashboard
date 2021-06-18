@@ -45,6 +45,7 @@ class Sidebar extends Component {
     handleLogout(){
         alert("logout")
         localStorage.removeItem("username")
+        localStorage.removeItem("token")
     }
     handleDropdownClick(){
        var active = "#0f8d83";var inactive = "#818181";

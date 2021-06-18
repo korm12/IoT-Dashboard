@@ -47,8 +47,9 @@ class Login extends Component {
                 return;
             }
             else{
-                console.log(response.data.name)
-                localStorage.setItem('username', window.btoa(response.data.name))
+                console.log(response.data['token'])
+                localStorage.setItem('username', window.btoa(response.data['user']['name']))
+                localStorage.setItem('token', window.btoa(response.data['token']))
                 window.location.replace('/dashboard')
             }
         },(error)=> {

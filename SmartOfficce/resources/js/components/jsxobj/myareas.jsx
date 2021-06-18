@@ -124,8 +124,13 @@ class MyAreas extends Component {
             window.location.replace('/')
         }
         var username = window.atob(localStorage.getItem('username'))
-        axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetAreas",{  params:{
-            userId: username,
+        var token = "Bearer "+window.atob(localStorage.getItem('token'))
+        axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetAreas",{
+            headers: {
+                authorization: token
+            },
+            params:{
+                userId: username,
             }})
             .then(response => {
                 var data= response.data;
@@ -145,8 +150,12 @@ class MyAreas extends Component {
             .catch(function(error){
                 console.log(error);
             })
-        axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetControlDevice",{  params:{
-            userId: username,
+        axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetControlDevice",{
+            headers: {
+                authorization: token
+            },
+            params:{
+                userId: username,
             }})
             .then(response => {
                 var data= response.data;
@@ -158,25 +167,38 @@ class MyAreas extends Component {
                 console.log(error);
             })
 
-            axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetSensors",{  params:{
+        axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetSensors",{
+            headers: {
+                authorization: token
+            },
+            params:{
                 userId: username,
-                }})
-                .then(response => {
-                    var data= response.data;
-                    this.setState({sensor: data});
+            }})
+            .then(response => {
+                var data= response.data;
+                this.setState({sensor: data});
 
-                })
-                .catch(function(error){
-                    console.log(error);
-                })
+            })
+            .catch(function(error){
+                console.log(error);
+            })
 
 
         var percentage = 0;
         var id = ""
+
+        const CancelToken = axios.CancelToken;
+        const source = CancelToken.source();
+
         this.myInterval = setInterval(()=>{ // this is a sample random data for the sensors
             for(var i = 0; i < this.state.sensor.length; i++ ){
-                axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetSensors",{  params:{
-                userId: username,
+                axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetSensors", {
+                cancelToken: source.token,
+                headers: {
+                    authorization: token
+                },
+                params:{
+                    userId: username,
                 }})
                 .then(response => {
                     var data= response.data;
@@ -184,14 +206,13 @@ class MyAreas extends Component {
 
                 })
                 .catch(function(error){
-                    console.log(error);
+                    if (axios.isCancel(error)) {
+                        console.log('Request canceled', error.message);
+                    }
+                    else{
+                        console.log(error);
+                    }
                 })
-
-                // percentage = Math.floor(Math.random() * 100);
-                // id = this.state.sensor[i].id
-                // //console.log(percentage)
-                // this.updateSensorValue(id,percentage)
-
             }
 
         } , 2000)

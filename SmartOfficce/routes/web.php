@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReactController;
 use App\Http\Controllers\rules_controller;
 use App\Http\Controllers\sensor_controller;
+use App\Http\Controllers\user_controller;
 use Laravel\Ui\Presets\React;
 
 /*
@@ -54,31 +55,40 @@ Route::get('/user', function () {
     return view('adminpanel');
 });
 
+Route::get('/dashboard', function () {
+    return view('adminpanel');
+});
+
 Route::get('/', function () {
     return view('loginpage');
 });
 
-
-Route::get('/GetControlDevice', [device_controller::class, 'GetControlDevice']);
-Route::get('/GetControlDeviceNum', [device_controller::class, 'GetControlDeviceNum']);
 Route::get('/GetDeviceStatus', [device_controller::class, 'GetDeviceStatus']);
-Route::get('/GetUnallocatedDev', [device_controller::class, 'GetUnallocatedDev']);
+Route::group(['middleware' => 'auth:sanctum'], function(){
 
-Route::get('/GetSensors', [sensor_controller::class, 'GetSensors']);
-Route::get('/GetSensorsNum', [sensor_controller::class, 'GetSensorsNum']);
-Route::get('/GetSensorsVal', [sensor_controller::class, 'GetSensorsVal']);
-Route::get('/GetUnallocatedSen', [sensor_controller::class, 'GetUnallocatedSen']);
+    Route::get('/GetControlDevice', [device_controller::class, 'GetControlDevice']);
+    Route::get('/GetControlDeviceNum', [device_controller::class, 'GetControlDeviceNum']);
 
+    Route::get('/GetUnallocatedDev', [device_controller::class, 'GetUnallocatedDev']);
 
-Route::get('/GetAreas', [areas_controller::class, 'GetAreas']);
-Route::get('/GetAreasNum', [areas_controller::class, 'GetAreasNum']);
-Route::get('/GetSensorPerArea', [areas_controller::class, 'GetSensorPerArea']);
-Route::get('/GetDevicePerArea', [areas_controller::class, 'GetDevicePerArea']);
-
-Route::get('/GetRules', [rules_controller::class, 'GetRules']);
-Route::get('/GetRulesNum', [rules_controller::class, 'GetRulesNum']);
+    Route::get('/GetSensors', [sensor_controller::class, 'GetSensors']);
+    Route::get('/GetSensorsNum', [sensor_controller::class, 'GetSensorsNum']);
+    Route::get('/GetSensorsVal', [sensor_controller::class, 'GetSensorsVal']);
+    Route::get('/GetUnallocatedSen', [sensor_controller::class, 'GetUnallocatedSen']);
 
 
-Route::get('/GetLogs', [logs_controller::class, 'GetLogs']);
+    Route::get('/GetAreas', [areas_controller::class, 'GetAreas']);
+    Route::get('/GetAreasNum', [areas_controller::class, 'GetAreasNum']);
+    Route::get('/GetSensorPerArea', [areas_controller::class, 'GetSensorPerArea']);
+    Route::get('/GetDevicePerArea', [areas_controller::class, 'GetDevicePerArea']);
 
+    Route::get('/GetRules', [rules_controller::class, 'GetRules']);
+    Route::get('/GetRulesNum', [rules_controller::class, 'GetRulesNum']);
+
+
+
+    Route::get('/GetLogs', [logs_controller::class, 'GetLogs']);
+    Route::get('/validationRoute', [user_controller::class, 'validationRoute']);
+
+});
 

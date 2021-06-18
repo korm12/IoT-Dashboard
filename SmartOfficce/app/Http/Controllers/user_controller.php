@@ -17,13 +17,26 @@ class user_controller extends Controller
         $user->save();
         return $user;
     }
+
+    function validationRoute(){
+        return "good";
+    }
     function UserLogin(Request $request){
         $user = User::where('name', $request->username)->first();
         if(!$user || !Hash::check($request->password, $user->password)){
             return ["error" => "Username or Password did not matched!"];
         }
 
-        return $user;
+        $token = $user->createToken('my-app-token')->plainTextToken;
+
+        $response = [
+            'user' => $user,
+            'token' => $token
+        ];
+
+        return response($response, 201);
+
+        //return $user;
     }
     function GetUserProfilePic(Request $request){
         $user = User::where('name', $request->username)->first();

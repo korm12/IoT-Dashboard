@@ -86,9 +86,14 @@ class ManageAreas extends Component {
         if (localStorage.getItem("username") === null) {
             window.location.replace('/')
         }
+        var token = "Bearer "+window.atob(localStorage.getItem('token'))
         var username = window.atob(localStorage.getItem('username'))
-        axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetAreas",{  params:{
-            userId: username,
+        axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetAreas",{
+            headers: {
+                authorization: token
+            },
+            params:{
+                userId: username,
             }})
             .then(response => {
                 var data= response.data;

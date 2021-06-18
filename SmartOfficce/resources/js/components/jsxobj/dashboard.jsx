@@ -45,79 +45,145 @@ class Dashboard extends Component {
             window.location.replace('/')
         }
         var username = window.atob(localStorage.getItem('username'))
-        axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetControlDeviceNum",{  params:{
-            userId: username,
+        var token = "Bearer "+window.atob(localStorage.getItem('token'))
+
+        axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetControlDeviceNum",{
+            headers: {
+                authorization: token
+            },
+            params:{
+                userId: username,
             }})
             .then(response => {
                 var data= response.data;
                 this.setState({device: (data[0]["totalDevice"])});
 
+            }).catch((error) => {
+                window.location.replace('/')
             })
-        axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetSensorsNum",{  params:{
-            userId: username,
+        axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetSensorsNum",{
+            headers: {
+                authorization: token
+            },
+            params:{
+                userId: username,
             }})
             .then(response => {
                 var data= response.data;
                 this.setState({sensors: (data[0]["totalSensors"])});
 
+            }).catch((error) => {
+                window.location.replace('/')
             })
-        axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetRulesNum",{  params:{
-            userId: username,
+        axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetRulesNum",{
+            headers: {
+                authorization: token
+            },
+            params:{
+                userId: username,
             }})
             .then(response => {
                 var data= response.data;
                 this.setState({rules: (data[0]["totalRules"])});
 
+            }).catch((error) => {
+                window.location.replace('/')
             })
 
-        axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetAreasNum",{  params:{
-            userId: username,
+        axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetAreasNum",{
+            headers: {
+                authorization: token
+            },
+            params:{
+                userId: username,
             }})
             .then(response => {
                 var data= response.data;
                 this.setState({areas: (data[0]["totalAreas"])});
 
+            }).catch((error) => {
+                window.location.replace('/')
             })
 
-        axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetSensorPerArea",{  params:{
-            userId: username,
+        axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetSensorPerArea",{
+            headers: {
+                authorization: token
+            },
+            params:{
+                userId: username,
             }})
             .then(response => {
                 var data= response.data;
                 this.setState({areas2: (data)});
 
+            }).catch((error) => {
+                window.location.replace('/')
             })
-        axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetDevicePerArea",{  params:{
-            userId: username,
+        axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetDevicePerArea",{
+            headers: {
+                authorization: token
+            },
+            params:{
+                userId: username,
             }})
             .then(response => {
                 var data= response.data;
                 this.setState({areas3: (data)});
 
+            }).catch((error) => {
+                window.location.replace('/')
             })
-        axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetUnallocatedSen",{  params:{
-            userId: username,
+        axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetUnallocatedSen",{
+            headers: {
+                authorization: token
+            },
+            params:{
+                userId: username,
             }})
             .then(response => {
                 var data= response.data;
                 this.setState({unallocatedsen: (data[0]['unallocatedsen'])});
 
+            }).catch((error) => {
+                window.location.replace('/')
             })
-        axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetUnallocatedDev",{  params:{
-            userId: username,
+        axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetUnallocatedDev",{
+            headers: {
+                authorization: token
+            },
+            params:{
+                userId: username,
             }})
             .then(response => {
                 var data= response.data;
                 this.setState({unallocateddev: (data[0]['unallocateddev'])});
 
+            }).catch((error) => {
+                window.location.replace('/')
             })
+
+        const CancelToken = axios.CancelToken;
+        const source = CancelToken.source();
+
         this.myInterval = setInterval(()=>{
-            axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetLogs",{  params:{
+            axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetLogs",{
+                cancelToken: source.token,
+                headers: {
+                    authorization: token
+                },
+                params:{
                 userId: username,
                 }})
                 .then(response => {
                     var data= response.data;
                     this.setState({notifications: data})
+                }).catch((error) => {
+                    if (axios.isCancel(error)) {
+                        console.log('Request canceled', error.message);
+                    }
+                    else{
+                        window.location.replace('/')
+                    }
                 })
         } , 2000)
     }
