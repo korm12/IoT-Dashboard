@@ -92,3 +92,5 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
 });
 
+Route::get('/UnallocatedDev', [device_controller::class, 'UnallocatedDev']);
+Route::get('/UnallocatedSen', [sensor_controller::class, 'UnallocatedSen']);

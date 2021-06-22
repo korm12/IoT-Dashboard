@@ -197,52 +197,28 @@ class Dashboard extends Component {
                 <div className="container-fluid mt-4 pt-4">
                     <div className="row">
                         <div className="col-md-3">
-                            <div className="card w-100"style={{borderRadius:"15px"}}>
-                                <div className="card-header josefin-font">
-                                <i className="fas fa-tachometer-alt" style={{fontSize:"120%"}}></i> Sensors
-                                </div>
-                                <div className="card-body josefin-font">
-                                    <p className="card-title">No Sensors : {this.state.sensors}</p>
-                                    <p className="card-text"></p>
-                                    <a href="/control" className="btn btn-primary w-100">View</a>
-                                </div>
+                            <div className=" w-100"style={{borderRadius:"15px", backgroundColor:"#ADD8E6",padding:"10px"}}>
+                                <h5 className="josefin-font"><i className="fas fa-tachometer-alt pl-4" style={{fontSize:"120%"}}></i> Sensors</h5>
+                                <h5 className="josefin-font text-right pr-4"> {this.state.sensors}</h5>
                             </div>
                         </div>
                         <div className="col-md-3">
-                            <div className="card w-100" style={{borderRadius:"15px"}}>
-                                <div className="card-header josefin-font">
-                                <i className="fas fa-robot"style={{fontSize:"120%"}}></i> Smart Device
-                                </div>
-                                <div className="card-body josefin-font">
-                                    <p className="card-title">No Device : {this.state.device}</p>
-                                    <p className="card-text"></p>
-                                    <a href="/control" className="btn btn-primary w-100">View</a>
-                                </div>
+                            <div className=" w-100"style={{borderRadius:"15px",backgroundColor:"#FFFF99",padding:"10px" }}>
+                                <h5 className="josefin-font"><i className="fas fa-robot pl-4" style={{fontSize:"120%"}}></i> Devices</h5>
+                                <h5 className=" josefin-font text-right pr-4"> {this.state.device}</h5>
                             </div>
                         </div>
 
                         <div className="col-md-3">
-                            <div className="card w-100" style={{borderRadius:"15px"}}>
-                                <div className="card-header josefin-font">
-                                <i className="fas fa-list-alt"style={{fontSize:"120%"}}></i> Rules
-                                </div>
-                                <div className="card-body josefin-font">
-                                    <p className="card-title">No of Active rules : {this.state.rules}</p>
-                                    <p className="card-text"></p>
-                                    <a href="/rules" className="btn btn-primary w-100">View</a>
-                                </div>
+                            <div className=" w-100"style={{borderRadius:"15px", backgroundColor:"#90EE90",padding:"10px"}}>
+                                <h5 className="josefin-font"><i className="fas fa-list-alt pl-4" style={{fontSize:"120%"}}></i> Rules</h5>
+                                <h5 className="josefin-font text-right pr-4"> {this.state.rules}</h5>
                             </div>
                         </div>
                         <div className="col-md-3">
-                            <div className="card w-100" style={{borderRadius:"15px"}}>
-                                <div className="card-header josefin-font">
-                                <i className="fab fa-buromobelexperte"style={{fontSize:"120%"}}></i> Areas
-                                </div>
-                                <div className="card-body josefin-font">
-                                    <p className="card-title">No of Areas : {this.state.areas}</p>
-                                    <p className="card-text"></p>
-                                    <a href="/myareas" className="btn btn-primary w-100">View</a>
-                                </div>
+                            <div className=" w-100"style={{borderRadius:"15px", backgroundColor:"#ffcccb",padding:"10px"}}>
+                                <h5 className="josefin-font"><i className="fas fa-map-marked-alt pl-4" style={{fontSize:"120%"}}></i> Areas</h5>
+                                <h5 className="josefin-font text-right pr-4"> {this.state.areas}</h5>
                             </div>
                         </div>
                     </div>
@@ -253,7 +229,7 @@ class Dashboard extends Component {
                                     <h5 className="ml-2 pt-2 pb-2 josefin-font" style={{color:"white"}}>Activity and Notification</h5>
                                 </div>
                                 <div className="col-md-6 text-right pt-4">
-                                    <button className="josefin-font custom-button mt-2" onClick={this.clearNotification}> Clear</button>
+                                    <button className="josefin-font custom-button mt-2" onClick={this.clearNotification}> Clear Notification </button>
                                 </div>
                             </div>
                                 <div className="notif-area" style={{borderRadius:"20px"}}>

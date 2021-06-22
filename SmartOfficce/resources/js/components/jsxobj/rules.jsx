@@ -225,9 +225,16 @@ class Rules extends Component {
         if (localStorage.getItem("username") === null) {
             window.location.replace('/')
         }
+
         var username = window.atob(localStorage.getItem('username'))
-        axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetRules",{  params:{
-            userId: username,
+        var token = "Bearer "+window.atob(localStorage.getItem('token'))
+        var username = window.atob(localStorage.getItem('username'))
+        axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetRules",{
+            headers: {
+                authorization: token
+            },
+            params:{
+                userId: username,
             }})
             .then(response => {
                 var data= response.data;

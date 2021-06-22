@@ -29,6 +29,7 @@ class MyAreas extends Component {
             sensor: [
 
             ],
+            unallocated:[],
             togledArea :{ // the area that is currently selected
                 areaId:0,
                 areaName:"",
@@ -58,9 +59,10 @@ class MyAreas extends Component {
         this.handleAddDeviceButton = this.handleAddDeviceButton.bind(this)
         this.addDeviceToArea = this.addDeviceToArea.bind(this)
         this.insertNewDeviceToArea = this.insertNewDeviceToArea.bind(this)
+        this.displayOptions = this.displayOptions.bind(this)
     }
 
-    addDeviceToArea(event){ var Add = this.state.Add; var data = event.target.value; Add.id = data;this.setState({Add: Add}); console.log(this.state.Add.id); ("eto")}
+
 
 
 
@@ -150,6 +152,21 @@ class MyAreas extends Component {
             .catch(function(error){
                 console.log(error);
             })
+        axios.get("http://"+process.env.MIX_DATA_ROUTES+"/UnallocatedSen",{
+            // headers: {
+            //     authorization: token
+            // },
+            params:{
+                userId: username,
+            }})
+            .then(response => {
+                var data= response.data;
+                this.setState({unallocated: data});
+
+            })
+            .catch(function(error){
+                console.log(error);
+            })
         axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetControlDevice",{
             headers: {
                 authorization: token
@@ -166,6 +183,7 @@ class MyAreas extends Component {
             .catch(function(error){
                 console.log(error);
             })
+
 
         axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetSensors",{
             headers: {
@@ -191,7 +209,7 @@ class MyAreas extends Component {
         const source = CancelToken.source();
 
         this.myInterval = setInterval(()=>{ // this is a sample random data for the sensors
-            for(var i = 0; i < this.state.sensor.length; i++ ){
+            // for(var i = 0; i < this.state.sensor.length; i++ ){
                 axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetSensors", {
                 cancelToken: source.token,
                 headers: {
@@ -213,17 +231,17 @@ class MyAreas extends Component {
                         console.log(error);
                     }
                 })
-            }
+            // }
 
         } , 2000)
 
     }
-    displayArea(event){ // function that used to switch between areas
+    displayArea(id){ // function that used to switch between areas
         var newArea;
         var areas = this.state.areas;
         //console.log(event.target.id)
         for(var i = 0; i < areas.length; i++){
-            if(event.target.id == areas[i].areaId){
+            if(id == areas[i].areaId){
                 newArea = areas[i];
             }
         }
@@ -238,14 +256,14 @@ class MyAreas extends Component {
         edit.areaId = newtoggleArea.areaId;
         this.setState({Edit: edit})
 
-        console.log(this.state.togledArea)
+        // console.log(this.state.togledArea)
     }
     displayAreasSelection(){
             // dito imamap lahat ng areas na meron ka.
             return(
                 this.state.areas.map(area => {
                     return(
-                    <button key={area.areaId} onClick={this.displayArea} id={area.areaId} className=" pt-4 pb-4 area-buttons text-center">
+                    <button key={area.areaId} onClick={() => this.displayArea(area.areaId)} id={area.areaId} className=" pt-4 pb-4 area-buttons text-center">
                         {/* dito  */}
                         <span className="josefin-font">{area.areaName}</span>
                     </button>
@@ -259,7 +277,7 @@ class MyAreas extends Component {
 
     handleAddDeviceButton(){
         document.querySelector('.bg-modal5').style.display = 'flex'; // close the edit modal
-        console.log("add device")
+        // console.log("add device")
     }
 
     insertNewDeviceToArea(){
@@ -279,14 +297,21 @@ class MyAreas extends Component {
 
     handleChoiceChanged(event){
         var Edit = this.state.Edit;  // edit ung data sa state na gagamitin pag mag uupdate sa database
-
         var data = event.target.value; // value=area.areaId ung ginamit sa select box kasi areaId ang i uupdate sa device
+        console.log("clicked")
         Edit.areaId = data;
         this.setState(
             {
                 Edit: Edit
             }
         )
+    }
+    addDeviceToArea(event){
+        var Add = this.state.Add;
+        var data = event.target.value;
+        Add.id = data;
+        this.setState({Add: Add});
+        // console.log(this.state.Add)
     }
 
     handleButtonToggle(id){ // pag uupdate ng status nung control button ex status nung Smart Ligth
@@ -356,6 +381,15 @@ class MyAreas extends Component {
             })
         )
     }
+    displayOptions(){
+        return(
+            this.state.unallocated.map(u => {
+                return(
+                    <option key={u.id} value={u.id}>{u.deviceName}</option>
+                )
+            })
+        )
+    }
     componentWillUnmount() {
          clearInterval(this.myInterval)
         this._isMounted = false;
@@ -380,108 +414,108 @@ class MyAreas extends Component {
                             <hr style={{ marginLeft:"4px",marginRight:"4px"}}/>
                             <h5 className="areaDesc josefin-font">{this.state.togledArea.areaDescription}</h5>
                             {/* sensor */}
-                            <div className="row text-center">
-                                {this.state.sensor.map(sen => {
-                                    if(this.state.togledArea.areaId == sen.areaId){
-                                    return(
-                                        <React.Fragment  key={sen.id}>
-                                            <div className="col-md-6">
-                                                <div className="row">
-                                                    <div className='col-lg-5  pt-1 pb-2 pl-2 '>
-                                                        <div className="control-item text-center pb-2 pl-4 pr-4 pt-2 bg-white">
+                            <div className="Device-Area">
+                                <div className="row text-center">
+                                    {this.state.sensor.map(sen => {
+                                        if(this.state.togledArea.areaId == sen.areaId){
+                                        return(
+                                            <React.Fragment  key={sen.id}>
+                                                <div className="col-md-6">
+                                                    <div className="row">
+                                                        <div className='col-lg-5  pt-1 pb-2 pl-2 '>
+                                                            <div className="control-item text-center pb-2 pl-4 pr-4 pt-2 bg-white">
+                                                            <div className="w-100 text-right">
+
+                                                                <button onClick={() => this.handlebuttonEdit(sen.id)} className="btn btn-sm btn-outline-primary mt-2 ml-1" style={{borderRadius:"50%"}}><i className="fas fa-exchange-alt"></i></button>
+                                                                <button onClick={() => this.handleDeleteButton(sen.id)} className="btn btn-sm btn-outline-danger mt-2 ml-1" style={{borderRadius:"50%"}}><i className="fas fa-trash-alt"></i></button>
+
+                                                            </div>
+                                                            <h5 className="josefin-font">{sen.deviceName}</h5>
+
+                                                                    <CircularGauge
+                                                                        id="gauge"
+                                                                        value={sen.value}
+                                                                        >
+                                                                        <Scale startValue={sen.minval} endValue={sen.maxval} tickInterval={10}>
+                                                                        <Label useRangeColors={true} />
+                                                                        </Scale>
+                                                                        <RangeContainer >
+                                                                            <Range startValue={sen.minval} endValue={sen.maxval * .33} color={"#D92E2E"}/>
+                                                                            <Range startValue={sen.maxval * .33} endValue={sen.maxval * .66} color={"#ffad7d"} />
+                                                                            <Range startValue={sen.maxval * .66} endValue={sen.maxval} color={"#3BD429"}/>
+                                                                        </RangeContainer>
+                                                                        <Geometry
+                                                                        startAngle={180}
+                                                                        endAngle={0}
+                                                                        ></Geometry>
+                                                                        <Size
+                                                                            width={"50%"}
+                                                                            height={180}
+                                                                        ></Size>
+                                                                    </CircularGauge>
+                                                                    <h3 className="josefin-font no-space">{sen.value}</h3>
+                                                                    <p className="josefin-font no-space">{sen.description}</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className='col-lg-7 pl-0  pt-1 pb-2'>
+                                                            <div className="control-item text-center pb-2 pl-4 pr-4 pt-2 bg-white">
+
+                                                                <Chart
+                                                                palette="Harmony Light"
+                                                                dataSource={sen.sensorlogs}
+                                                                >
+                                                                    <CommonSeriesSettings
+                                                                        argumentField={"time"}
+                                                                        type={'splinearea'}
+                                                                    />
+                                                                    <Series valueField={"value"} name={"Average Per 10 mins"} color={"#0f8d83"}></Series>
+
+                                                                    <Margin bottom={20} />
+                                                                    <ArgumentAxis valueMarginsEnabled={false} />
+                                                                    <Legend
+                                                                        verticalAlignment={"bottom"}
+                                                                        horizontalAlignment={"center"}
+                                                                    />
+                                                                    <Export enabled={true} />
+
+                                                                    <Size width={"100%"} height={380}></Size>
+                                                                </Chart>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                    </React.Fragment>
+                                        );
+                                    }
+                                    }
+
+                                    )}
+                                </div>
+                                {/* control */}
+                                <div className="row text-center mt-4 pt-4">
+                                    {this.state.device.map(dev => {
+                                        if (this.state.togledArea.areaId == dev.areaId) {
+                                            return(
+                                                <div key={dev.id} className='col-md-2  pt-1 pb-2 pl-2 '>
+                                                    <div className="control-item text-center pb-2 pl-2 pr-2 bg-white">
                                                         <div className="w-100 text-right">
 
-                                                            <button onClick={() => this.handlebuttonEdit(sen.id)} className="btn btn-sm btn-outline-primary mt-2 ml-1" style={{borderRadius:"50%"}}><i className="fas fa-exchange-alt"></i></button>
-                                                            <button onClick={() => this.handleDeleteButton(sen.id)} className="btn btn-sm btn-outline-danger mt-2 ml-1" style={{borderRadius:"50%"}}><i className="fas fa-trash-alt"></i></button>
+                                                            <button onClick={() => this.handlebuttonEdit(dev.id)} className="btn btn-sm btn-outline-primary mt-2 ml-1" style={{borderRadius:"50%"}}><i className="fas fa-exchange-alt"></i></button>
+                                                            <button onClick={() => this.handleDeleteButton(dev.id)} className="btn btn-sm btn-outline-danger mt-2 ml-1" style={{borderRadius:"50%"}}><i className="fas fa-trash-alt"></i></button>
 
                                                         </div>
-                                                        <h5 className="josefin-font">{sen.deviceName}</h5>
 
-                                                                <CircularGauge
-                                                                    id="gauge"
-                                                                    value={sen.value}
-                                                                    >
-                                                                    <Scale startValue={sen.minval} endValue={sen.maxval} tickInterval={10}>
-                                                                    <Label useRangeColors={true} />
-                                                                    </Scale>
-                                                                    <RangeContainer >
-                                                                        <Range startValue={sen.minval} endValue={sen.maxval * .33} color={"#D92E2E"}/>
-                                                                        <Range startValue={sen.maxval * .33} endValue={sen.maxval * .66} color={"#ffad7d"} />
-                                                                        <Range startValue={sen.maxval * .66} endValue={sen.maxval} color={"#3BD429"}/>
-                                                                    </RangeContainer>
-                                                                    <Geometry
-                                                                    startAngle={180}
-                                                                    endAngle={0}
-                                                                    ></Geometry>
-                                                                    <Size
-                                                                        width={"50%"}
-                                                                        height={180}
-                                                                    ></Size>
-                                                                </CircularGauge>
-                                                                <h3 className="josefin-font no-space">{sen.value}</h3>
-                                                                <p className="josefin-font no-space">{sen.description}</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className='col-lg-7 pl-0  pt-1 pb-2'>
-                                                        <div className="control-item text-center pb-2 pl-4 pr-4 pt-2 bg-white">
-
-                                                            <Chart
-                                                            palette="Harmony Light"
-                                                            dataSource={sen.sensorlogs}
-                                                            >
-                                                                <CommonSeriesSettings
-                                                                    argumentField={"time"}
-                                                                    type={'splinearea'}
-                                                                />
-                                                                <Series valueField={"value"} name={"Average Per 10 mins"} color={"#0f8d83"}></Series>
-
-                                                                <Margin bottom={20} />
-                                                                <ArgumentAxis valueMarginsEnabled={false} />
-                                                                <Legend
-                                                                    verticalAlignment={"bottom"}
-                                                                    horizontalAlignment={"center"}
-                                                                />
-                                                                <Export enabled={true} />
-
-                                                                <Size width={"100%"} height={380}></Size>
-                                                            </Chart>
-                                                        </div>
+                                                        <h5 className="mt-0 pt-2 josefin-font">{dev.deviceName}</h5>
+                                                        <button onClick={() => this.handleButtonToggle(dev.id)} className="control-item-button"><img src={dev.src} width={"20%"} className="pt-2 pb-2 "></img></button>
+                                                        <p className="pt-2">{dev.description}</p>
                                                     </div>
                                                 </div>
-                                            </div>
-                                </React.Fragment>
-                                    );
-                                }
-                                }
-
-                                )}
-                            </div>
-                            {/* control */}
-                            <div className="row text-center mt-4 pt-4">
-                                {this.state.device.map(dev => {
-                                    if (this.state.togledArea.areaId == dev.areaId) {
-                                        return(
-                                            <div key={dev.id} className='col-md-2  pt-1 pb-2 pl-2 '>
-                                                <div className="control-item text-center pb-2 pl-2 pr-2 bg-white">
-                                                    <div className="w-100 text-right">
-
-                                                        <button onClick={() => this.handlebuttonEdit(dev.id)} className="btn btn-sm btn-outline-primary mt-2 ml-1" style={{borderRadius:"50%"}}><i className="fas fa-exchange-alt"></i></button>
-                                                        <button onClick={() => this.handleDeleteButton(dev.id)} className="btn btn-sm btn-outline-danger mt-2 ml-1" style={{borderRadius:"50%"}}><i className="fas fa-trash-alt"></i></button>
-
-                                                    </div>
-
-                                                    <h5 className="mt-0 pt-2 josefin-font">{dev.deviceName}</h5>
-                                                    <button onClick={() => this.handleButtonToggle(dev.id)} className="control-item-button"><img src={dev.src} width={"20%"} className="pt-2 pb-2 "></img></button>
-                                                    <p className="pt-2">{dev.description}</p>
-                                                </div>
-                                            </div>
-                                        )
+                                            )
+                                        }
+                                        })
                                     }
-                                    })
-                                 }
+                                </div>
                             </div>
-
-
                         </div>
                     </div>
                 </div>
@@ -530,9 +564,15 @@ class MyAreas extends Component {
                             <div className="col-md-12">
                             <form>
                                 <h5 className="text-center josefin-font">Add new device to this area</h5>
-                                <div className="form-group">
+                                {/* <div className="form-group">
                                     <label htmlFor="exampleFormControlInput1">Device ID</label>
                                     <input type="text" className="form-control" id="" placeholder="" onChange={this.addDeviceToArea} defaultValue={this.state.Add.id}/>
+                                </div> */}
+                                <div className="form-group">
+                                    <label htmlFor="exampleFormControlSelect2">Device Name</label>
+                                    <select className="form-control" onClick={this.addDeviceToArea}>
+                                        {this.displayOptions()}
+                                    </select>
                                 </div>
 
                             </form>

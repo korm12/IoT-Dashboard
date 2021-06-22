@@ -15,7 +15,7 @@ body {font-family: "Lato", sans-serif;}
 .sidebar a,p {
   padding: 6px 8px 6px 16px;
   text-decoration: none;
-  font-size: 25px;
+  font-size: large;
   color: #818181;
   display: block;
   border: none;
@@ -26,7 +26,7 @@ body {font-family: "Lato", sans-serif;}
     margin-right: 0;
     margin-left: 0;
     text-decoration: none;
-    font-size: 25px;
+    font-size: large;
     color: #818181;
     /* display: block; */
     border: none;

@@ -80,7 +80,7 @@ class Control extends Component {
             })
 
             alert("Sensor added")
-            // location.reload();
+         location.reload();
         }
         toggleTab(){
 

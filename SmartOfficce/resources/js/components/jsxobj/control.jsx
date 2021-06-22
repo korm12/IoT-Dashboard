@@ -227,7 +227,7 @@ class Control extends Component {
 
 
             this.myInterval = setInterval(()=>{ // this is a sample random data for the sensors
-                for(var i = 0; i < this.state.sensor.length; i++ ){
+                // for(var i = 0; i < this.state.sensor.length; i++ ){
                     axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetSensors",{
                         cancelToken: source.token,
                         headers: {
@@ -258,7 +258,7 @@ class Control extends Component {
 
 
 
-                }
+                // }
 
             } , 2000)
 
@@ -418,13 +418,14 @@ class Control extends Component {
     render() {
         return (
             <React.Fragment>
-                <div className="container-fluid mt-4 mr-4 josefin-font">
+                <div className="container-fluid mt-4 mr-4 josefin-font ">
                     <Tabs activeTab={this.state.activeTab} onChange={(tabId) => this.setState({ activeTab: tabId })} ripple>
                         <Tab><span style={{color:"white"}}>Device</span> </Tab>
                         <Tab><span style={{color:"white"}}>Sensors</span> </Tab>
                     </Tabs>
-                    {this.toggleTab()}
-
+                    <div className="control-area">
+                        {this.toggleTab()}
+                    </div>
                 </div>
 
                 {/* this is the edit modal  */}

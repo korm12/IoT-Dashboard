@@ -1,9 +1,14 @@
 body{
 
     width: 100%;
-    background: #0F2027;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #2C5364, #203A43, #0F2027); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+     background: #0F2027;
+     background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027);
+     background: linear-gradient(to right, #2C5364, #203A43, #0F2027);
+    /* background: #8e9eab;
+    background: -webkit-linear-gradient(to right, #575f66, #8b999c);
+    background: linear-gradient(to right, #575f66, #8b999c); */
+
+
 
 }
 .no-gutter{
@@ -75,10 +80,10 @@ thead{
 button:focus{outline: 0 !important;}
 
 .custom-button{
-    background-color: transparent;
+    background-color: #0f8d83;
     border-radius: 50px;
     border: 1px solid #0f8d83;
-    color: #0f8d83;
+    color: white;
     padding: 5px 10px 5px 10px;
 }
 .custom-button:hover{
@@ -94,4 +99,26 @@ button:focus{outline: 0 !important;}
     padding-bottom: 0 !important;
     margin-top: 0 !important;
 
+}
+.Device-Area{
+    overflow: auto;
+    padding-left: 1%;
+}
+
+html {
+    overflow: scroll;
+    overflow-x: hidden;
+}
+::-webkit-scrollbar {
+    width: 0;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+}
+/* Optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+    background: transparent;
+}
+.control-area{
+    overflow: auto;
+    max-height: 900px;
+    padding-left: 1%;
 }
