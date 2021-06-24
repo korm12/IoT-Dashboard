@@ -27,6 +27,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('/UserRegister', [user_controller::class, 'UserRegister']);
 Route::post('/UserLogin', [user_controller::class, 'UserLogin']);
+Route::post('/UserChangePassword', [user_controller::class, 'UserChangePassword']);
 Route::post('/GetUserProfilePic', [user_controller::class, 'GetUserProfilePic']);
 
 Route::post('/AddNewDevice', [device_controller::class, 'AddNewDevice']);

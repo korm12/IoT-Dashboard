@@ -146,7 +146,7 @@ class MyAreas extends Component {
                 newtoggleArea.areaUser = firstArea.areaUser;
 
                 this.setState({togledArea: newtoggleArea})
-                console.log(this.state.areas)
+                //console.log(this.state.areas)
 
             })
             .catch(function(error){
@@ -167,6 +167,30 @@ class MyAreas extends Component {
             .catch(function(error){
                 console.log(error);
             })
+        axios.get("http://"+process.env.MIX_DATA_ROUTES+"/UnallocatedDev",{
+            // headers: {
+            //     authorization: token
+            // },
+            params:{
+                userId: username,
+            }})
+            .then(response => {
+                var data= response.data;
+                var unallocated = this.state.unallocated;
+                for(var i = 0; i < data.length; i++){
+                    unallocated.push(data[i]);
+                }
+
+                this.setState({unallocated: unallocated});
+
+
+            })
+            .catch(function(error){
+                console.log(error);
+            })
+
+
+
         axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetControlDevice",{
             headers: {
                 authorization: token

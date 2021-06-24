@@ -18,6 +18,17 @@ class user_controller extends Controller
         return $user;
     }
 
+
+    function UserChangePassword(Request $request){
+        $user = User::where('name', $request->username)->first(); // get the user from db
+        if(!$user || !Hash::check($request->password, $user->password)){// check passwords
+            return ["error" => "Password is Incorrect"];
+        }
+        $user->password=Hash::make($request->input('newPassword'));
+        $user->save();
+        return response("Password Change", 201);
+    }
+
     function validationRoute(){
         return "good";
     }

@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Iot</title>
-
+        <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@500&family=Squada+One&display=swap" rel="stylesheet">
 
         {{-- Libraries  --}}
         <script src="{{ asset('lib-ajax/jquery-3.5.1.min.js') }}"></script>

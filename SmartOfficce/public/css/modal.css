@@ -19,10 +19,12 @@
 
 }
 .modal-content{
-    width: 50%;
-    height: fit-content;
+    width: 60%;
+    height: 60%;
     /* background-color: white; */
     border-radius: 10px;
+    padding-left: 2%;
+    padding-right: 2%;
 
 }
 .sign-up{

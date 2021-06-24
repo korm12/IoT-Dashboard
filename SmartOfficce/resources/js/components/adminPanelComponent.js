@@ -29,22 +29,24 @@ function AdminPanelComponent() {
         if(isAuthorized){
             return (
 
-                <div className="container-fluid">
+                <div className="container-fluid h-100">
                     <BrowserRouter>
                         <div className="row">
-                            <div className="col-md-2 no-gutter" >
+                            <div className="no-gutter" >
                                 <Sidebar/>
                             </div>
-                            <div className="col-md-10 ml-0 pl-0 pr-0 mr-0">
-                                <Switch>
-                                    <Route exact path="/dashboard" component = {Dashboard}/>
-                                    <Route  path="/control" component = {Control}/>
-                                    <Route  path="/addDevice" component = {AddDevice}/>
-                                    <Route  path="/myareas" component = {MyAreas}/>
-                                    <Route  path="/manageareas" component = {ManageAreas}/>
-                                    <Route  path="/rules" component = {Rules}/>
-                                    <Route  path="/User" component = {User}/>
-                                </Switch>
+                            <div className="home-section">
+                                <div className="col-md-12 ml-0 pl-0 pr-0 mr-0" style={{height:"100%"}}>
+                                    <Switch>
+                                        <Route exact path="/dashboard" component = {Dashboard}/>
+                                        <Route  path="/control" component = {Control}/>
+                                        <Route  path="/addDevice" component = {AddDevice}/>
+                                        <Route  path="/myareas" component = {MyAreas}/>
+                                        <Route  path="/manageareas" component = {ManageAreas}/>
+                                        <Route  path="/rules" component = {Rules}/>
+                                        <Route  path="/User" component = {User}/>
+                                    </Switch>
+                                </div>
                             </div>
                         </div>
                     </BrowserRouter>

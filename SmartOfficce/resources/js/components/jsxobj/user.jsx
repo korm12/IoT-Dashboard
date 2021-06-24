@@ -21,6 +21,11 @@ class User extends Component {
         this.setState({toggleTab:toggleId})
     }
     handleChangeButton(){
+        if (localStorage.getItem("username") === null) {
+            window.location.replace('/')
+          }
+        var username = window.atob(localStorage.getItem('username'))
+
 
         if(this.state.password == ""){
             alert("your password is empty")
@@ -37,7 +42,25 @@ class User extends Component {
         var r = confirm("Confirm Change password ? ");
         if (r == true) {
             if(this.state.newPassword == this.state.confirmPassword){
-                alert("Password Changed")
+                // alert("Password Changed")
+
+                axios.post('/api/UserChangePassword', {
+                    username: username,
+                    password: this.state.password,
+                    newPassword: this.state.newPassword
+                }).then((response) => {
+                    if(response.data.error){
+
+                        alert(response.data.error);
+                        return;
+                    }
+                    else{
+                        alert(response.data)
+                    }
+                },(error)=> {
+                    console.log(error);
+                });
+                //window.location.replace('/dashboard')
             }
             else if(this.state.newPassword != this.state.confirmPassword){
                 alert("password did not match")

@@ -1,36 +1,46 @@
 body {font-family: "Lato", sans-serif;}
 
 .sidebar {
-  height: 100vh;
+  /* height: 100vh;
   width: 100%;
-  /* position: fixed;
+  position: fixed;
   z-index: 1;
   top: 0;
-  left: 0; */
+  left: 0;
   background-color: #111;
   overflow-x: hidden;
-  padding-top: 16px;
+  padding-top: 16px; */
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 260px;
+  background: #212122;
+  z-index: 100;
+  transition: all 0.5s ease;
 }
 
 .sidebar a,p {
-  padding: 6px 8px 6px 16px;
+  padding: 0 15% 0 15%;
   text-decoration: none;
-  font-size: large;
+  font-size: 1.5em;
   color: #818181;
   display: block;
   border: none;
   background: none;
+  margin-bottom: 10%;
 }
 .dropdown-btn{
-    padding: 6px 8px 6px 16px;
-    margin-right: 0;
-    margin-left: 0;
+    width: 100%;
+    padding: 0 15% 0 15%;
+    text-align: left;
     text-decoration: none;
-    font-size: large;
+    font-size: 1.5em;
     color: #818181;
     /* display: block; */
     border: none;
     background: none;
+    margin-bottom: 10%;
 }
 .sidebar h1 {
     padding: 0;
@@ -66,4 +76,33 @@ body {font-family: "Lato", sans-serif;}
 }
 .dropdown-sublink{
     font-size: 17px;
+    padding-left: 25%;
+}
+.icon-style{
+    font-size:"30px" !important;
+    margin-bottom:"10px";
+}
+.link-name{
+    padding-left: 10%;
+}
+.home-section{
+    position: relative;
+    height: 100vh;
+    left: 260px;
+    width: calc(100% - 260px);
+    transition: all 0.5s ease;
+  }
+
+.logout{
+    position: fixed;
+    bottom: 0;
+    width: 260px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 0;
+    transition: all 0.5s ease;
+    display: block;
+    background-color: black;
+    padding-top: 1%;
 }

@@ -74,27 +74,52 @@ class Sidebar extends Component {
         return (
             <React.Fragment>
                 <div className="sidebar josefin-font">
-                    <h1 className="text-center josefin-font">IoT</h1>
-
+                    {/* <h1 className="text-center josefin-font pt-2">IoT</h1> */}
+                    <div className="w-100 text-center pt-4">
+                        <img src='pictures/icon2.png' alt="logo" width={"30%"} />
+                    </div>
                     <h5 className="text-center josefin-font" style={{color:"#0f8d83", fontSize:"medium"}}>Hi, <i className="fas fa-user" style={{fontSize:"20px",marginBottom:"30px"}}></i> {this.state.username}</h5>
 
-                    <Link to="/dashboard"  onClick={this.changeSb1}><i className="fas fa-chart-line" style={{fontSize:"20px",marginBottom:"10px",color:this.state.sb1}}></i><span style={{color:this.state.sb1}}> Dashboard</span></Link>
-                    <Link to="/control" onClick={this.changeSb2}><i className="fas fa-toggle-off" style={{fontSize:"20px",marginBottom:"10px", color:this.state.sb2}} ></i><span style={{color:this.state.sb2}}> All Devices</span></Link>
-                    <Link to="/addDevice" onClick={this.changeSb3}><i className="fas fa-plus-circle" style={{fontSize:"20px",marginBottom:"10px", color:this.state.sb3}} ></i><span style={{color:this.state.sb3}}> Add Devices</span></Link>
+                    <Link to="/dashboard"  onClick={this.changeSb1}>
+                        <i className="fas fa-chart-line icon-style" style={{color:this.state.sb1}}></i>
+                        <span className="link-name" style={{color:this.state.sb1}}> Dashboard</span>
+                    </Link>
+                    <Link to="/control" onClick={this.changeSb2}>
+                        <i className="fas fa-toggle-off icon-style" style={{ color:this.state.sb2}} ></i>
+                        <span className="link-name" style={{color:this.state.sb2}}> All Devices</span>
+                    </Link>
+                    <Link to="/addDevice" onClick={this.changeSb3}>
+                        <i className="fas fa-plus-circle icon-style" style={{ color:this.state.sb3}} >
+                            </i><span className="link-name" style={{color:this.state.sb3}}> Add Devices</span>
+                    </Link>
 
-                    <button className="dropdown-btn" onClick={this.handleDropdownClick}><i className="fas fa-map-marked-alt" style={{fontSize:"20px",marginBottom:"10px" ,color:this.state.sb4}}  ></i>
-                    <span  style={{color:this.state.sb4}}> Areas</span> &nbsp; <i className="fa fa-caret-down"></i>
+                    <button className="dropdown-btn" onClick={this.handleDropdownClick}>
+                        <i className="fas fa-map-marked-alt icon-style" style={{fontSize:"20px",marginBottom:"10px" ,color:this.state.sb4}}></i>
+                        <span className="link-name" style={{color:this.state.sb4}}> Areas</span>
+                         &nbsp; <i className="fa fa-caret-down"></i>
                     </button>
                     <div className="dropdown-container">
-                        <Link to="/myareas" onClick={this.changeSb5}>&nbsp;&nbsp; <span className="dropdown-sublink"  style={{color:this.state.sb5}}> My Areas </span></Link>
-                        <Link to="/manageareas" onClick={this.changeSb6}>&nbsp;&nbsp; <span className="dropdown-sublink" style={{color:this.state.sb6}}> Manage Areas </span></Link>
-
+                        <Link to="/myareas" onClick={this.changeSb5}>
+                            <span className="dropdown-sublink"  style={{color:this.state.sb5}}> My Areas </span>
+                        </Link>
+                        <Link to="/manageareas" onClick={this.changeSb6}>
+                            <span className="dropdown-sublink" style={{color:this.state.sb6}}> Manage Areas </span>
+                        </Link>
                     </div>
-                    <Link to="/rules" onClick={this.changeSb7}><i className="fas fa-list-alt" style={{fontSize:"20px",marginBottom:"10px", color:this.state.sb7}} ></i><span style={{color:this.state.sb7}}> Rules</span></Link>
-                    <Link to="/user" onClick={this.changeSb8}><i className="fas fa-user-cog" style={{fontSize:"20px",marginBottom:"10px", color:this.state.sb8}} ></i><span style={{color:this.state.sb8}}> Account</span></Link>
+                    <Link to="/rules" onClick={this.changeSb7}>
+                        <i className="fas fa-list-alt icon-style" style={{ color:this.state.sb7}} ></i>
+                        <span className="link-name" style={{color:this.state.sb7}}> Rules</span>
+                    </Link>
+                    <Link to="/user" onClick={this.changeSb8}>
+                        <i className="fas fa-user-cog icon-style" style={{ color:this.state.sb8}} ></i>
+                        <span className="link-name" style={{color:this.state.sb8}}> Account</span>
+                    </Link>
                     <div className="">
                         <div className="logout">
-                            <a onClick={this.handleLogout} href="/"><i className="fas fa-power-off" style={{fontSize:"20px",marginBottom:"10px", marginTop:"100px"}}></i> <span> Logout</span></a>
+                            <a onClick={this.handleLogout} href="/">
+                                <i className="fas fa-power-off icon-style" ></i>
+                                <span className="link-name">  Logout</span>
+                            </a>
                         </div>
                     </div>
 

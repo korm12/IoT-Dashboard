@@ -135,7 +135,7 @@ class ManageAreas extends Component {
         this.state.areas.map(area => {
             return(
 
-                    <tr key={area.areaId}>
+                    <tr key={area.areaId} style={{marginTop:"2px",marginBottom:"2px",fontSize:"1.2em"}}>
                         <th scope="row" className="text-center">{area.areaName}</th>
                         <td className="text-center">{area.areaDescription}</td>
                         <td className="text-center"><button onClick={() => this.handlebuttonEdit(area.areaId)} className="btn btn-sm btn-outline-success mt-2 ml-1"><i className="far fa-edit"></i></button></td>
@@ -160,13 +160,13 @@ class ManageAreas extends Component {
                     </div>
                     <hr style={{marginLeft:"4px", marginRight:"4px"}}/>
                     <div className="row pl-4 pr-4">
-                        <table className="table table-dark">
+                        <table className="table table-dark josefin-font" style={{backgroundColor:"#212122", borderCollapse:'separate', borderSpacing:"1em",borderRadius:"25px"}}>
                             <thead className="text-center ">
-                                <tr>
-                                <th scope="col">Area</th>
-                                <th scope="col">Description</th>
-                                <th scope="col">Edit</th>
-                                <th scope="col">Remove</th>
+                                <tr style={{fontSize:"1.3em"}}>
+                                <th scope="col" style={{borderRadius:"15px"}}>Area</th>
+                                <th scope="col" style={{borderRadius:"15px"}}>Description</th>
+                                <th scope="col" style={{borderRadius:"15px"}}>Edit</th>
+                                <th scope="col" style={{borderRadius:"15px"}}>Remove</th>
                                 </tr>
                             </thead>
                             <tbody>

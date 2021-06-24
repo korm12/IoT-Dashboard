@@ -182,8 +182,6 @@ class Control extends Component {
             if (localStorage.getItem("username") === null) {
                 window.location.replace('/')
               }
-            var percentage = 0;
-            var id = ""
             var username = window.atob(localStorage.getItem('username'))
             var token = "Bearer "+window.atob(localStorage.getItem('token'))
 
