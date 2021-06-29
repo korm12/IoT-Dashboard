@@ -121,11 +121,11 @@ class User extends Component {
                   <div className="container mt-4 josefin-font" style={{paddingTop:"8%"}}>
                       <div className="settings-wrapper">
                         <div className="row">
-                            <div className="col-3 sidebar-setting">
+                            <div className="col-md-2 sidebar-setting">
                                 <button className="btn0 sidebar-item text-center " onClick={() => this.toggleSidebar(0)} >Change Password</button>
                                 {/* <button className="btn1 sidebar-item text-center " onClick={() => this.toggleSidebar(1)}>Change Username</button> */}
                             </div>
-                            <div className="col-9" style={{paddingLeft:"5%", paddingTop:"5%", paddingRight:"5%"}}>
+                            <div className="col-md-10" style={{paddingLeft:"5%", paddingTop:"5%", paddingRight:"5%"}}>
                                 {this.displayToggledArea()}
                             </div>
                         </div>

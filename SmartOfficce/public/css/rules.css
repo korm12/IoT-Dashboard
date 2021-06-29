@@ -4,15 +4,24 @@
     height: auto;
     padding: 5px 5px 5px 5px;
     display: block;
+
 }
-.rule-label div p{
-    font-size: large;
-    color: #0f8d83;
-    text-align: right;
+.rule-label{
+    font-size: medium;
+    color: #0f8d83 !important;
     width: 100%;
-    padding-right: 5px;
+    width: 300px !important;
 }
 
-.rule-value div p{
+.rule{
+    padding-left: 10%;
+}
+
+.rule-value{
+    padding-right: 10%;
+}
+
+.rule-desc{
     font-size: large;
+    font-weight: bolder;
 }

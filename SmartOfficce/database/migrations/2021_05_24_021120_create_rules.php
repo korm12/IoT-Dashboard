@@ -15,17 +15,18 @@ class CreateRules extends Migration
     {
         Schema::create('rules', function (Blueprint $table) {
             $table->bigIncrements('ruleId');
+            $table->string('ruleDescription');
             $table->string('userId');
             $table->string('isActive');
             $table->string('deviceId');
-            $table->string('isMinMax');
-            $table->string('sensorId');
-            $table->integer('minVal');
-            $table->integer('maxVal');
-            $table->string('isTimer');
-            $table->time('from');
-            $table->time('to');
-            $table->timestamp('Date')->nullable();
+            $table->string('isMinMax')->nullable();
+            $table->string('sensorId')->nullable();
+            $table->integer('minVal')->nullable();
+            $table->integer('maxVal')->nullable();
+            $table->string('isTimer')->nullable();
+            $table->time('from')->nullable();
+            $table->time('to')->nullable();
+            $table->timestamp('Date')->useCurrentOnUpdate();
         });
     }
 

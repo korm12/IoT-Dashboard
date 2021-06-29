@@ -478,7 +478,7 @@ class MyAreas extends Component {
                                                                         ></Size>
                                                                     </CircularGauge>
                                                                     <h3 className="josefin-font no-space">{sen.value}</h3>
-                                                                    <p className="josefin-font no-space">{sen.description}</p>
+                                                                    <p className="josefin-font no-space text-truncate">{sen.description}</p>
                                                             </div>
                                                         </div>
                                                         <div className='col-lg-7 pl-0  pt-1 pb-2'>
@@ -531,7 +531,7 @@ class MyAreas extends Component {
 
                                                         <h5 className="mt-0 pt-2 josefin-font">{dev.deviceName}</h5>
                                                         <button onClick={() => this.handleButtonToggle(dev.id)} className="control-item-button"><img src={dev.src} width={"20%"} className="pt-2 pb-2 "></img></button>
-                                                        <p className="pt-2">{dev.description}</p>
+                                                        <p className="pt-2 text-truncate">{dev.description}</p>
                                                     </div>
                                                 </div>
                                             )

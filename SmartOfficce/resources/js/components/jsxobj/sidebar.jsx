@@ -48,7 +48,7 @@ class Sidebar extends Component {
         localStorage.removeItem("token")
     }
     handleDropdownClick(){
-       var active = "#0f8d83";var inactive = "#818181";
+
         if(this.state.hideDropdown1 == 0){
             document.querySelector('.dropdown-container').style.display = 'block';
             this.setState({hideDropdown1:1})

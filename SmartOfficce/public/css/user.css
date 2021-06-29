@@ -11,6 +11,12 @@
     padding: 0 !important;
     margin: 0 !important;
 }
+@media screen and (max-width: 767px) {
+    .sidebar-setting{
+        display: flex;
+        min-height: 0;
+    }
+  }
 .sidebar-item{
     background-color: transparent;
     border: transparent;

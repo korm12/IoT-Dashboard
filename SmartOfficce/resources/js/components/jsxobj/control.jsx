@@ -304,7 +304,7 @@ class Control extends Component {
                          {/* devices */}
                          {this.state.device.map(dev => {
                              return(
-                             <div key={dev.id} className='col-md-2  pt-1 pb-2 ml-0 mr-0 pl-1 pr-1'>
+                             <div key={dev.id} className='col-md-2  pt-1 pb-3 ml-0 mr-0 pl-2 pr-3'>
                                  <div className="control-item text-center pb-2 pl-2 pr-2 bg-white">
                                      <div className="w-100 text-right">
 
@@ -315,7 +315,7 @@ class Control extends Component {
 
                                      <h5 className="mt-0 pt-2 josefin-font">{dev.deviceName}</h5>
                                      <button onClick={() => this.handleButtonToggle(dev.id)} className="control-item-button"  ><img src={dev.src} width={"20%"} className="pt-2 pb-2 "></img></button>
-                                     <p className="pt-2">{dev.description}</p>
+                                     <p className="pt-2 text-truncate">{dev.description}</p>
                                  </div>
                              </div>
                              );
@@ -338,7 +338,7 @@ class Control extends Component {
                                 <div className="col-md-6">
                                     <div className="row">
 
-                                <div className='col-lg-5 pr-0 pt-1 pb-2'>
+                                <div className='col-lg-5 pr-1 pt-1 pb-2 pl-1'>
                                     <div className="control-item text-center pb-2 pl-4 pr-4 pt-2 bg-white">
                                     <div className="w-100 text-right">
 
@@ -369,10 +369,10 @@ class Control extends Component {
                                                     ></Size>
                                                 </CircularGauge>
                                                 <h3 className="josefin-font no-space">{sen.value}</h3>
-                                                <p className="josefin-font no-space ">{sen.description}</p>
+                                                <p className="josefin-font no-space text-truncate">{sen.description}</p>
                                     </div>
                                 </div>
-                                <div className='col-lg-7 pl-0  pt-1 pb-2'>
+                                <div className='col-lg-7 pl-1 pr-2 pt-1 pb-1'>
                                     <div className="control-item text-center pb-2 pl-4 pr-4 pt-2 bg-white">
 
                                         <Chart
@@ -452,7 +452,7 @@ class Control extends Component {
                                 <div className="form-group row">
                                     <label htmlFor="deviceId" className="col-sm-2 col-form-label">Description</label>
                                     <div className="col-sm-10">
-                                    <textarea className="form-control" onChange={this.handleDevicedesChange} defaultValue={this.state.Edit.description} id="deviceId" placeholder="Add description ex. Located at Office A" required></textarea>
+                                    <textarea className="form-control " onChange={this.handleDevicedesChange} defaultValue={this.state.Edit.description} id="deviceId" placeholder="Add description ex. Located at Office A" required></textarea>
 
                                     </div>
                                 </div>

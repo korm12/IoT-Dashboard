@@ -23,8 +23,6 @@
     height: fit-content;
     /* background-color: white; */
     border-radius: 10px;
-
-
 }
 .sign-up{
     height: 60%;
@@ -34,6 +32,27 @@
     padding-left: 2%;
     padding-right: 2%;
 }
+@media screen and (max-width: 767px) {
+    .modal-content{
+        width: 95%;
+        height: fit-content;
+        /* background-color: white; */
+        border-radius: 10px;
+    }
+    .sign-up{
+        width: 85%;
+
+    }
+    .bg-modal8{
+        min-height: 400px;
+        padding-left: 2% !important;
+        padding-right: 2%;
+        width: 100%;
+
+
+    }
+  }
+
 /* sign up close button  */
 .sucb{
     color: #0f8d83;

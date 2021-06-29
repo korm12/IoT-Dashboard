@@ -15,6 +15,7 @@ user-scalable=no">
         <link rel="stylesheet" href="{{ asset('css/bootstrap/fontawesome/css/all.css') }}">
         <link rel="stylesheet" href="{{ asset('css/bootstrap/css2/bootstrap.min.css') }}">
         {{-- css files  --}}
+        <link href="{{ asset('css/navbar.css') }}" rel="stylesheet">
         <link href="{{ asset('css/sidebar.css') }}" rel="stylesheet">
         <link href="{{ asset('css/main.css') }}" rel="stylesheet">
         <link href="{{ asset('css/modal.css') }}" rel="stylesheet">

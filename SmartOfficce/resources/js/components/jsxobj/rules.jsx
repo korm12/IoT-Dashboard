@@ -3,9 +3,11 @@ class Rules extends Component {
     constructor(props){
         super(props)
         this.state = {
+            device:[],
             Rules0: [
 
             ],
+            sensor: [],
             Edit: {
                 isActive: "",
                 ruleId: 0,
@@ -17,20 +19,24 @@ class Rules extends Component {
                 isTimer: 0,
                 from : "",
                 to: "",
+                ruleDescription:""
             },
             Add: {
-                isActive: "",
+                isActive: "yes",
                 ruleId: 0,
-                deviceId : "",
+                deviceId : " ",
                 isMinMax : 0,
-                sensorId : "",
+                sensorId : " ",
                 minVal : 0,
                 maxVal : 0,
                 isTimer: 0,
-                from : "",
-                to: "",
+                from : " ",
+                to: " ",
+                ruleDescription:""
             }
         }
+        this.showDevice = this.showDevice.bind(this)
+        this.showSensor = this.showSensor.bind(this)
 
         this.AddRulesButton = this.AddRulesButton.bind(this)
         this.loadRulesRow =this.loadRulesRow.bind(this)
@@ -48,6 +54,7 @@ class Rules extends Component {
         this.maxValChange = this.maxValChange.bind(this)
         this.isTimerChange = this.isTimerChange.bind(this)
         this.saveEditButton = this.saveEditButton.bind(this)
+        this.ruleDescriptionChange = this.ruleDescriptionChange.bind(this)
 
         this.fromTimeChangedAdd = this.fromTimeChangedAdd.bind(this)
         this.toTimeChangedAdd = this.toTimeChangedAdd.bind(this)
@@ -59,33 +66,37 @@ class Rules extends Component {
         this.maxValChangeAdd = this.maxValChangeAdd.bind(this)
         this.isTimerChangeAdd = this.isTimerChangeAdd.bind(this)
         this.saveAddButtonAdd = this.saveAddButtonAdd.bind(this)
+        this.ruleDescriptionAdd = this.ruleDescriptionAdd.bind(this)
     }
     AddRulesButton(){
         console.log("Add rules")
         document.querySelector('.bg-modal7').style.display = 'flex';
     }
+
+
+
     // edit
     fromTimeChanged(event){var Edit = this.state.Edit; var data = event.target.value; Edit.from = data;this.setState({Edit: Edit});}
     toTimeChanged(event){var Edit = this.state.Edit; var data = event.target.value; Edit.to = data;this.setState({Edit: Edit});}
     isActiveChange(event){var Edit = this.state.Edit; var data = event.target.value; Edit.isActive = data;this.setState({Edit: Edit});}
-    deviceIdChange(event){var Edit = this.state.Edit; var data = event.target.value; Edit.deviceId = data;this.setState({Edit: Edit});}
+    deviceIdChange(event){var Edit = this.state.Edit; var data = event.target.value; Edit.deviceId = data;this.setState({Edit: Edit}); }
     isMinMaxChange(event){var Edit = this.state.Edit; var data = event.target.value; Edit.isMinMax = data;this.setState({Edit: Edit});}
     sensorIdChange(event){var Edit = this.state.Edit; var data = event.target.value; Edit.sensorId = data;this.setState({Edit: Edit});}
     minValChange(event){var Edit = this.state.Edit;var data = event.target.value;Edit.minVal = data;this.setState({Edit: Edit});}
     maxValChange(event){var Edit = this.state.Edit; var data = event.target.value; Edit.maxVal = data;this.setState({Edit: Edit});}
     isTimerChange(event){var Edit = this.state.Edit; var data = event.target.value; Edit.isTimer = data;this.setState({Edit: Edit});}
-
+    ruleDescriptionChange(event){var Edit = this.state.Edit; var data = event.target.value; Edit.ruleDescription = data;this.setState({Edit: Edit}); }
     // add
     fromTimeChangedAdd(event){var Add = this.state.Add; var data = event.target.value; Add.from = data;this.setState({Add: Add});}
     toTimeChangedAdd(event){var Add = this.state.Add; var data = event.target.value; Add.to = data;this.setState({Add: Add});}
     isActiveChangeAdd(event){var Add = this.state.Add; var data = event.target.value; Add.isActive = data;this.setState({Add: Add});}
-    deviceIdChangeAdd(event){var Add = this.state.Add; var data = event.target.value; Add.deviceId = data;this.setState({Add: Add});}
+    deviceIdChangeAdd(event){var Add = this.state.Add; var data = event.target.value; Add.deviceId = data;this.setState({Add: Add}); console.log(this.state.Add)}
     isMinMaxChangeAdd(event){var Add = this.state.Add; var data = event.target.value; Add.isMinMax = data;this.setState({Add: Add});}
     sensorIdChangeAdd(event){var Add = this.state.Add; var data = event.target.value; Add.sensorId = data;this.setState({Add: Add});}
     minValChangeAdd(event){var Add = this.state.Add;var data = event.target.value;Add.minVal = data;this.setState({Add: Add});}
     maxValChangeAdd(event){var Add = this.state.Add; var data = event.target.value; Add.maxVal = data;this.setState({Add: Add});}
     isTimerChangeAdd(event){var Add = this.state.Add; var data = event.target.value; Add.isTimer = data;this.setState({Add: Add});}
-
+    ruleDescriptionAdd(event){var Add = this.state.Add; var data = event.target.value; Add.ruleDescription = data;this.setState({Add: Add});}
 
 
     saveEditButton(){
@@ -105,6 +116,7 @@ class Rules extends Component {
                 Rules0[i].isTimer = Edit.isTimer
                 Rules0[i].from = Edit.from
                 Rules0[i].to = Edit.to
+                Rules0[i].ruleDescription = Edit.ruleDescription
             }
         }
 
@@ -118,8 +130,10 @@ class Rules extends Component {
             maxVal: this.state.Edit.maxVal,
             isTimer: this.state.Edit.isTimer,
             from: this.state.Edit.from,
-            to: this.state.Edit.to
+            to: this.state.Edit.to,
+            ruleDescription: this.state.Edit.ruleDescription
         })
+        console.log(this.state.Edit)
         location.reload()
         // this.setState({Rules0: Rules0})
     }
@@ -140,7 +154,8 @@ class Rules extends Component {
             maxVal: this.state.Add.maxVal,
             isTimer: this.state.Add.isTimer,
             from: this.state.Add.from,
-            to: this.state.Add.to
+            to: this.state.Add.to,
+            ruleDescription: this.state.Add.ruleDescription
         }).then((response) => {
             if(response.data.error){
 
@@ -150,14 +165,15 @@ class Rules extends Component {
             console.log(error);
         });
         alert("New Rule is Added")
-        location.reload()
+        // console.log(this.state.Add)
+        //location.reload()
         // this.setState({Rules0: Rules0})
 
 
     }
 
     editRule(id){
-        console.log(id)
+        // console.log(id)
         document.querySelector('.bg-modal6').style.display = 'flex';
 
         var ruleId ;
@@ -168,7 +184,7 @@ class Rules extends Component {
         var from ="";
         var to="";
         var isActive="";
-
+        var ruleDescription=""
         for( var i = 0; i < this.state.Rules0.length; i++ ){
             if(this.state.Rules0[i].ruleId == id ){
 
@@ -182,6 +198,7 @@ class Rules extends Component {
                 from = this.state.Rules0[i].from;
                 to = this.state.Rules0[i].to;
                 isActive = this.state.Rules0[i].isActive;
+                ruleDescription = this.state.Rules0[i].ruleDescription;
             }
         }
         this.setState(prevState => {
@@ -196,6 +213,7 @@ class Rules extends Component {
             Edit.from = from;
             Edit.to = to;
             Edit.isActive = isActive;
+            Edit.ruleDescription = ruleDescription;
             return { Edit };                                 // return new object object
           })  // saving the edi
 
@@ -229,6 +247,39 @@ class Rules extends Component {
         var username = window.atob(localStorage.getItem('username'))
         var token = "Bearer "+window.atob(localStorage.getItem('token'))
         var username = window.atob(localStorage.getItem('username'))
+
+        axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetSensors",{
+            headers: {
+                authorization: token
+            },
+            params:{
+                userId: username,
+            }})
+            .then(response => {
+                var data= response.data;
+                this.setState({sensor: data});
+            })
+            .catch(function(error){
+                console.log(error);
+            })
+
+        axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetControlDevice",{
+        headers: {
+            authorization: token
+        },
+        params:{
+            userId: username,
+        }})
+        .then(response => {
+            var data= response.data;
+
+            this.setState({device: data});
+            // console.log(this.state.device)
+
+        })
+        .catch(function(error){
+            console.log(error);
+        })
         axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetRules",{
             headers: {
                 authorization: token
@@ -240,6 +291,7 @@ class Rules extends Component {
                 var data= response.data;
 
                 this.setState({Rules0: data});
+                // console.log(this.state.Rules0)
 
             })
             .catch(function(error){
@@ -250,40 +302,76 @@ class Rules extends Component {
         this._isMounted = false;
     }
 
+    showDevice(){
+        return(
+            this.state.device.map(dev => {
+                return(
+                    <option key={dev.id} value={dev.id}>{dev.deviceName}</option>
+                )
+            })
+        )
+    }
+    showSensor(){
+        return(
+            this.state.sensor.map(sen => {
+                return(
+                    <option key={sen.id} value={sen.id}>{sen.deviceName}</option>
+                )
+            })
+        )
+    }
+
     loadRulesRow(){
         return(
         this.state.Rules0.map(rule => {
             return(
                 <React.Fragment key={rule.ruleId}>
 
-                    <div className="col-md-3 rule-container"  >
+                    <div className="col-lg-3 rule-container"  >
                         <div className="bg-white pl-1 pr-1" style={{borderRadius:"20px"}}>
                             <div className="text-right">
                                 <button onClick={() => this.editRule(rule.ruleId)} className="btn btn-sm btn-outline-success mt-2 ml-1" style={{borderRadius:"50%"}}><i className="far fa-edit"></i></button>
                                 <button onClick={() => this.deleteRule(rule.ruleId)} className="btn btn-sm btn-outline-danger mt-2 ml-1" style={{borderRadius:"50%"}}><i className="fas fa-trash-alt"></i></button>
                             </div>
+                            <p className="text-gray pl-4 pr-4 rule-desc josefin-font">{rule.ruleDescription}</p>
                             <div className="row">
-                                <div className="col-md-6 w-100 d-block rule-label">
-                                    <div className="row"><p className="d-inline">Rule is Active ?: </p></div>
-                                    <div className="row"><p className="d-inline">Device Id: </p></div>
-                                    <div className="row"><p className="d-inline">Use Sensor ?: </p></div>
-                                    <div className="row"><p className="d-inline">Sensor Id: </p></div>
-                                    <div className="row"><p className="d-inline">Minimum Value: </p></div>
-                                    <div className="row"><p className="d-inline">Maximum Value: </p></div>
-                                    <div className="row"><p className="d-inline">Use Timer ?: </p></div>
-                                    <div className="row"><p className="d-inline">Start Time: </p></div>
-                                    <div className="row"><p className="d-inline">End Time: </p></div>
-                                </div>
-                                <div className="col-md-6 w-100 rule-value">
-                                    <div className="row"><p className="">&nbsp;{rule.isActive}</p></div>
-                                    <div className="row"><p className="">&nbsp;{rule.deviceId}</p></div>
-                                    <div className="row"><p className="">&nbsp;{rule.isMinMax}</p></div>
-                                    <div className="row"><p className="">&nbsp;{rule.sensorId}</p></div>
-                                    <div className="row"><p className="">&nbsp;{rule.minVal}</p></div>
-                                    <div className="row"><p className="">&nbsp;{rule.maxVal}</p></div>
-                                    <div className="row"><p className="">&nbsp;{rule.isTimer}</p></div>
-                                    <div className="row"><p className="">&nbsp;{rule.from}</p></div>
-                                    <div className="row"><p className="">&nbsp;{rule.to}</p></div>
+                                <div className="col-lg-12 d-block rule">
+                                    <div className="d-flex">
+                                        <p className="rule-label"> Rule is Active ?: </p>
+                                        <p className="rule-value">{rule.isActive}</p>
+                                    </div>
+                                    <div className="d-flex">
+                                        <p className="rule-label">Device Id: </p>
+                                        <p className="rule-value">{rule.deviceId}</p>
+                                    </div>
+                                    <div className="d-flex">
+                                        <p className="rule-label">Use Sensor ?: </p>
+                                        <p className="rule-value">{rule.isMinMax}</p>
+                                    </div>
+                                    <div className="d-flex">
+                                        <p className="rule-label">Sensor Id: </p>
+                                        <p className="rule-value">{rule.sensorId}</p>
+                                    </div>
+                                    <div className="d-flex">
+                                        <p className="rule-label">Minimum Value: </p>
+                                        <p className="rule-value">{rule.minVal}</p>
+                                    </div>
+                                    <div className="d-flex">
+                                        <p className="rule-label">Maximum Value: </p>
+                                        <p className="rule-value">{rule.maxVal}</p>
+                                    </div>
+                                    <div className="d-flex">
+                                        <p className="rule-label">Use Timer ?: </p>
+                                        <p className="rule-value">{rule.isTimer}</p>
+                                    </div>
+                                    <div className="d-flex">
+                                        <p className="rule-label">Start Time: </p>
+                                        <p className="rule-value">{rule.from}</p>
+                                    </div>
+                                    <div className="d-flex">
+                                        <p className="rule-label">End Time: </p>
+                                        <p className="rule-value">{rule.to}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -329,7 +417,13 @@ class Rules extends Component {
                         <div className="row mt-2">
                             <div className="col-md-12">
                             <form>
-                            <div className="form-group row">
+                                <div className="form-group row">
+                                    <label className="col-sm-3 col-form-label" htmlFor="exampleFormControlTextarea1">Rule Description</label>
+                                    <div className="col-sm-9">
+                                        <textarea className="form-control" id="exampleFormControlTextarea1" rows="3" onChange={this.ruleDescriptionChange} value={this.state.Edit.ruleDescription}></textarea>
+                                    </div>
+                                </div>
+                                <div className="form-group row">
                                     <label className="col-sm-3 col-form-label" htmlFor="exampleFormControlSelect1">isActive</label>
                                     <div className="col-sm-9">
                                         <select className="form-control" onChange={this.isActiveChange} id="" value={this.state.Edit.isActive} >
@@ -361,13 +455,11 @@ class Rules extends Component {
                                 </div>
                                 <div className="form-group row">
                                     <label  className="col-sm-3 col-form-label" htmlFor="deviceName">Min</label>
-                                    <div className="col-sm-9">
+                                    <div className="col-sm-3">
                                         <input type="number" onChange={this.minValChange} min={0} max={100} className="form-control" id="deviceName" required value={this.state.Edit.minVal}/>
                                     </div>
-                                </div>
-                                <div className="form-group row">
                                     <label  className="col-sm-3 col-form-label" htmlFor="deviceName">Max</label>
-                                    <div className="col-sm-9">
+                                    <div className="col-sm-3">
                                         <input type="number" onChange={this.maxValChange} min={0} max={100} className="form-control" id="deviceName" value={this.state.Edit.maxVal}  required />
                                     </div>
                                 </div>
@@ -382,13 +474,11 @@ class Rules extends Component {
                                 </div>
                                 <div className="form-group row">
                                     <label  className="col-sm-3 col-form-label" htmlFor="deviceName">From</label>
-                                    <div className="col-sm-9">
+                                    <div className="col-sm-3">
                                         <input type="time" onChange={this.fromTimeChanged} className="form-control" id="" required defaultValue={this.state.Edit.from}/>
                                     </div>
-                                </div>
-                                <div className="form-group row">
                                     <label  className="col-sm-3 col-form-label" htmlFor="deviceName">To</label>
-                                    <div className="col-sm-9">
+                                    <div className="col-sm-3">
                                         <input type="time" onChange={this.toTimeChanged} className="form-control" id="" required defaultValue={this.state.Edit.to}/>
                                     </div>
                                 </div>
@@ -414,7 +504,13 @@ class Rules extends Component {
                         <div className="row mt-2">
                             <div className="col-md-12">
                             <form>
-                            <div className="form-group row">
+                                <div className="form-group row">
+                                    <label className="col-sm-3 col-form-label" htmlFor="exampleFormControlTextarea1">Rule Description</label>
+                                    <div className="col-sm-9">
+                                        <textarea className="form-control" id="exampleFormControlTextarea1" rows="3" onChange={this.ruleDescriptionAdd} value={this.state.Add.ruleDescription}></textarea>
+                                    </div>
+                                </div>
+                                <div className="form-group row">
                                     <label className="col-sm-3 col-form-label" htmlFor="exampleFormControlSelect1">isActive</label>
                                     <div className="col-sm-9">
                                         <select className="form-control" onChange={this.isActiveChangeAdd} id="" value={this.state.Add.isActive} >
@@ -425,9 +521,13 @@ class Rules extends Component {
                                 </div>
                                 <div className="form-group row">
                                     <label  className="col-sm-3 col-form-label" htmlFor="deviceName">Device Id</label>
+
                                     <div className="col-sm-9">
-                                        <input type="text" onChange={this.deviceIdChangeAdd} className="form-control" id="deviceName" required defaultValue={this.state.Add.deviceId} />
+                                        <select className="form-control" onChange={this.deviceIdChangeAdd} id="" value={this.state.Add.deviceId} >
+                                            {this.showDevice()}
+                                        </select>
                                     </div>
+
                                 </div>
                                 <div className="form-group row">
                                     <label className="col-sm-3 col-form-label" htmlFor="exampleFormControlSelect1">Use Sensor ?</label>
@@ -441,18 +541,18 @@ class Rules extends Component {
                                 <div className="form-group row">
                                     <label  className="col-sm-3 col-form-label" htmlFor="deviceName">Sensor Id</label>
                                     <div className="col-sm-9">
-                                        <input type="text" onChange={this.sensorIdChangeAdd} className="form-control" id="deviceName" required defaultValue={this.state.Add.sensorId} />
+                                        <select className="form-control" onChange={this.deviceIdChangeAdd} id="" value={this.state.Add.sensorId} >
+                                            {this.showSensor()}
+                                        </select>
                                     </div>
                                 </div>
                                 <div className="form-group row">
                                     <label  className="col-sm-3 col-form-label" htmlFor="deviceName">Min</label>
-                                    <div className="col-sm-9">
+                                    <div className="col-sm-3">
                                         <input type="number" onChange={this.minValChangeAdd} min={0} max={100} className="form-control" id="deviceName" required value={this.state.Add.minVal}/>
                                     </div>
-                                </div>
-                                <div className="form-group row">
                                     <label  className="col-sm-3 col-form-label" htmlFor="deviceName">Max</label>
-                                    <div className="col-sm-9">
+                                    <div className="col-sm-3">
                                         <input type="number" onChange={this.maxValChangeAdd} min={0} max={100} className="form-control" id="deviceName" value={this.state.Add.maxVal}  required />
                                     </div>
                                 </div>
@@ -467,13 +567,11 @@ class Rules extends Component {
                                 </div>
                                 <div className="form-group row">
                                     <label  className="col-sm-3 col-form-label" htmlFor="deviceName">From</label>
-                                    <div className="col-sm-9">
+                                    <div className="col-sm-3">
                                         <input type="time" onChange={this.fromTimeChangedAdd} className="form-control" id="" required defaultValue={this.state.Add.from}/>
                                     </div>
-                                </div>
-                                <div className="form-group row">
                                     <label  className="col-sm-3 col-form-label" htmlFor="deviceName">To</label>
-                                    <div className="col-sm-9">
+                                    <div className="col-sm-3">
                                         <input type="time" onChange={this.toTimeChangedAdd} className="form-control" id="" required defaultValue={this.state.Add.to}/>
                                     </div>
                                 </div>

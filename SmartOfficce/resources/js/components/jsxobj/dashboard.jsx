@@ -196,26 +196,26 @@ class Dashboard extends Component {
             <React.Fragment>
                 <div className="container-fluid mt-4 pt-4">
                     <div className="row">
-                        <div className="col-md-3">
+                        <div className="col-md-3 mb-1">
                             <div className=" w-100"style={{borderRadius:"15px", backgroundColor:"#ADD8E6",padding:"10px"}}>
                                 <h5 className="josefin-font"><i className="fas fa-tachometer-alt pl-4" style={{fontSize:"120%"}}></i> Sensors</h5>
                                 <h5 className="josefin-font text-right pr-4"> {this.state.sensors}</h5>
                             </div>
                         </div>
-                        <div className="col-md-3">
+                        <div className="col-md-3 mb-1">
                             <div className=" w-100"style={{borderRadius:"15px",backgroundColor:"#FFFF99",padding:"10px" }}>
                                 <h5 className="josefin-font"><i className="fas fa-robot pl-4" style={{fontSize:"120%"}}></i> Devices</h5>
                                 <h5 className=" josefin-font text-right pr-4"> {this.state.device}</h5>
                             </div>
                         </div>
 
-                        <div className="col-md-3">
+                        <div className="col-md-3 mb-1">
                             <div className=" w-100"style={{borderRadius:"15px", backgroundColor:"#90EE90",padding:"10px"}}>
                                 <h5 className="josefin-font"><i className="fas fa-list-alt pl-4" style={{fontSize:"120%"}}></i> Rules</h5>
                                 <h5 className="josefin-font text-right pr-4"> {this.state.rules}</h5>
                             </div>
                         </div>
-                        <div className="col-md-3">
+                        <div className="col-md-3 mb-1">
                             <div className=" w-100"style={{borderRadius:"15px", backgroundColor:"#ffcccb",padding:"10px"}}>
                                 <h5 className="josefin-font"><i className="fas fa-map-marked-alt pl-4" style={{fontSize:"120%"}}></i> Areas</h5>
                                 <h5 className="josefin-font text-right pr-4"> {this.state.areas}</h5>
@@ -229,7 +229,7 @@ class Dashboard extends Component {
                                     <h5 className="ml-2 pt-2 pb-2 josefin-font" style={{color:"white"}}>Activity and Notification</h5>
                                 </div>
                                 <div className="col-md-6 text-right pt-4">
-                                    <button className="josefin-font custom-button mt-2" onClick={this.clearNotification}> Clear Notification </button>
+                                    <button className="josefin-font custom-button mt-2 mb-1" onClick={this.clearNotification}> Clear Notification </button>
                                 </div>
                             </div>
                                 <div className="notif-area" style={{borderRadius:"20px"}}>
