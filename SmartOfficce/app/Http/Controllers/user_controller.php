@@ -49,6 +49,11 @@ class user_controller extends Controller
 
         //return $user;
     }
+
+    function logout(Request $request){
+        $user = User::where('name', $request->username)->first();
+        $user->tokens()->where('tokenable_id', $user->id)->delete();
+    }
     function GetUserProfilePic(Request $request){
         $user = User::where('name', $request->username)->first();
 

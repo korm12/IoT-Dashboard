@@ -48,6 +48,7 @@ class rules_controller extends Controller
             $ruleDescription = $request->input('ruleDescription');
             $isActive = $request->input('isActive');
             $deviceId = $request->input('deviceId');
+            $deviceStat = $request->input('deviceStat');
             $isMinMax = $request->input('isMinMax');
             $sensorId = $request->input('sensorId');
             $minVal = $request->input('minVal');
@@ -56,7 +57,7 @@ class rules_controller extends Controller
             $from = $request->input('from');
             $to = $request->input('to');
 
-            DB::INSERT('INSERT into rules (userId,ruleDescription, isActive, deviceId, isMinMax, sensorId, minVal, maxVal, isTimer, `from`, `to` ) VALUES (?,?,?,?,?,?,?,?,?,?,?) ', [ $userId ,$ruleDescription, $isActive, $deviceId, $isMinMax, $sensorId, $minVal, $maxVal, $isTimer, $from, $to ] );
+            DB::INSERT('INSERT into rules (userId,ruleDescription, isActive, deviceId, isMinMax, sensorId, minVal, maxVal, isTimer, `from`, `to` ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?) ', [ $userId ,$ruleDescription, $isActive, $deviceId,$deviceStat, $isMinMax, $sensorId, $minVal, $maxVal, $isTimer, $from, $to ] );
 
             //return response()->json(['message'=>'Data received'], 200);
         }else {
@@ -84,6 +85,7 @@ class rules_controller extends Controller
             $ruleId = $request->input('ruleId');
             $isActive = $request->input('isActive');
             $deviceId = $request->input('deviceId');
+            $deviceStat = $request->input('deviceStat');
             $ruleDescription = $request->input('ruleDescription');
             $isMinMax = $request->input('isMinMax');
             $sensorId = $request->input('sensorId');
@@ -92,7 +94,7 @@ class rules_controller extends Controller
             $isTimer = $request->input('isTimer');
             $from = $request->input('from');
             $to = $request->input('to');
-            DB::UPDATE('UPDATE rules SET ruleDescription=?, isActive=?, deviceId=?, isMinMax=?, sensorId=?, minVal=?, maxVal=?, isTimer=?, `from`=?, `to`=? where ruleId= ? ', [$ruleDescription, $isActive, $deviceId ,$isMinMax,$sensorId ,$minVal , $maxVal,$isTimer ,$from ,$to , $ruleId] );
+            DB::UPDATE('UPDATE rules SET ruleDescription=?, isActive=?, deviceId=?,deviceStat=?, isMinMax=?, sensorId=?, minVal=?, maxVal=?, isTimer=?, `from`=?, `to`=? where ruleId= ? ', [$ruleDescription, $isActive, $deviceId, $deviceStat ,$isMinMax,$sensorId ,$minVal , $maxVal,$isTimer ,$from ,$to , $ruleId] );
 
             return response()->json(['message'=>'Data received'], 200);
         }else {

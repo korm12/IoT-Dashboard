@@ -19,6 +19,7 @@ class CreateRules extends Migration
             $table->string('userId');
             $table->string('isActive');
             $table->string('deviceId');
+            $table->integer('deviceStat')->default(0);
             $table->string('isMinMax')->nullable();
             $table->string('sensorId')->nullable();
             $table->integer('minVal')->nullable();

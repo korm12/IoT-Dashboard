@@ -43,9 +43,14 @@ class Sidebar extends Component {
     }
 
     handleLogout(){
+        var username = window.atob(localStorage.getItem('username'))
         alert("logout")
         localStorage.removeItem("username")
         localStorage.removeItem("token")
+        axios.post('/api/logout', {
+            username:username,
+            currentAccessToken:window.atob(localStorage.getItem('token')),
+        })
     }
     handleDropdownClick(){
 

@@ -33,6 +33,7 @@
     padding-right: 2%;
 }
 @media screen and (max-width: 767px) {
+
     .modal-content{
         width: 95%;
         height: fit-content;
