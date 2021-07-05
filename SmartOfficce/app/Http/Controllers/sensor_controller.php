@@ -188,7 +188,8 @@ class sensor_controller extends Controller
                 if($data[$i]->deviceStat == 0)$counterStat = 1;
                 elseif($data[$i]->deviceStat == 1)$counterStat = 0; // declare a oposite value of the device stat when the condition is failed
                 if($data[$i]->isActive =="yes" && $data[$i]->isMinMax == "yes" && $data[$i]->minVal <= $value && $data[$i]->maxVal >= $value ){
-                    echo $data[$i]->deviceId," : ",$data[$i]->deviceStat;
+                    //echo $data[$i]->deviceId," : ",$data[$i]->deviceStat;
+                    $result = DB::SELECT("SELECT status FROM devices where id = ?", [($data[$i]->deviceId)]);
                     $src = "";
                     $stat = "";
                     if($data[$i]->deviceStat == 1){
@@ -200,12 +201,16 @@ class sensor_controller extends Controller
                         $stat = "on";
                     }
                     $message = $data[$i]->ruleDescription . " has activated, Device stat " . $stat;
-                    DB::UPDATE('UPDATE devices SET status = ?, src =?  where id= ? ', [$data[$i]->deviceStat , $src , $data[$i]->deviceId] );
-                  //  DB::INSERT('INSERT into logs (notifCode,`message`,userId  ) VALUES (?,?,?) ', [ 1, $message , $data[$i]->userId ] );
+                    if(!$data[$i]->deviceStat == $result[0]->status){
+                        DB::UPDATE('UPDATE devices SET status = ?, src =?  where id= ? ', [$data[$i]->deviceStat , $src , $data[$i]->deviceId] );
+                        DB::INSERT('INSERT into logs (notifCode,`message`,userId  ) VALUES (?,?,?) ', [ 1, $message , $data[$i]->userId ] );
+                    }
+                    // echo $data[$i]->deviceStat, " ; ", $result[0]->status;
 
                 }
                 elseif($data[$i]->isActive =="yes" && $data[$i]->isMinMax == "yes" && ($data[$i]->minVal > $value || $data[$i]->maxVal < $value )){
-                    echo $data[$i]->deviceId," : ",$counterStat;
+                    //echo $data[$i]->deviceId," : ",$counterStat;
+                    $result = DB::SELECT("SELECT status FROM devices where id = ?", [($data[$i]->deviceId)]);
                     if($counterStat == 1){
                         $src = $srcOff;
                         $stat = "off";
@@ -214,9 +219,13 @@ class sensor_controller extends Controller
                         $src = $srcOn;
                         $stat = "on";
                     }
-                    $message = $data[$i]->ruleDescription . " has activated, Device stat " . $stat;
-                    DB::UPDATE('UPDATE devices SET status = ?, src =?  where id= ? ', [$counterStat , $src , $data[$i]->deviceId] );
-                   // DB::INSERT('INSERT into logs (notifCode,`message`,userId  ) VALUES (?,?,?) ', [ 1, $message , $data[$i]->userId ] );
+                    if(!$counterStat == $result[0]->status){
+                        $message = $data[$i]->ruleDescription . " has activated, Device stat " . $stat;
+                        DB::UPDATE('UPDATE devices SET status = ?, src =?  where id= ? ', [$counterStat , $src , $data[$i]->deviceId] );
+                        DB::INSERT('INSERT into logs (notifCode,`message`,userId  ) VALUES (?,?,?) ', [ 1, $message , $data[$i]->userId ] );
+                    }
+                    // echo $counterStat, " ; ", $result[0]->status;
+
                 }
 
 
