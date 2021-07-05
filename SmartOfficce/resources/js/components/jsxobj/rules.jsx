@@ -97,19 +97,19 @@ class Rules extends Component {
         else if(data == "no")document.querySelector('.use-timer2').style.display = 'none';
     }
     ruleDescriptionChange(event){var Edit = this.state.Edit; var data = event.target.value; Edit.ruleDescription = data;this.setState({Edit: Edit}); }
-    deviceStatEdit(event){var Edit = this.state.Edit; var data = event.target.value; Edit.deviceStat = data;this.setState({Edit: Edit}); console.log(this.state.Edit.deviceStat)}
+    deviceStatEdit(event){var Edit = this.state.Edit; var data = event.target.value; Edit.deviceStat = data;this.setState({Edit: Edit}); }
 
 
     // add
     fromTimeChangedAdd(event){var Add = this.state.Add; var data = event.target.value; Add.from = data;this.setState({Add: Add});}
     toTimeChangedAdd(event){var Add = this.state.Add; var data = event.target.value; Add.to = data;this.setState({Add: Add});}
     isActiveChangeAdd(event){var Add = this.state.Add; var data = event.target.value; Add.isActive = data;this.setState({Add: Add});}
-    deviceIdChangeAdd(event){var Add = this.state.Add; var data = event.target.value; Add.deviceId = data;this.setState({Add: Add}); console.log(this.state.Add)}
+    deviceIdChangeAdd(event){var Add = this.state.Add; var data = event.target.value; Add.deviceId = data;this.setState({Add: Add}); }
     isMinMaxChangeAdd(event){var Add = this.state.Add; var data = event.target.value; Add.isMinMax = data;this.setState({Add: Add});
         if(data == "yes")document.querySelector('.use-sensor').style.display = 'block';
         else if(data == "no")document.querySelector('.use-sensor').style.display = 'none';
     }
-    sensorIdChangeAdd(event){var Add = this.state.Add; var data = event.target.value; Add.sensorId = data;this.setState({Add: Add}); console.log(this.state.Add)}
+    sensorIdChangeAdd(event){var Add = this.state.Add; var data = event.target.value; Add.sensorId = data;this.setState({Add: Add}); }
     minValChangeAdd(event){var Add = this.state.Add;var data = event.target.value;Add.minVal = data;this.setState({Add: Add});}
     maxValChangeAdd(event){var Add = this.state.Add; var data = event.target.value; Add.maxVal = data;this.setState({Add: Add});}
     isTimerChangeAdd(event){var Add = this.state.Add; var data = event.target.value; Add.isTimer = data;this.setState({Add: Add});
@@ -155,7 +155,7 @@ class Rules extends Component {
             to: this.state.Edit.to,
             ruleDescription: this.state.Edit.ruleDescription
         })
-        console.log(this.state.Edit)
+        //console.log(this.state.Edit)
         location.reload()
         // this.setState({Rules0: Rules0})
     }
@@ -245,12 +245,13 @@ class Rules extends Component {
             Edit.ruleDescription = ruleDescription;
             return { Edit };                                 // return new object object
           })  // saving the edi
-          console.log(isMinMax)
+          //console.log(this.state.Edit.deviceId)
         if(isMinMax == "yes")document.querySelector('.use-sensor2').style.display = 'block';
         else if(isMinMax == "no")document.querySelector('.use-sensor2').style.display = 'none';
 
-        if(isTimer == "yes")document.querySelector('.use-timer2').style.display = 'flex';
-        else if(isTimer == "no")document.querySelector('.use-timer2').style.display = 'none';
+
+        // if(isTimer == "yes")document.querySelector('.use-timer2').style.display = 'flex';
+        // else if(isTimer == "no")document.querySelector('.use-timer2').style.display = 'none';
 
     }
     closeEditRuleModal(){
@@ -261,7 +262,7 @@ class Rules extends Component {
 
         var r = confirm("Do you really want to rule ?");
         if (r == true) {
-            console.log(id);
+            //console.log(id);
             axios.post('/api/DeleteRule', {
                 ruleId: id
             })
@@ -395,7 +396,7 @@ class Rules extends Component {
                                         <p className="rule-label">Maximum Value: </p>
                                         <p className="rule-value">{rule.maxVal}</p>
                                     </div>
-                                    <div className="d-flex">
+                                    {/* <div className="d-flex">
                                         <p className="rule-label">Use Timer ?: </p>
                                         <p className="rule-value">{rule.isTimer}</p>
                                     </div>
@@ -406,7 +407,7 @@ class Rules extends Component {
                                     <div className="d-flex">
                                         <p className="rule-label">End Time: </p>
                                         <p className="rule-value">{rule.to}</p>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                         </div>
@@ -470,7 +471,7 @@ class Rules extends Component {
                                 <div className="form-group row">
                                     <label  className="col-sm-3 col-form-label" htmlFor="deviceName">Device Id</label>
                                     <div className="col-sm-4">
-                                        <input type="text" onChange={this.deviceIdChange} className="form-control" id="deviceName" required defaultValue={this.state.Edit.deviceId} />
+                                        <input type="text" onChange={this.deviceIdChange} className="form-control" id="deviceName" required value={this.state.Edit.deviceId} />
                                     </div>
                                     <label className="col-sm-3 col-form-label" htmlFor="exampleFormControlSelect1">Device Status:</label>
                                     <div className="col-sm-2">
@@ -510,7 +511,7 @@ class Rules extends Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="form-group row">
+                                {/* <div className="form-group row">
                                     <label className="col-sm-3 col-form-label" htmlFor="exampleFormControlSelect1">Use Timer?</label>
                                     <div className="col-sm-9">
                                         <select className="form-control" onChange={this.isTimerChange} id="" value={this.state.Edit.isTimer}>
@@ -528,7 +529,7 @@ class Rules extends Component {
                                     <div className="col-sm-3">
                                         <input type="time" onChange={this.toTimeChanged} className="form-control" id="" required defaultValue={this.state.Edit.to}/>
                                     </div>
-                                </div>
+                                </div> */}
                             </form>
                             <div className="form-group row">
                                     <div className="col-sm-12 text-right">
@@ -613,7 +614,7 @@ class Rules extends Component {
                                     </div>
                                 </div>
 
-                                <div className="form-group row">
+                                {/* <div className="form-group row">
                                     <label className="col-sm-3 col-form-label" htmlFor="exampleFormControlSelect1">Use Timer?</label>
                                     <div className="col-sm-9">
                                         <select className="form-control" onChange={this.isTimerChangeAdd} id="" value={this.state.Add.isTimer}>
@@ -632,7 +633,7 @@ class Rules extends Component {
                                     <div className="col-sm-3">
                                         <input type="time" onChange={this.toTimeChangedAdd} className="form-control" id="" required defaultValue={this.state.Add.to}/>
                                     </div>
-                                </div>
+                                </div> */}
                             </form>
                             <div className="form-group row">
                                     <div className="col-sm-12 text-right">

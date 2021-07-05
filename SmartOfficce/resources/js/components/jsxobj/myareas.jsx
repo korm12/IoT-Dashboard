@@ -233,7 +233,6 @@ class MyAreas extends Component {
         const source = CancelToken.source();
 
         this.myInterval = setInterval(()=>{ // this is a sample random data for the sensors
-            // for(var i = 0; i < this.state.sensor.length; i++ ){
                 axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetSensors", {
                 cancelToken: source.token,
                 headers: {
@@ -255,7 +254,30 @@ class MyAreas extends Component {
                         console.log(error);
                     }
                 })
-            // }
+
+            axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetControlDevice",{
+            cancelToken: source.token,
+            headers: {
+                authorization: token
+            },
+            params:{
+                userId: username,
+            }})
+            .then(response => {
+                var data= response.data;
+
+                this.setState({device: data});
+
+            })
+            .catch(function(error){
+                if (axios.isCancel(error)) {
+                    console.log('Request canceled', error.message);
+                }
+                else{
+                    console.log(error);
+                }
+            })
+
 
         } , 2000)
 
@@ -341,6 +363,7 @@ class MyAreas extends Component {
     handleButtonToggle(id){ // pag uupdate ng status nung control button ex status nung Smart Ligth
         var devStat2 = "off";
         var stateItemsNo = this.state.device.length;
+
         for(var i = 0 ; i < stateItemsNo; i++ ){
             if(this.state.device[i].id == id){
                 var devStatus = "";
@@ -366,7 +389,7 @@ class MyAreas extends Component {
                     status: devStatus,
                     src: devSrc
                 })
-                var username= localStorage.getItem('username')
+                var username = window.atob(localStorage.getItem('username'))
                 var message = "The device "+this.state.device[i].deviceName+" is now "+devStat2;
                     axios.post('/api/InsertLog', {
                         notifCode: 1,

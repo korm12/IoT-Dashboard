@@ -173,7 +173,60 @@ class sensor_controller extends Controller
             $value = $request->input('value');
             DB::UPDATE('UPDATE sensors SET value = ? where id= ? ', [$value  , $id] );
 
-            return response()->json(['message'=>'Data received'], 200);
+            $result = DB::SELECT("SELECT deviceId,userId,ruleDescription,deviceStat,isActive,isMinMax,minVal,maxVal from rules WHERE sensorId=? ", [($id)]);
+            $data = array();
+
+            foreach ($result as $row)
+            {
+                array_push($data, $row);
+            }
+
+            for($i = 0; $i < count($data);$i++){
+                $counterStat = 1;
+                $srcOn = "/pictures/on.png";
+                $srcOff = "/pictures/off.png";
+                if($data[$i]->deviceStat == 0)$counterStat = 1;
+                elseif($data[$i]->deviceStat == 1)$counterStat = 0; // declare a oposite value of the device stat when the condition is failed
+                if($data[$i]->isActive =="yes" && $data[$i]->isMinMax == "yes" && $data[$i]->minVal <= $value && $data[$i]->maxVal >= $value ){
+                    echo $data[$i]->deviceId," : ",$data[$i]->deviceStat;
+                    $src = "";
+                    $stat = "";
+                    if($data[$i]->deviceStat == 1){
+                        $src =$srcOff;
+                        $stat = "off";
+                    }
+                    elseif($data[$i]->deviceStat == 0){
+                        $src = $srcOn;
+                        $stat = "on";
+                    }
+                    $message = $data[$i]->ruleDescription . " has activated, Device stat " . $stat;
+                    DB::UPDATE('UPDATE devices SET status = ?, src =?  where id= ? ', [$data[$i]->deviceStat , $src , $data[$i]->deviceId] );
+                  //  DB::INSERT('INSERT into logs (notifCode,`message`,userId  ) VALUES (?,?,?) ', [ 1, $message , $data[$i]->userId ] );
+
+                }
+                elseif($data[$i]->isActive =="yes" && $data[$i]->isMinMax == "yes" && ($data[$i]->minVal > $value || $data[$i]->maxVal < $value )){
+                    echo $data[$i]->deviceId," : ",$counterStat;
+                    if($counterStat == 1){
+                        $src = $srcOff;
+                        $stat = "off";
+                    }
+                    elseif($counterStat == 0){
+                        $src = $srcOn;
+                        $stat = "on";
+                    }
+                    $message = $data[$i]->ruleDescription . " has activated, Device stat " . $stat;
+                    DB::UPDATE('UPDATE devices SET status = ?, src =?  where id= ? ', [$counterStat , $src , $data[$i]->deviceId] );
+                   // DB::INSERT('INSERT into logs (notifCode,`message`,userId  ) VALUES (?,?,?) ', [ 1, $message , $data[$i]->userId ] );
+                }
+
+
+            }
+
+
+
+           // echo json_encode($data[0]);
+
+            // return response()->json(['message'=>'Data received'], 200);
         }else {
 
             return response()->json(['message'=>'no data'], 400);

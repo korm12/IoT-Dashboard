@@ -57,7 +57,7 @@ class rules_controller extends Controller
             $from = $request->input('from');
             $to = $request->input('to');
 
-            DB::INSERT('INSERT into rules (userId,ruleDescription, isActive, deviceId, isMinMax, sensorId, minVal, maxVal, isTimer, `from`, `to` ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?) ', [ $userId ,$ruleDescription, $isActive, $deviceId,$deviceStat, $isMinMax, $sensorId, $minVal, $maxVal, $isTimer, $from, $to ] );
+            DB::INSERT('INSERT into rules (userId,ruleDescription, isActive, deviceId,deviceStat, isMinMax, sensorId, minVal, maxVal, isTimer, `from`, `to` ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?) ', [ $userId ,$ruleDescription, $isActive, $deviceId,$deviceStat, $isMinMax, $sensorId, $minVal, $maxVal, $isTimer, $from, $to ] );
 
             //return response()->json(['message'=>'Data received'], 200);
         }else {
