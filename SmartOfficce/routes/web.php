@@ -63,6 +63,11 @@ Route::get('/', function () {
     return view('loginpage');
 });
 
+Route::get('/contact', function () {
+    return view('loginpage');
+});
+
+
 Route::get('/GetDeviceStatus', [device_controller::class, 'GetDeviceStatus']);
 Route::group(['middleware' => 'auth:sanctum'], function(){
 

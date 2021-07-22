@@ -13,7 +13,7 @@ require('./bootstrap');
  */
 
 require('./components/adminPanelComponent');
-require('./components/loginpage');
+require('./components/homepage');
 import 'devextreme/dist/css/dx.common.css';
 import 'devextreme/dist/css/dx.light.css';
 import 'react-mdl/extra/material.css';

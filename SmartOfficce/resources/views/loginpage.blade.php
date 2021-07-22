@@ -18,7 +18,7 @@
         <link href="{{ asset('css/modal.css') }}" rel="stylesheet">
         <link href="{{ asset('css/myarea.css') }}" rel="stylesheet">
         <link href="{{ asset('css/login.css') }}" rel="stylesheet">
-
+        <link href="{{ asset('css/contactus.css') }}" rel="stylesheet">
         <link rel="shortcut icon" sizes="114x114" href="{{ asset('pictures/internet-of-things.png') }}">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 

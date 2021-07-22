@@ -309,9 +309,9 @@ class MyAreas extends Component {
             return(
                 this.state.areas.map(area => {
                     return(
-                    <button key={area.areaId} onClick={() => this.displayArea(area.areaId)} id={area.areaId} className=" pt-4 pb-4 area-buttons text-center">
+                    <button key={area.areaId} onClick={() => this.displayArea(area.areaId)} id={area.areaId} className=" pt-4 pb-4 area-buttons text-center pl-2 pr-4">
                         {/* dito  */}
-                        <span className="josefin-font">{area.areaName}</span>
+                        <span className="josefin-font ">{area.areaName}</span>
                     </button>
                     )
                 })

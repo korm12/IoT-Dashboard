@@ -211,7 +211,7 @@ class Dashboard extends Component {
 
                         <div className="col-md-3 mb-1">
                             <div className=" w-100"style={{borderRadius:"15px", backgroundColor:"#90EE90",padding:"10px"}}>
-                                <h5 className="josefin-font"><i className="fas fa-list-alt pl-4" style={{fontSize:"120%"}}></i> Rules</h5>
+                                <h5 className="josefin-font"><i className="fas fa-list-alt pl-4" style={{fontSize:"120%"}}></i> Active Rules</h5>
                                 <h5 className="josefin-font text-right pr-4"> {this.state.rules}</h5>
                             </div>
                         </div>
@@ -223,7 +223,7 @@ class Dashboard extends Component {
                         </div>
                     </div>
                     <div className="row mt-4 activity-area">
-                        <div className="col-md-4">
+                        <div className="col-lg-4">
                             <div className="row ">
                                 <div className="col-md-6">
                                     <h5 className="ml-2 pt-2 pb-2 josefin-font" style={{color:"white"}}>Activity and Notification</h5>
@@ -246,7 +246,7 @@ class Dashboard extends Component {
                                 </ul>
                             </div>
                         </div>
-                        <div className="col-md-4">
+                        <div className="col-lg-4">
                             <div className="pl-1 pr-1 pt-1 pb-1">
                                 <h5 className="josefin-font text-light">Sensor Allocation</h5>
                                 <PieChart
@@ -270,7 +270,7 @@ class Dashboard extends Component {
                                 <p className="josefin-font text-light">Unallocated : {this.state.unallocatedsen}</p>
                             </div>
                         </div>
-                        <div className="col-md-4">
+                        <div className="col-lg-4">
                             <div className="pl-1 pr-1 pt-1 pb-1">
                                 <h5 className="josefin-font text-light">Device Allocation</h5>
                                 <PieChart

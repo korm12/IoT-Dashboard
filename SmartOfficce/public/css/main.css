@@ -1,12 +1,6 @@
 body{
 
     width: 100%;
-     /* background: #0F2027;
-     background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027);
-     background: linear-gradient(to right, #2C5364, #203A43, #0F2027); */
-    /* background: #8e9eab;
-    background: -webkit-linear-gradient(to right, #575f66, #8b999c);
-    background: linear-gradient(to right, #575f66, #8b999c); */
     background: #232526;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #414345, #232526);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #414345, #232526); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
@@ -126,4 +120,10 @@ html {
     max-height: 900px;
     padding-left: 1%;
     padding-right: 1%;
+}
+@media screen and (min-height: 1759px) {
+
+    .control-area{
+        max-height: 1500px !important;
+    }
 }

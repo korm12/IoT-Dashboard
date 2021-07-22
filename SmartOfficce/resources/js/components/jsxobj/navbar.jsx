@@ -92,8 +92,8 @@ class Navbar extends Component {
                         <img src='pictures/icon2.png' alt="logo" width={"35px"} />
                         <p className="josefin-font pl-0 pt-2" style={{color:"#0f8d83",float:"right",fontSize:"20px"}}>ontrolla</p>
                     </div>
-                    <div className="w-75 pr-3">
-                        <p className="josefin-font pt-3" style={{color:"#0f8d83", fontSize:"17px", float:"right", fontWeight:"bolder"}}>Hi, {this.state.username}</p>
+                    <div className="w-50 float-right pr-3" style={{marginLeft:"20%"}}>
+                        <p className="josefin-font pt-3 " style={{color:"#0f8d83", fontSize:"17px", float:"right", fontWeight:"bolder"}}>Hi, {this.state.username}</p>
                     </div>
                 </div>
                 <div className="row">
@@ -101,16 +101,16 @@ class Navbar extends Component {
 
                         <div className="navbar-links1 mx-auto text-center d-flex">
                             <Link to="/dashboard"  onClick={this.changeSb1}>
-                                <i className="fas fa-chart-line pl-4 pr-4" style={{color:this.state.sb1,fontSize:"30px"}}></i>
+                                <i className="fas fa-chart-line pl-3 pr-3" style={{color:this.state.sb1,fontSize:"30px"}}></i>
                             </Link>
                             <Link to="/control"  onClick={this.changeSb2}>
-                                <i className="fas fa-toggle-off pl-4 pr-4" style={{ color:this.state.sb2,fontSize:"30px"}} ></i>
+                                <i className="fas fa-toggle-off pl-3 pr-3" style={{ color:this.state.sb2,fontSize:"30px"}} ></i>
                             </Link>
                             <Link to="/addDevice" onClick={this.changeSb3}>
-                                <i className="fas fa-plus-circle pl-4 pr-4" style={{ color:this.state.sb3,fontSize:"30px"}} />
+                                <i className="fas fa-plus-circle pl-3 pr-3" style={{ color:this.state.sb3,fontSize:"30px"}} />
                             </Link>
                             <div className="pl-0 pr-0 ml-0 mr-0">
-                                <button className="dropdown-btn1 pl-4 pr-4 " onClick={this.handleDropdownClick}>
+                                <button className="dropdown-btn1 pl-3 pr-3 " onClick={this.handleDropdownClick}>
                                     <i className="fas fa-map-marked-alt" style={{fontSize:"30px",color:this.state.sb4}}></i>
                                     <i className="fa fa-caret-down pl-1"></i>
                                 </button>
@@ -124,13 +124,13 @@ class Navbar extends Component {
                                 </div>
                             </div>
                             <Link to="/rules" onClick={this.changeSb7}>
-                                <i className="fas fa-list-alt pl-4 pr-4" style={{ color:this.state.sb7,fontSize:"30px"}} ></i>
+                                <i className="fas fa-list-alt pl-3 pr-3" style={{ color:this.state.sb7,fontSize:"30px"}} ></i>
                             </Link>
                             {/* <Link to="/user" onClick={this.changeSb8}>
-                                <i className="fas fa-user-cog pl-4 pr-4" style={{ color:this.state.sb8,fontSize:"30px"}} ></i>
+                                <i className="fas fa-user-cog pl-2 pr-2" style={{ color:this.state.sb8,fontSize:"30px"}} ></i>
                             </Link> */}
                             <div className="pl-0 pr-0 ml-0 mr-0">
-                                <button className="dropdown-btn1 pl-4 pr-4 " onClick={this.handleDropdownClick2}>
+                                <button className="dropdown-btn1 pl-3 pr-3 " onClick={this.handleDropdownClick2}>
                                     <i className="fas fas fa-user-cog" style={{fontSize:"30px",color:this.state.sb8}}></i>
                                     <i className="fa fa-caret-down pl-1"></i>
                                 </button>

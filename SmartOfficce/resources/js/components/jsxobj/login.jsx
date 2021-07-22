@@ -106,8 +106,9 @@ class Login extends Component {
     render() {
         return (
             <React.Fragment>
+                {/* login */}
                 <div className="row">
-                    <div className="col-md-6 login-wrapper">
+                    <div className="col-lg-6 login-wrapper">
                         <div className="d-flex  justify-content-center login-container h-100">
                             {/* <video className="back-vid" src="/pictures/backvid.webm" muted loop autoPlay></video> */}
                             <div className="my-auto card-login">
@@ -158,7 +159,7 @@ class Login extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className="col-md-6 side-display-wrapper">
+                    <div className="col-lg-6 side-display-wrapper text-center">
                         <div className="d-flex  justify-content-center login-container h-100">
                             <div className="side-display">
                                 <img  src='pictures/controllas.png' alt="logo" width={"75%"} height={"75%"}/>
@@ -169,6 +170,7 @@ class Login extends Component {
                         </div>
                     </div>
                 </div>
+                {/* registration */}
                 <div className="bg-modal8">
                     <div className="modal-content sign-up">
                         <div className="pt-4 pb-4 pl-4 pr-4 ">

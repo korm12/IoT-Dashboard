@@ -24,9 +24,11 @@
     align-items: center;
 }
 .navbar-links1{
-    width: 490px;
+    width: 398px;
 }
+@media screen and (max-width: 439px) {
 
+  }
 .dropdown-btn1{
 
     text-decoration: none;
