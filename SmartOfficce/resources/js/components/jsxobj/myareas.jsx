@@ -505,7 +505,7 @@ class MyAreas extends Component {
                                                             </div>
                                                         </div>
                                                         <div className='col-lg-7 pl-0  pt-1 pb-2'>
-                                                            <div className="control-item text-center pb-2 pl-4 pr-4 pt-2 bg-white">
+                                                            <div className="control-item text-center h-100 pb-2 pl-4 pr-4 pt-2 bg-white">
 
                                                                 <Chart
                                                                 palette="Harmony Light"
@@ -543,7 +543,7 @@ class MyAreas extends Component {
                                     {this.state.device.map(dev => {
                                         if (this.state.togledArea.areaId == dev.areaId) {
                                             return(
-                                                <div key={dev.id} className='col-md-2  pt-1 pb-2 pl-2 '>
+                                                <div key={dev.id} className='col-md-3  pt-1 pb-2 pl-2 '>
                                                     <div className="control-item text-center pb-2 pl-2 pr-2 bg-white">
                                                         <div className="w-100 text-right">
 

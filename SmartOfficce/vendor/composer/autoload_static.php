@@ -515,10 +515,12 @@ class ComposerStaticInit88ad4a359e586468c03ff30e81d748c5
     );
 
     public static $classMap = array (
+        'App\\Console\\Commands\\checkRuleSchedule' => __DIR__ . '/../..' . '/app/Console/Commands/checkRuleSchedule.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\ReactController' => __DIR__ . '/../..' . '/app/Http/Controllers/ReactController.php',
+        'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',
         'App\\Http\\Controllers\\areas_controller' => __DIR__ . '/../..' . '/app/Http/Controllers/areas_controller.php',
         'App\\Http\\Controllers\\device_controller' => __DIR__ . '/../..' . '/app/Http/Controllers/device_controller.php',
         'App\\Http\\Controllers\\logs_controller' => __DIR__ . '/../..' . '/app/Http/Controllers/logs_controller.php',

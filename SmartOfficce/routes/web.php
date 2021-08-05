@@ -8,6 +8,7 @@ use App\Http\Controllers\ReactController;
 use App\Http\Controllers\rules_controller;
 use App\Http\Controllers\sensor_controller;
 use App\Http\Controllers\user_controller;
+use App\Http\Controllers\va_controller;
 use Laravel\Ui\Presets\React;
 
 /*
@@ -58,6 +59,9 @@ Route::get('/user', function () {
 Route::get('/dashboard', function () {
     return view('adminpanel');
 });
+Route::get('/voices', function () {
+    return view('adminpanel');
+});
 
 Route::get('/', function () {
     return view('loginpage');
@@ -70,6 +74,7 @@ Route::get('/contact', function () {
 
 Route::get('/GetDeviceStatus', [device_controller::class, 'GetDeviceStatus']);
 Route::group(['middleware' => 'auth:sanctum'], function(){
+    Route::get('/getVA', [va_controller::class, 'getVA']);
 
     Route::get('/GetControlDevice', [device_controller::class, 'GetControlDevice']);
     Route::get('/GetControlDeviceNum', [device_controller::class, 'GetControlDeviceNum']);
@@ -94,6 +99,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
     Route::get('/GetLogs', [logs_controller::class, 'GetLogs']);
     Route::get('/validationRoute', [user_controller::class, 'validationRoute']);
+
 
 });
 

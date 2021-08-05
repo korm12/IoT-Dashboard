@@ -15,7 +15,8 @@ class Sidebar extends Component {
             sb5: "#818181",
             sb6: "#818181",
             sb7: "#818181",
-            sb8: "#818181"
+            sb8: "#818181",
+            sb9: "#818181"
         }
         this.handleDropdownClick = this.handleDropdownClick.bind(this);
         this.changeSb1 = this.changeSb1.bind(this)
@@ -25,6 +26,7 @@ class Sidebar extends Component {
         this.changeSb6 = this.changeSb6.bind(this)
         this.changeSb7 = this.changeSb7.bind(this)
         this.changeSb8 = this.changeSb8.bind(this)
+        this.changeSb9 = this.changeSb9.bind(this)
     }
     componentDidMount(){
         this._isMounted = true;
@@ -37,6 +39,7 @@ class Sidebar extends Component {
         else if(currUrl == "/manageareas") this.changeSb6();
         else if(currUrl == "/rules") this.changeSb7();
         else if(currUrl == "/user") this.changeSb8();
+
     }
     componentWillUnmount() {
         this._isMounted = false;
@@ -67,13 +70,15 @@ class Sidebar extends Component {
         }
     }
 
-    changeSb1(){var active = "#0f8d83";var inactive = "#818181";this.setState({sb1:active});this.setState({sb2:inactive});this.setState({sb3:inactive});this.setState({sb4:inactive});this.setState({sb5:inactive});this.setState({sb6:inactive});this.setState({sb7:inactive});this.setState({sb8:inactive});}
-    changeSb2(){var active = "#0f8d83";var inactive = "#818181";this.setState({sb1:inactive});this.setState({sb2:active});this.setState({sb3:inactive});this.setState({sb4:inactive});this.setState({sb5:inactive});this.setState({sb6:inactive});this.setState({sb7:inactive});this.setState({sb8:inactive});}
-    changeSb3(){var active = "#0f8d83";var inactive = "#818181";this.setState({sb1:inactive});this.setState({sb2:inactive});this.setState({sb3:active});this.setState({sb4:inactive});this.setState({sb5:inactive});this.setState({sb6:inactive});this.setState({sb7:inactive});this.setState({sb8:inactive});}
-    changeSb5(){var active = "#0f8d83";var inactive = "#818181";this.setState({sb1:inactive});this.setState({sb2:inactive});this.setState({sb3:inactive});this.setState({sb4:active});this.setState({sb5:active});this.setState({sb6:inactive});this.setState({sb7:inactive});this.setState({sb8:inactive});}
-    changeSb6(){var active = "#0f8d83";var inactive = "#818181";this.setState({sb1:inactive});this.setState({sb2:inactive});this.setState({sb3:inactive});this.setState({sb4:active});this.setState({sb5:inactive});this.setState({sb6:active});this.setState({sb7:inactive});this.setState({sb8:inactive});}
-    changeSb7(){var active = "#0f8d83";var inactive = "#818181";this.setState({sb1:inactive});this.setState({sb2:inactive});this.setState({sb3:inactive});this.setState({sb4:inactive});this.setState({sb5:inactive});this.setState({sb6:inactive});this.setState({sb7:active});this.setState({sb8:inactive});}
-    changeSb8(){var active = "#0f8d83";var inactive = "#818181";this.setState({sb1:inactive});this.setState({sb2:inactive});this.setState({sb3:inactive});this.setState({sb4:inactive});this.setState({sb5:inactive});this.setState({sb6:inactive});this.setState({sb7:inactive});this.setState({sb8:active});}
+    changeSb1(){var active = "#0f8d83";var inactive = "#818181";this.setState({sb1:active});this.setState({sb2:inactive});this.setState({sb3:inactive});this.setState({sb4:inactive});this.setState({sb5:inactive});this.setState({sb6:inactive});this.setState({sb7:inactive});this.setState({sb8:inactive});this.setState({sb9:inactive});}
+    changeSb2(){var active = "#0f8d83";var inactive = "#818181";this.setState({sb1:inactive});this.setState({sb2:active});this.setState({sb3:inactive});this.setState({sb4:inactive});this.setState({sb5:inactive});this.setState({sb6:inactive});this.setState({sb7:inactive});this.setState({sb8:inactive});this.setState({sb9:inactive});}
+    changeSb3(){var active = "#0f8d83";var inactive = "#818181";this.setState({sb1:inactive});this.setState({sb2:inactive});this.setState({sb3:active});this.setState({sb4:inactive});this.setState({sb5:inactive});this.setState({sb6:inactive});this.setState({sb7:inactive});this.setState({sb8:inactive});this.setState({sb9:inactive});}
+    changeSb5(){var active = "#0f8d83";var inactive = "#818181";this.setState({sb1:inactive});this.setState({sb2:inactive});this.setState({sb3:inactive});this.setState({sb4:active});this.setState({sb5:active});this.setState({sb6:inactive});this.setState({sb7:inactive});this.setState({sb8:inactive});this.setState({sb9:inactive});}
+    changeSb6(){var active = "#0f8d83";var inactive = "#818181";this.setState({sb1:inactive});this.setState({sb2:inactive});this.setState({sb3:inactive});this.setState({sb4:active});this.setState({sb5:inactive});this.setState({sb6:active});this.setState({sb7:inactive});this.setState({sb8:inactive});this.setState({sb9:inactive});}
+    changeSb7(){var active = "#0f8d83";var inactive = "#818181";this.setState({sb1:inactive});this.setState({sb2:inactive});this.setState({sb3:inactive});this.setState({sb4:inactive});this.setState({sb5:inactive});this.setState({sb6:inactive});this.setState({sb7:active});this.setState({sb8:inactive});this.setState({sb9:inactive});}
+    changeSb8(){var active = "#0f8d83";var inactive = "#818181";this.setState({sb1:inactive});this.setState({sb2:inactive});this.setState({sb3:inactive});this.setState({sb4:inactive});this.setState({sb5:inactive});this.setState({sb6:inactive});this.setState({sb7:inactive});this.setState({sb8:active});this.setState({sb9:inactive});}
+    changeSb8(){var active = "#0f8d83";var inactive = "#818181";this.setState({sb1:inactive});this.setState({sb2:inactive});this.setState({sb3:inactive});this.setState({sb4:inactive});this.setState({sb5:inactive});this.setState({sb6:inactive});this.setState({sb7:inactive});this.setState({sb8:active});this.setState({sb9:inactive});}
+    changeSb9(){var active = "#0f8d83";var inactive = "#818181";this.setState({sb1:inactive});this.setState({sb2:inactive});this.setState({sb3:inactive});this.setState({sb4:inactive});this.setState({sb5:inactive});this.setState({sb6:inactive});this.setState({sb7:inactive});this.setState({sb8:inactive});this.setState({sb9:active});}
 
     render() {
         return (
@@ -115,10 +120,15 @@ class Sidebar extends Component {
                         <i className="fas fa-list-alt icon-style" style={{ color:this.state.sb7}} ></i>
                         <span className="link-name" style={{color:this.state.sb7}}> Rules</span>
                     </Link>
+                    <Link to="/voices" onClick={this.changeSb9}>
+                        <i className="fas fa-microphone icon-style" style={{ color:this.state.sb9}} ></i>
+                        <span className="link-name" style={{color:this.state.sb9}}>  Voice</span>
+                    </Link>
                     <Link to="/user" onClick={this.changeSb8}>
                         <i className="fas fa-user-cog icon-style" style={{ color:this.state.sb8}} ></i>
-                        <span className="link-name" style={{color:this.state.sb8}}> Account</span>
+                        <span className="link-name" style={{color:this.state.sb8}}>Account</span>
                     </Link>
+
                     <div className="">
                         <div className="logout">
                             <a onClick={this.handleLogout} href="/">

@@ -304,7 +304,7 @@ class Control extends Component {
                          {/* devices */}
                          {this.state.device.map(dev => {
                              return(
-                             <div key={dev.id} className='col-md-2  pt-1 pb-3 ml-0 mr-0 pl-2 pr-3'>
+                             <div key={dev.id} className='col-md-3 h-100 pt-1 pb-3 ml-0 mr-0 pl-2 pr-3'>
                                  <div className="control-item text-center pb-2 pl-2 pr-2 bg-white">
                                      <div className="w-100 text-right">
 
@@ -372,8 +372,8 @@ class Control extends Component {
                                                 <p className="josefin-font no-space text-truncate">{sen.description}</p>
                                     </div>
                                 </div>
-                                <div className='col-lg-7 pl-1 pr-2 pt-1 pb-1'>
-                                    <div className="control-item text-center pb-2 pl-4 pr-4 pt-2 bg-white">
+                                <div className='col-lg-7 pl-1  pr-2 pt-1 pb-1'>
+                                    <div className="control-item text-center h-100  pb-2 pl-4 pr-4 pt-2 bg-white">
 
                                         <Chart
                                         palette="Harmony Light"

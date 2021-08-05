@@ -10,6 +10,7 @@ import MyAreas from './jsxobj/myareas';
 import ManageAreas from './jsxobj/manageareas';
 import Rules from './jsxobj/rules';
 import Navbar from './jsxobj/navbar';
+import Voice from './jsxobj/voice';
 
 
 
@@ -50,6 +51,7 @@ function AdminPanelComponent() {
                                             <Route  path="/manageareas" component = {ManageAreas}/>
                                             <Route  path="/rules" component = {Rules}/>
                                             <Route  path="/User" component = {User}/>
+                                            <Route  path="/voices" component = {Voice}/>
                                         </Switch>
                                     </div>
                                 </div>

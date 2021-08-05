@@ -6,10 +6,12 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Console\\Commands\\checkRuleSchedule' => $baseDir . '/app/Console/Commands/checkRuleSchedule.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\ReactController' => $baseDir . '/app/Http/Controllers/ReactController.php',
+    'App\\Http\\Controllers\\UserController' => $baseDir . '/app/Http/Controllers/UserController.php',
     'App\\Http\\Controllers\\areas_controller' => $baseDir . '/app/Http/Controllers/areas_controller.php',
     'App\\Http\\Controllers\\device_controller' => $baseDir . '/app/Http/Controllers/device_controller.php',
     'App\\Http\\Controllers\\logs_controller' => $baseDir . '/app/Http/Controllers/logs_controller.php',

@@ -23,6 +23,7 @@ user-scalable=no">
         <link href="{{ asset('css/login.css') }}" rel="stylesheet">
         <link href="{{ asset('css/user.css') }}" rel="stylesheet">
         <link href="{{ asset('css/rules.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/voice.css') }}" rel="stylesheet">
         <link rel="shortcut icon" sizes="114x114" href="{{ asset('pictures/internet-of-things.png') }}">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 

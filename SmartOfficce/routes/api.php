@@ -6,7 +6,7 @@ use App\Http\Controllers\logs_controller;
 use App\Http\Controllers\rules_controller;
 use App\Http\Controllers\sensor_controller;
 use App\Http\Controllers\user_controller;
-
+use App\Http\Controllers\va_controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -56,3 +56,6 @@ Route::post('/UpdateRule', [rules_controller::class, 'UpdateRule']);
 
 Route::post('/InsertLog', [logs_controller::class, 'InsertLog']);
 Route::post('/ClearLogs', [logs_controller::class, 'ClearLogs']);
+
+
+Route::post('/saveNewVA', [va_controller::class, 'saveNewVA']);
