@@ -18,6 +18,7 @@ return array(
     'App\\Http\\Controllers\\rules_controller' => $baseDir . '/app/Http/Controllers/rules_controller.php',
     'App\\Http\\Controllers\\sensor_controller' => $baseDir . '/app/Http/Controllers/sensor_controller.php',
     'App\\Http\\Controllers\\user_controller' => $baseDir . '/app/Http/Controllers/user_controller.php',
+    'App\\Http\\Controllers\\va_controller' => $baseDir . '/app/Http/Controllers/va_controller.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',
     'App\\Http\\Middleware\\Cors' => $baseDir . '/app/Http/Middleware/Cors.php',

@@ -6,6 +6,7 @@ class Voice extends Component {
         this.state={
             device:[],
             username:"",
+            VACommandVal:"",
             voiceSetting:{
                 deviceId:'',
                 deviceDescription:''
@@ -13,16 +14,17 @@ class Voice extends Component {
             voiceCommand:{
                 command:'',
                 deviceId: '',
-                status:1,
-            }
+                status:"On",
+            },
+            commands:[]
         }
-
+        this.loadsRow = this.loadsRow.bind(this)
 
     }
     componentDidMount(){
         var username = window.atob(localStorage.getItem('username'))
         this.setState({username: username})
-        console.log(this.state.username)
+        var vaId= "";
         var token = "Bearer "+window.atob(localStorage.getItem('token'))
         axios.get("http://"+process.env.MIX_DATA_ROUTES+"/GetControlDevice",{
             headers: {
@@ -50,16 +52,55 @@ class Voice extends Component {
             }})
             .then(response => {
                 var data= response.data;
+                vaId = data[0].deviceId;
                 var voiceSetting = this.state.voiceSetting;
                 voiceSetting.deviceId = data[0].deviceId;
                 voiceSetting.deviceDescription = data[0].description;
                 this.setState({voiceSetting: voiceSetting});
-                console.log(voiceSetting)
+                axios.get("http://"+process.env.MIX_DATA_ROUTES+"/getCommands",{
+                    headers: {
+                        authorization: token
+                    },
+                    params:{
+                        userId: username,
+                        vaId: vaId,
+                    }})
+                    .then(response => {
+                        var data= response.data;
+                        this.setState({commands:data})
+                        console.log(data)
+
+                    })
+                    .catch(function(error){
+                        console.log(error);
+                    })
 
             })
             .catch(function(error){
                 console.log(error);
             })
+
+        this.myInterval = setInterval(()=>{
+            axios.get("http://"+process.env.MIX_DATA_ROUTES+"/getVaCommandValue",{
+            headers: {
+                authorization: token
+            },
+            params:{
+                userId: username,
+                deviceId: this.state.voiceSetting.deviceId,
+            }})
+            .then(response => {
+                var data= response.data;
+
+                this.setState({VACommandVal: data[0].value});
+                // console.log(this.state.device)
+
+            })
+            .catch(function(error){
+                console.log(error);
+            })
+        } , 1000)
+
 
 
     }
@@ -82,14 +123,23 @@ class Voice extends Component {
         this.setState({voiceCommand:voiceCommand})
         console.log(this.state.voiceCommand.command)
     }
+    saveCommand(){
+        axios.post('/api/saveCommand', {
+            deviceId: this.state.voiceCommand.deviceId,
+            status:this.state.voiceCommand.status,
+            userId: this.state.username,
+            vaId: this.state.voiceSetting.deviceId,
+            command: this.state.voiceCommand.command,
+            active: "Yes"
+        })
+        location.reload()
+    }
     saveSetting(){
-        console.log(this.state.voiceSetting)
         axios.post('/api/saveNewVA', {
             deviceId: this.state.voiceSetting.deviceId,
             deviceDescription:this.state.voiceSetting.deviceDescription,
             userId: this.state.username,
         })
-        //location.reload()
     }
     deviceSelected(e){
         var voiceCommand = this.state.voiceCommand;
@@ -106,15 +156,51 @@ class Voice extends Component {
             })
         )
     }
-    addCommand(){
-        console.log(this.state.voiceCommand)
-    }
     statSelected(e){
         console.log(e.target.value)
         var voiceCommand = this.state.voiceCommand;
         voiceCommand.status = e.target.value;
         this.setState({voiceCommand:voiceCommand})
-     }
+    }
+    deleteCommand(id){
+        axios.post('/api/deleteCommand', {
+            id: id,
+            vaId: this.state.voiceSetting.deviceId,
+            userId: this.state.username
+
+        })
+         location.reload()
+    }
+    activeUpdate(e){
+        axios.post('/api/updateActiveCommand', {
+            id: e.target.id,
+            vaId: this.state.voiceSetting.deviceId,
+            userId: this.state.username,
+            active: e.target.value,
+
+        })
+    }
+    loadsRow(){
+        return(
+            this.state.commands.map(c => {
+                return(
+
+                    <tr key={c.id} style={{marginTop:"2px",marginBottom:"2px",fontSize:"1em"}}>
+                        <th scope="row" className="text-center">{c.command}</th>
+                        <td className="text-center">{c.deviceName}</td>
+                        <td className="text-center">{c.status}</td>
+                        <td className="text-center">
+                            <select className="form-control w-75 form-select form-select-lg mb-3" aria-label=".form-select-lg example" onChange={this.activeUpdate.bind(this)} id={c.id} defaultValue={c.active} style={{display:'block', marginLeft:'auto', marginRight:'auto'}}>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select></td>
+                        <td className="text-center"> <button onClick={()=> this.deleteCommand(c.id)} className="btn btn-sm btn-danger "><i className="fas fa-trash-alt"></i></button> </td>
+                    </tr>
+
+                )
+            })
+        )
+    }
     render() {
         return (
             <React.Fragment>
@@ -131,7 +217,7 @@ class Voice extends Component {
                         <div className="row content-wrapper m-0">
                             <div className="col-md-12">
                                 <h5 className="josefin-font content-title text-center" >Your Voice Assistant</h5>
-                                <form>
+                                <form className="josefin-font">
                                     <div className="mb-3">
                                         <label htmlFor="DeviceId" className="form-label">Device ID:</label>
                                         <input type="text" className="form-control" id="DeviceId" onChange={this.deviceIdChange.bind(this)} defaultValue={this.state.voiceSetting.deviceId}/>
@@ -147,7 +233,10 @@ class Voice extends Component {
                         </div>
                         <br />
                         <div className="row content-wrapper m-0">
-
+                            <div className="col-md-12">
+                                <h5 className="josefin-font content-title text-center" >Executed Command</h5>
+                                <h5 className="text-center w-100 josefin-font">{this.state.VACommandVal}</h5>
+                            </div>
                         </div>
                         <br />
                     </div>
@@ -155,13 +244,13 @@ class Voice extends Component {
                         <div className="row mb-4">
                             <div className="col-md-12 add-command pt-4 pb-4">
 
-                                <form>
+                                <form className="josefin-font">
                                     <div className="row ">
                                         <div className="col-md-2 pt-2">
-                                            <label htmlFor="Command" className="form-label">Command:</label>
+                                            <label htmlFor="command" className="form-label">Command:</label>
                                         </div>
                                         <div className="col-md-4">
-                                            <input type="text" className="form-control" id="DeviceId" onChange={this.commandChange.bind(this)} defaultValue={this.state.voiceCommand.command}/>
+                                            <input type="text" className="form-control" id="command" onChange={this.commandChange.bind(this)} defaultValue={this.state.voiceCommand.command}/>
                                         </div>
                                         <div className="col-md-2 pt-2 pl-2">
                                             <label htmlFor="Device" className="form-label">Device :</label>
@@ -180,12 +269,12 @@ class Voice extends Component {
                                         <div className="col-md-4 ">
                                             <select className="form-control" onChange={this.statSelected.bind(this)} value={this.state.voiceCommand.status}>
                                                 <option ></option>
-                                                <option value={0}>On</option>
-                                                <option value={1}>Off</option>
+                                                <option value={"On"}>On</option>
+                                                <option value={"Off"}>Off</option>
                                             </select>
                                         </div>
                                         <div className="col-md-6 add-command-wrap text-right ">
-                                            <button type="button" className="btn btn-sm btn-primary add-command-btn mt-2 mb-2 " onClick={this.addCommand.bind(this)} >Add Command</button>
+                                            <button type="button" className="btn btn-sm btn-primary add-command-btn mt-2 mb-2 " onClick={this.saveCommand.bind(this)} >Save Command</button>
                                         </div>
                                     </div>
                                 </form>
@@ -194,7 +283,21 @@ class Voice extends Component {
                         </div>
                         <div className="row mb-4 ">
                             <div className="col-md-12 command-list-wrapper">
-
+                                <h5 className="josefin-font content-title2 text-center" >Commands</h5>
+                                <table className="table josefin-font" style={{overflow:"auto"}}>
+                                    <thead className="table-dark text-center">
+                                        <tr>
+                                            <th scope="col">Command</th>
+                                            <th scope="col">Device Name</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Active</th>
+                                            <th scope="col">Remove</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {this.loadsRow()}
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\areas_controller;
+use App\Http\Controllers\commands_controller;
 use App\Http\Controllers\device_controller;
 use App\Http\Controllers\logs_controller;
 use App\Http\Controllers\rules_controller;
@@ -59,3 +60,7 @@ Route::post('/ClearLogs', [logs_controller::class, 'ClearLogs']);
 
 
 Route::post('/saveNewVA', [va_controller::class, 'saveNewVA']);
+Route::post('/saveCommand', [commands_controller::class, 'saveCommand']);
+Route::post('/deleteCommand', [commands_controller::class, 'deleteCommand']);
+Route::post('/updateActiveCommand', [commands_controller::class, 'updateActiveCommand']);
+Route::post('/updateVAval', [va_controller::class, 'updateVAval']);

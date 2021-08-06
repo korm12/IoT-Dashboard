@@ -48,4 +48,54 @@ class va_controller extends Controller
         }
 
     }
+    public function getVaCommandValue(Request $request){
+        if ($request->has('userId')){
+            $userId = $request->input('userId');
+            $deviceId = $request->input('deviceId');
+            $result = DB::SELECT("SELECT value FROM voice_assistant where deviceId = ? and userId =? order by id desc limit 1", [($deviceId),($userId)]);
+            $data = array();
+            foreach ($result as $row)
+            {
+                array_push($data, $row);
+            }
+
+            echo json_encode($data);
+        }else {
+
+            return response()->json(['message'=>'no data'], 400);
+        }
+
+    }
+    public function updateVAval(Request $request){
+        if ($request->has('deviceId')){
+            $deviceId = $request->input('deviceId');
+            $value = $request->input('value');
+            DB::UPDATE('UPDATE voice_assistant SET value = ? where deviceId= ? ', [$value, $deviceId] );
+
+            $result = DB::SELECT("SELECT * FROM voice_commands where vaId = ? and command =?  order by id desc limit 1", [($deviceId),($value)]);
+            if(count($result) > 0){
+                $data = array();
+                foreach ($result as $row)
+                {
+                    array_push($data, $row);
+                }
+                $status = 0;
+                $src = "";
+                if($data[0]->status == "On"){
+                    $status = 0;
+                    $src="/pictures/on.png";
+                }
+                elseif($data[0]->status == "Off"){
+                    $status = 1;
+                    $src="/pictures/off.png";
+                }
+                DB::UPDATE('UPDATE devices SET `status` = ?, src=? where id= ? ', [$status,$src, $data[0]->deviceId ] );
+            }
+            return response()->json(['message'=>'Data updated'], 200);
+        }else {
+
+            return response()->json(['message'=>'no data'], 400);
+        }
+
+    }
 }

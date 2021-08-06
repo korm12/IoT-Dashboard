@@ -527,6 +527,7 @@ class ComposerStaticInit88ad4a359e586468c03ff30e81d748c5
         'App\\Http\\Controllers\\rules_controller' => __DIR__ . '/../..' . '/app/Http/Controllers/rules_controller.php',
         'App\\Http\\Controllers\\sensor_controller' => __DIR__ . '/../..' . '/app/Http/Controllers/sensor_controller.php',
         'App\\Http\\Controllers\\user_controller' => __DIR__ . '/../..' . '/app/Http/Controllers/user_controller.php',
+        'App\\Http\\Controllers\\va_controller' => __DIR__ . '/../..' . '/app/Http/Controllers/va_controller.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\Cors' => __DIR__ . '/../..' . '/app/Http/Middleware/Cors.php',

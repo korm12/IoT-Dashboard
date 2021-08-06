@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\areas_controller;
+use App\Http\Controllers\commands_controller;
 use App\Http\Controllers\device_controller;
 use App\Http\Controllers\logs_controller;
 use Illuminate\Support\Facades\Route;
@@ -75,6 +76,10 @@ Route::get('/contact', function () {
 Route::get('/GetDeviceStatus', [device_controller::class, 'GetDeviceStatus']);
 Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get('/getVA', [va_controller::class, 'getVA']);
+    Route::get('/getVaCommandValue', [va_controller::class, 'getVaCommandValue']);
+
+    Route::get('/getCommands', [commands_controller::class, 'getCommands']);
+
 
     Route::get('/GetControlDevice', [device_controller::class, 'GetControlDevice']);
     Route::get('/GetControlDeviceNum', [device_controller::class, 'GetControlDeviceNum']);

@@ -17,6 +17,18 @@
     border-radius: 20px;
 
 }
+.content-title2{
+    background-color: #0f8d83;
+    color: white;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: fit-content;
+    width: fit-content;
+    padding: 1%;
+    border-radius: 20px;
+
+}
 .save-btn{
     display: block;
     margin-left: auto;
@@ -35,8 +47,8 @@
 }
 .command-list-wrapper{
     background-color: white;
-    min-height: 400px;
-    max-height: 500px; */
+    min-height: 500px;
+    max-height: 550px;
     width: 100%;
     border-radius: 10px;
 }
