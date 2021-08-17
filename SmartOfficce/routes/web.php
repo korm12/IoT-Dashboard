@@ -77,7 +77,7 @@ Route::get('/GetDeviceStatus', [device_controller::class, 'GetDeviceStatus']);
 Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get('/getVA', [va_controller::class, 'getVA']);
     Route::get('/getVaCommandValue', [va_controller::class, 'getVaCommandValue']);
-
+    Route::get('/getVaCommandValue2', [va_controller::class, 'getVaCommandValue2']);
     Route::get('/getCommands', [commands_controller::class, 'getCommands']);
 
 

@@ -52,7 +52,24 @@ class va_controller extends Controller
         if ($request->has('userId')){
             $userId = $request->input('userId');
             $deviceId = $request->input('deviceId');
-            $result = DB::SELECT("SELECT value FROM voice_assistant where deviceId = ? and userId =? order by id desc limit 1", [($deviceId),($userId)]);
+            $result = DB::SELECT("SELECT value, deviceId FROM voice_assistant where deviceId = ? and userId =? order by id desc limit 1", [($deviceId),($userId)]);
+            $data = array();
+            foreach ($result as $row)
+            {
+                array_push($data, $row);
+            }
+
+            echo json_encode($data);
+        }else {
+
+            return response()->json(['message'=>'no data'], 400);
+        }
+
+    }
+    public function getVaCommandValue2(Request $request){
+        if ($request->has('userId')){
+            $userId = $request->input('userId');
+            $result = DB::SELECT("SELECT value, deviceId FROM voice_assistant where userId =? order by id desc limit 1", [($userId)]);
             $data = array();
             foreach ($result as $row)
             {
@@ -72,7 +89,7 @@ class va_controller extends Controller
             $value = $request->input('value');
             DB::UPDATE('UPDATE voice_assistant SET value = ? where deviceId= ? ', [$value, $deviceId] );
 
-            $result = DB::SELECT("SELECT * FROM voice_commands where vaId = ? and command =?  order by id desc limit 1", [($deviceId),($value)]);
+            $result = DB::SELECT("SELECT * FROM voice_commands where vaId = ? and command =? and active = 'Yes'  order by id desc limit 1", [($deviceId),($value)]);
             if(count($result) > 0){
                 $data = array();
                 foreach ($result as $row)

@@ -127,3 +127,9 @@ html {
         max-height: 1500px !important;
     }
 }
+.exec-com{
+    background: white;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    border-radius: 25px;
+}

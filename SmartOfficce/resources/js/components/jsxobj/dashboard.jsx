@@ -10,6 +10,8 @@ class Dashboard extends Component {
     constructor(props){
         super(props)
         this.state = {
+            VACommandVal:'',
+            VAid:'',
             sensors : 0,
             device : 0,
             rules : 0,
@@ -185,7 +187,25 @@ class Dashboard extends Component {
                         window.location.replace('/')
                     }
                 })
-        } , 2000)
+            axios.get("http://"+process.env.MIX_DATA_ROUTES+"/getVaCommandValue2",{
+                headers: {
+                    authorization: token
+                },
+                params:{
+                    userId: username,
+                }})
+                .then(response => {
+                    var data= response.data;
+
+                    this.setState({VACommandVal: data[0].value});
+                    this.setState({VAid: data[0].deviceId});
+                    // console.log(this.state.device)
+
+                })
+                .catch(function(error){
+                    console.log(error);
+                })
+        } , 1000)
     }
     componentWillUnmount() {
         clearInterval(this.myInterval)
@@ -291,6 +311,15 @@ class Dashboard extends Component {
                                     />
                                 </PieChart>
                                 <p className="josefin-font text-light">Unallocated : {this.state.unallocateddev}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row ">
+                        <div className="col-md-4 pl-3 pr-3">
+                            <div className="exec-com">
+                                <h5 className="josefin-font content-title text-center" >Voice Command</h5>
+                                <h5 className="text-center w-100 josefin-font">{this.state.VACommandVal}</h5>
+                                <p className="text-center w-100 josefin-font">{this.state.VAid}</p>
                             </div>
                         </div>
                     </div>
